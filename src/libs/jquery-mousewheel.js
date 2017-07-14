@@ -1,6 +1,4 @@
-import jQuery from 'jquery'
-
-(function($) {
+import $ from 'jquery'
 
 var types = ['DOMMouseScroll', 'mousewheel'];
 
@@ -64,5 +62,3 @@ function handler(event) {
     
     return $.event.handle.apply(this, args);
 }
-
-})(jQuery);
