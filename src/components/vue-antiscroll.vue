@@ -1,5 +1,6 @@
 <script>
     import $ from 'jquery'
+    import '../libs/antiscroll'
     import '../libs/jquery-mousewheel'
     export default {
         props: {
