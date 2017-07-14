@@ -1,3 +1,2 @@
-import './libs/jquery-mousewheel.js'
-import './libs/antiscroll.js'
-import './assets/antiscroll.css'
+import VueAntiscroll from './components/vue-antiscroll.vue'
+module.exports = VueAntiscroll;
