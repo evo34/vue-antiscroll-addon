@@ -1,31 +1,56 @@
-/*
- * Antiscroll: cross-browser native OS X Lion scrollbars
- * https://github.com/Automattic/antiscroll
- * v0.9
- */
-
-(function ($) {
-
-  /**
-   * Augment jQuery prototype.
-   */
-
-  $.fn.antiscroll = function (options) {
-    return this.each(function () {
-      if ($(this).data('antiscroll')) {
-        $(this).data('antiscroll').destroy();
+  var T = {
+    proxy: function(context, fnName) {
+      var fn = context[fnName]
+      return function () {
+        return fn.apply(context, arguments)
       }
-
-      $(this).data('antiscroll', new $.Antiscroll(this, options));
-    });
-  };
-
-  /**
-   * Expose constructor.
-   */
-
-  $.Antiscroll = Antiscroll;
-
+    },
+    getStyle: function(oDiv, attr){
+      var hasX = ['width', 'height', 'top', 'left', 'scrollWith', 'scrollHeight'];
+      if (oDiv.currentStyle) return oDiv.currentStyle[attr];
+      var v = getComputedStyle(oDiv, null).getPropertyValue(attr); 
+      if (hasX.indexOf(attr) > -1) {
+        v = parseFloat(v);
+      }
+      return v
+    },
+    addClass: function(element, cls) {
+      var className = element.className;
+      var classNames = className.split(/\s+/);
+      if (classNames.indexOf(cls) === -1) {
+        classNames.push(cls);
+      }
+      element.className = classNames.join(' ');
+      return element
+    },
+    removeClass: function(element, cls) {
+      var className = element.className;
+      var classNames = className.split(/\s+/);
+      var index;
+      if ((index = classNames.indexOf(cls)) > -1) {
+        classNames.splice(index, 1);
+      }
+      element.className = classNames.join(' ');
+      return element
+    },
+    bind: function(element, eventType, fn) {
+      if (document.addEventListener) {
+        element.addEventListener(eventType, fn, false);
+      } else if (document.attachEvent) {
+        element.attachEvent('on' + eventType, fn);
+      }
+      return element;
+    },
+    unbind: function(element, eventType, fn){
+      if (document.removeEventListener) {
+        element.removeEventListener(eventType, fn, false);
+      } else if (document.detachEvent) {
+        element.detachEvent('on' + eventType, fn);
+      }
+      return element;
+    }
+  }
+  
   /**
    * Antiscroll pane constructor.
    *
@@ -35,7 +60,7 @@
    */
 
   function Antiscroll (el, opts) {
-    this.el = $(el);
+    this.el = el;
     this.options = opts || {};
 
     this.x = (false !== this.options.x) || this.options.forceHorizontal;
@@ -43,11 +68,13 @@
     this.autoHide = false !== this.options.autoHide;
     this.padding = undefined == this.options.padding ? 2 : this.options.padding;
 
-    this.inner = this.el.find('.antiscroll-inner');
-    this.inner.css({
-        'width':  '+=' + (this.y ? scrollbarSize() : 0)
-      , 'height': '+=' + (this.x ? scrollbarSize() : 0)
-    });
+    this.inner = this.el.querySelector('.antiscroll-inner');
+
+    var innerWidth = T.getStyle(this.inner, 'width');
+    var innerHeight = T.getStyle(this.inner, 'height');
+
+    this.inner.style.cssText = "width: " + (innerWidth + (this.y ? scrollbarSize() : 0)) + 'px;' +
+                               "height: " + (innerHeight + (this.x ? scrollbarSize() : 0)) + 'px;';
 
     this.refresh();
   };
@@ -59,8 +86,12 @@
    */
 
   Antiscroll.prototype.refresh = function() {
-    var needHScroll = this.inner.get(0).scrollWidth > this.el.width() + (this.y ? scrollbarSize() : 0), 
-	    needVScroll = this.inner.get(0).scrollHeight > this.el.height() + (this.x ? scrollbarSize() : 0);
+    var innerScrollWidth = this.inner.scrollWidth;
+    var innerScrollHeight = this.inner.scrollHeight;
+    var innerWidth = T.getStyle(this.el, 'width');
+    var innerHeight = T.getStyle(this.el, 'height');
+    var needHScroll = innerScrollWidth > innerWidth + (this.y ? scrollbarSize() : 0), 
+	    needVScroll = innerScrollHeight > innerHeight + (this.x ? scrollbarSize() : 0);
 
     if (this.x) {
       if (!this.horizontal && needHScroll) {
@@ -113,7 +144,7 @@
 
   Antiscroll.prototype.rebuild = function () {
     this.destroy();
-    this.inner.attr('style', '');
+    this.inner.style.cssText = "";
     Antiscroll.call(this, this.el, this.options);
     return this;
   };
@@ -127,27 +158,22 @@
 
   function Scrollbar (pane) {
     this.pane = pane;
-    this.pane.el.append(this.el);
-    this.innerEl = this.pane.inner.get(0);
+    this.pane.el.appendChild(this.el);
 
     this.dragging = false;
     this.enter = false;
     this.shown = false;
 
     // hovering
-    this.pane.el.mouseenter($.proxy(this, 'mouseenter'));
-    this.pane.el.mouseleave($.proxy(this, 'mouseleave'));
+    T.bind(this.pane.el, 'mouseenter', T.proxy(this, 'mouseenter'));
+    T.bind(this.pane.el, 'mouseleave', T.proxy(this, 'mouseleave'))
 
     // dragging
-    this.el.mousedown($.proxy(this, 'mousedown'));
+    T.bind(this.el, 'mousedown', T.proxy(this, 'mousedown'));
 
     // scrolling
-    this.innerPaneScrollListener = $.proxy(this, 'scroll');
-    this.pane.inner.scroll(this.innerPaneScrollListener);
-
-    // wheel -optional-
-    this.innerPaneMouseWheelListener = $.proxy(this, 'mousewheel');
-    this.pane.inner.bind('mousewheel', this.innerPaneMouseWheelListener);
+    this.innerPaneScrollListener = T.proxy(this, 'scroll');
+    T.bind(this.pane.inner, 'scroll', T.proxy(this, 'scroll'));
 
     // show
     var initialDisplay = this.pane.options.initialDisplay;
@@ -155,7 +181,7 @@
     if (initialDisplay !== false) {
       this.show();
       if (this.pane.autoHide) {
-          this.hiding = setTimeout($.proxy(this, 'hide'), parseInt(initialDisplay, 10) || 3000);
+          this.hiding = setTimeout(T.proxy(this, 'hide'), parseInt(initialDisplay, 10) || 3000);
       }
     }
   };
@@ -169,11 +195,34 @@
 
   Scrollbar.prototype.destroy = function () {
     this.el.remove();
-    this.pane.inner.unbind('scroll', this.innerPaneScrollListener);
-    this.pane.inner.unbind('mousewheel', this.innerPaneMouseWheelListener);
+    T.unbind(this.pane.inner, 'scroll', this.innerPaneScrollListener)
     return this;
   };
 
+
+  /**
+   * check and resize.
+   *
+   * @return {Scrollbar} for chaining
+   * @api public
+   */
+
+  Scrollbar.prototype.updateViewPort = function(){
+    var innerScrollHeight = this.pane.inner.scrollHeight;
+    var innerScrollWidth = this.pane.inner.scrollWidth;
+
+    if((this.__scrollWidth !== innerScrollWidth || this.__scrollHeight !== innerScrollHeight) && this.enter){
+
+      if(!this.update()){
+        this.hide();
+      }else {
+        this.show();
+      }
+
+      this.__scrollWidth = innerScrollWidth;
+      this.__scrollHeight = innerScrollHeight;
+    }
+  };
   /**
    * Called upon mouseenter.
    *
@@ -212,7 +261,7 @@
       this.show();
       if (!this.enter && !this.dragging) {
         if (this.pane.autoHide) {
-            this.hiding = setTimeout($.proxy(this, 'hide'), 1500);
+            this.hiding = setTimeout(T.proxy(this, 'hide'), 1500);
         }
       }
     }
@@ -231,28 +280,28 @@
 
     this.dragging = true;
 
-    this.startPageY = ev.pageY - parseInt(this.el.css('top'), 10);
-    this.startPageX = ev.pageX - parseInt(this.el.css('left'), 10);
+    this.startPageY = ev.pageY - parseInt(T.getStyle(this.el, 'top'), 10);
+    this.startPageX = ev.pageX - parseInt(T.getStyle(this.el, 'left'), 10);
 
     // prevent crazy selections on IE
-    this.el[0].ownerDocument.onselectstart = function () { return false; };
+    this.el.ownerDocument.onselectstart = function () { return false; };
 
-    var pane = this.pane,
-	    move = $.proxy(this, 'mousemove'),
-		self = this
+    var pane = this.pane, self = this;
 
-    $(this.el[0].ownerDocument)
-      .mousemove(move)
-      .mouseup(function () {
+	  var move = T.proxy(this, 'mousemove');
+    var mouseup = function () {
         self.dragging = false;
         this.onselectstart = null;
 
-        $(this).unbind('mousemove', move);
+        T.unbind(this, 'mousemove', move);
 
         if (!self.enter) {
           self.hide();
         }
-      });
+      }
+
+    T.bind(window.document, 'mousemove', move);
+    T.bind(window.document, 'mouseup', mouseup);
   };
 
   /**
@@ -263,7 +312,7 @@
 
   Scrollbar.prototype.show = function (duration) {
     if (!this.shown && this.update()) {
-      this.el.addClass('antiscroll-scrollbar-shown');
+      T.addClass(this.el, 'antiscroll-scrollbar-shown');
       if (this.hiding) {
         clearTimeout(this.hiding);
         this.hiding = null;
@@ -281,7 +330,7 @@
   Scrollbar.prototype.hide = function () {
     if (this.pane.autoHide !== false && this.shown) {
       // check for dragging
-      this.el.removeClass('antiscroll-scrollbar-shown');
+      T.removeClass(this.el, 'antiscroll-scrollbar-shown')
       this.shown = false;
     }
   };
@@ -293,7 +342,9 @@
    */
 
   Scrollbar.Horizontal = function (pane) {
-    this.el = $('<div class="antiscroll-scrollbar antiscroll-scrollbar-horizontal"/>', pane.el);
+    var scrollbarH = document.createElement('div');
+    scrollbarH.className = 'antiscroll-scrollbar antiscroll-scrollbar-horizontal';
+    this.el = pane.el.appendChild(scrollbarH);
     Scrollbar.call(this, pane);
   };
 
@@ -310,15 +361,13 @@
    */
 
   Scrollbar.Horizontal.prototype.update = function () {
-    var paneWidth = this.pane.el.width(), 
+    var paneWidth = T.getStyle(this.pane.el, 'width'), 
 	    trackWidth = paneWidth - this.pane.padding * 2,
-		innerEl = this.pane.inner.get(0)
+      inner = this.pane.inner;
+    this.el.style.cssText = 'width: ' + (trackWidth * paneWidth / inner.scrollWidth) + 'px;' +
+      'left: '+ (trackWidth * inner.scrollLeft / inner.scrollWidth) + 'px;';
 
-    this.el
-      .css('width', trackWidth * paneWidth / innerEl.scrollWidth)
-      .css('left', trackWidth * innerEl.scrollLeft / innerEl.scrollWidth);
-
-    return paneWidth < innerEl.scrollWidth;
+    return paneWidth < inner.scrollWidth;
   };
 
   /**
@@ -328,31 +377,16 @@
    */
 
   Scrollbar.Horizontal.prototype.mousemove = function (ev) {
-    var trackWidth = this.pane.el.width() - this.pane.padding * 2, 
+    var trackWidth = T.getStyle(this.pane.el, 'width') - this.pane.padding * 2, 
 	    pos = ev.pageX - this.startPageX,
-		barWidth = this.el.width(),
-		innerEl = this.pane.inner.get(0)
+		barWidth = T.getStyle(this.el, 'width'),
+		inner = this.pane.inner;
 
     // minimum top is 0, maximum is the track height
     var y = Math.min(Math.max(pos, 0), trackWidth - barWidth);
 
-    innerEl.scrollLeft = (innerEl.scrollWidth - this.pane.el.width())
+    inner.scrollLeft = (inner.scrollWidth - T.getStyle(this.pane.el, 'width'))
       * y / (trackWidth - barWidth);
-  };
-
-  /**
-   * Called upon container mousewheel.
-   *
-   * @api private
-   */
-
-  Scrollbar.Horizontal.prototype.mousewheel = function (ev, delta, x, y) {
-    if ((x < 0 && 0 == this.pane.inner.get(0).scrollLeft) ||
-        (x > 0 && (this.innerEl.scrollLeft + Math.ceil(this.pane.el.width())
-          == this.innerEl.scrollWidth))) {
-      ev.preventDefault();
-      return false;
-    }
   };
 
   /**
@@ -362,7 +396,9 @@
    */
 
   Scrollbar.Vertical = function (pane) {
-    this.el = $('<div class="antiscroll-scrollbar antiscroll-scrollbar-vertical"/>', pane.el);
+    var scrollbarV = document.createElement('div');
+    scrollbarV.className = 'antiscroll-scrollbar antiscroll-scrollbar-vertical';
+    this.el = pane.el.appendChild(scrollbarV);
     Scrollbar.call(this, pane);
   };
 
@@ -379,25 +415,23 @@
    */
 
   Scrollbar.Vertical.prototype.update = function () {
-    var paneHeight = this.pane.el.height(), 
+    var paneHeight = T.getStyle(this.pane.el, 'height'), 
 	    trackHeight = paneHeight - this.pane.padding * 2,
-		innerEl = this.innerEl;
+		inner = this.pane.inner;
       
-    var scrollbarHeight = trackHeight * paneHeight / innerEl.scrollHeight;
+    var scrollbarHeight = trackHeight * paneHeight / inner.scrollHeight;
     scrollbarHeight = scrollbarHeight < 20 ? 20 : scrollbarHeight;
     
-    var topPos = trackHeight * innerEl.scrollTop / innerEl.scrollHeight;
+    var topPos = trackHeight * inner.scrollTop / inner.scrollHeight;
     
     if((topPos + scrollbarHeight) > trackHeight) {
         var diff = (topPos + scrollbarHeight) - trackHeight;
         topPos = topPos - diff - 3;
     }
 
-    this.el
-      .css('height', scrollbarHeight)
-      .css('top', topPos);
+    this.el.style.cssText = 'height: '+ scrollbarHeight + 'px;top: ' + topPos + 'px';
 	  
-	  return paneHeight < innerEl.scrollHeight;
+	  return paneHeight < inner.scrollHeight;
   };
 
   /**
@@ -407,32 +441,17 @@
    */
 
   Scrollbar.Vertical.prototype.mousemove = function (ev) {
-    var paneHeight = this.pane.el.height(),
+    var paneHeight = T.getStyle(this.pane.el, 'height'),
 	    trackHeight = paneHeight - this.pane.padding * 2,
 		pos = ev.pageY - this.startPageY,
-		barHeight = this.el.height(),
-		innerEl = this.innerEl
+		barHeight = T.getStyle(this.el, 'height'),
+		inner = this.pane.inner
 
     // minimum top is 0, maximum is the track height
     var y = Math.min(Math.max(pos, 0), trackHeight - barHeight);
 
-    innerEl.scrollTop = (innerEl.scrollHeight - paneHeight)
+    inner.scrollTop = (inner.scrollHeight - paneHeight)
       * y / (trackHeight - barHeight);
-  };
-
-  /**
-   * Called upon container mousewheel.
-   *
-   * @api private
-   */
-
-  Scrollbar.Vertical.prototype.mousewheel = function (ev, delta, x, y) {
-    if ((y > 0 && 0 == this.innerEl.scrollTop) ||
-        (y < 0 && (this.innerEl.scrollTop + Math.ceil(this.pane.el.height())
-          == this.innerEl.scrollHeight))) {
-      ev.preventDefault();
-      return false;
-    }
   };
 
   /**
@@ -457,21 +476,22 @@
 
   function scrollbarSize () {
     if (size === undefined) {
-      var div = $(
-          '<div class="antiscroll-inner" style="width:50px;height:50px;overflow-y:scroll;'
-        + 'position:absolute;top:-200px;left:-200px;"><div style="height:100px;width:100%"/>'
-        + '</div>'
-      );
+      var div = document.createElement('div');
+      var innerDiv = document.createElement('div');
+      div.className = 'antiscroll-inner';
+      div.style.cssText = 'width:50px;height:50px;overflow-y:scroll;position:absolute;top:-200px;left:-200px;';
+      innerDiv.style.cssText = 'height:100px;width:100%';
+      div.appendChild(innerDiv);
 
-      $('body').append(div);
-      var w1 = $(div).innerWidth();
-      var w2 = $('div', div).innerWidth();
-      $(div).remove();
-
-      size = w1 - w2;
+      document.body.appendChild(div);
+      var w1 = T.getStyle(div, 'width');
+      var w2 = T.getStyle(innerDiv, 'width');
+      
+      document.body.removeChild(div);
+      size = +w1 - +w2;
     }
 
     return size;
   };
 
-})(jQuery);
+export default Antiscroll

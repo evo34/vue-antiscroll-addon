@@ -1,10 +1,23 @@
 <script>
-    import $ from 'jquery'
-    import '../libs/antiscroll'
-    import '../libs/jquery-mousewheel'
+    import Antiscroll from '../libs/antiscroll'
+    var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+    const proxy = function(context, fnName) {
+        var fn = context[fnName]
+        return function() {
+            return fn.apply(context, arguments)
+        }
+    }
+    const getStyle = function(oDiv, attr) {
+        if (oDiv.currentStyle) return oDiv.currentStyle[attr];
+        return getComputedStyle(oDiv, false)[attr];
+    }
     export default {
         props: {
             height: {
+                required: false,
+                type: null
+            },
+            width: {
                 required: false,
                 type: null
             },
@@ -15,49 +28,66 @@
             onScrollToBottom: {
                 required: false,
                 type: Function
+            },
+            loopCheck: {
+                required: false,
+                type: Boolean
             }
         },
-        data () {
-           return {} 
+        data() {
+            return {}
         },
-        mounted () {
-            this.scroller = $('.box-wrap').antiscroll().data('antiscroll')
-            this._onScroll = $.proxy(this.onScroll, this)
-            this.scroller.inner.on('scroll', this._onScroll)
+        mounted() {
+            // var antiscrollWrap= this.$el.querySelector('.antiscroll-wrap')
+            this.scroller = new Antiscroll(this.$el, {
+                initialDisplay: false
+            })
+            this._onScroll = proxy(this, 'onScroll')
+            this.scroller.inner.addEventListener('scroll', this._onScroll, false)
+            this._loopCheck()
         },
-        beforeDestroy () {
+        beforeDestroy() {
             this.scroller && this.scroller.destroy()
-            this.scroller && this.scroller.inner.off('scroll')
+            this.scroller && this.scroller.inner.removeEventListener('scroll', this._onScroll, false)
             this.scroller = null
             this._onScroll = null
         },
         computed: {
-            _$styObj () {
-                let {_$height, _$width} = this
-                let hash = {height: _$height}
+            _$styObj() {
+                let {
+                    _$height,
+                    _$width
+                } = this
+                let hash = {
+                    height: _$height
+                }
                 _$width && (hash['width'] = _$width)
                 return hash
             },
-            _$height () {
-                let {height} = this
+            _$height() {
+                let {
+                    height
+                } = this
                 height = height + ''
                 if (height.lastIndexOf('px') === -1) return height + 'px'
-                else height
+                return height
             },
-            _$width () {
-                let {width} = this
+            _$width() {
+                let {
+                    width
+                } = this
                 width = width && width + ''
                 if (!width) return null
-                if (width.lastIndexOf('px') === -1) return width + 'px' 
-                else width
+                if (width.lastIndexOf('px') === -1) return width + 'px'
+                return width
             }
         },
         methods: {
-            onScroll (evt) {
-                let innerHeight = this.scroller.inner.height()
-                let scrollHeight = this.scroller.inner.get(0).scrollHeight
-                let scrollTop = this.scroller.inner.get(0).scrollTop
-
+            onScroll(evt) {
+                let innerHeight = getStyle(this.scroller.inner, 'height')
+                let scrollHeight = getStyle(this.scroller.inner, 'scrollHeight')
+                let scrollTop = getStyle(this.scroller.inner, 'scrollTop')
+    
                 if (typeof this.onScrolling === 'function') {
                     this.onScrolling.call(this, this.scroller, evt)
                 }
@@ -66,15 +96,34 @@
                         this.onScrollToBottom.call(this, this.scroller, evt)
                     }
                 }
-            }
+            },
+            _loopCheck() {
+                if (this.loopCheck) {
+                    requestAnimationFrame(this._updateContentSize.bind(this));
+                }
+            },
+            _updateContentSize() {
+                try {
+                    var scroller = this.scroller;
+                    var arr = []
+                    scroller.vertical && arr.push(scroller.vertical);
+                    scroller.horizontal && arr.push(scroller.horizontal);
+                    arr.forEach(scroller => scroller.updateViewPort());
+
+                    requestAnimationFrame(this._updateContentSize.bind(this));
+                } catch (e) {
+                    console.info('滚动条错误辣!');
+                }
+            },
         }
-        
+    
     }
 </script>
+
 <template>
-  <div class="box-wrap antiscroll-wrap">
-    <div class="antiscroll-inner" :style="_$styObj">
-        <slot></slot>
+    <div class="antiscroll-wrap">
+        <div class="antiscroll-inner" :style="_$styObj">
+            <slot></slot>
+        </div>
     </div>
-  </div>
 </template>

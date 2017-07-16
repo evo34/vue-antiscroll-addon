@@ -1,2 +1,2 @@
-import VueAntiscroll from './components/vue-antiscroll.vue'
-module.exports = VueAntiscroll;
+import './assets/antiscroll.css'
+export { default } from './components/vue-antiscroll.vue'

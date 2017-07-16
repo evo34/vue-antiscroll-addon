@@ -6,8 +6,7 @@
   "main": "dist/vue-antiscroll.js",
   "private": true,
   "scripts": {
-    "dev": "cross-env NODE_ENV=development webpack-dev-server --open --hot",
-    "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
+    "build": "webpack --progress"
   },
   "dependencies": {
     "jquery": "^3.2.1",
