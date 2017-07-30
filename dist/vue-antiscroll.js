@@ -157,13 +157,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
-var proxy = function proxy(context, fnName) {
+const proxy = function (context, fnName) {
     var fn = context[fnName];
     return function () {
         return fn.apply(context, arguments);
     };
 };
-var getStyle = function getStyle(oDiv, attr) {
+const getStyle = function (oDiv, attr) {
     if (oDiv.currentStyle) return oDiv.currentStyle[attr];
     return getComputedStyle(oDiv, false)[attr];
 };
@@ -190,10 +190,10 @@ var getStyle = function getStyle(oDiv, attr) {
             type: Boolean
         }
     },
-    data: function data() {
+    data() {
         return {};
     },
-    mounted: function mounted() {
+    mounted() {
         // var antiscrollWrap= this.$el.querySelector('.antiscroll-wrap')
         this.scroller = new __WEBPACK_IMPORTED_MODULE_0__libs_antiscroll__["a" /* default */](this.$el, {
             initialDisplay: false
@@ -202,34 +202,36 @@ var getStyle = function getStyle(oDiv, attr) {
         this.scroller.inner.addEventListener('scroll', this._onScroll, false);
         this._loopCheck();
     },
-    beforeDestroy: function beforeDestroy() {
+    beforeDestroy() {
         this.scroller && this.scroller.destroy();
         this.scroller && this.scroller.inner.removeEventListener('scroll', this._onScroll, false);
         this.scroller = null;
         this._onScroll = null;
     },
-
     computed: {
-        _$styObj: function _$styObj() {
-            var _$height = this._$height,
-                _$width = this._$width;
-
-            var hash = {
+        _$styObj() {
+            let {
+                _$height,
+                _$width
+            } = this;
+            let hash = {
                 height: _$height
             };
             _$width && (hash['width'] = _$width);
             return hash;
         },
-        _$height: function _$height() {
-            var height = this.height;
-
+        _$height() {
+            let {
+                height
+            } = this;
             height = height + '';
             if (height.lastIndexOf('px') === -1) return height + 'px';
             return height;
         },
-        _$width: function _$width() {
-            var width = this.width;
-
+        _$width() {
+            let {
+                width
+            } = this;
             width = width && width + '';
             if (!width) return null;
             if (width.lastIndexOf('px') === -1) return width + 'px';
@@ -237,10 +239,10 @@ var getStyle = function getStyle(oDiv, attr) {
         }
     },
     methods: {
-        onScroll: function onScroll(evt) {
-            var innerHeight = getStyle(this.scroller.inner, 'height');
-            var scrollHeight = getStyle(this.scroller.inner, 'scrollHeight');
-            var scrollTop = getStyle(this.scroller.inner, 'scrollTop');
+        onScroll(evt) {
+            let innerHeight = getStyle(this.scroller.inner, 'height');
+            let scrollHeight = getStyle(this.scroller.inner, 'scrollHeight');
+            let scrollTop = getStyle(this.scroller.inner, 'scrollTop');
 
             if (typeof this.onScrolling === 'function') {
                 this.onScrolling.call(this, this.scroller, evt);
@@ -251,20 +253,18 @@ var getStyle = function getStyle(oDiv, attr) {
                 }
             }
         },
-        _loopCheck: function _loopCheck() {
+        _loopCheck() {
             if (this.loopCheck) {
                 requestAnimationFrame(this._updateContentSize.bind(this));
             }
         },
-        _updateContentSize: function _updateContentSize() {
+        _updateContentSize() {
             try {
                 var scroller = this.scroller;
                 var arr = [];
                 scroller.vertical && arr.push(scroller.vertical);
                 scroller.horizontal && arr.push(scroller.horizontal);
-                arr.forEach(function (scroller) {
-                    return scroller.updateViewPort();
-                });
+                arr.forEach(scroller => scroller.updateViewPort());
 
                 requestAnimationFrame(this._updateContentSize.bind(this));
             } catch (e) {
@@ -281,13 +281,13 @@ var getStyle = function getStyle(oDiv, attr) {
 
 "use strict";
 var T = {
-  proxy: function proxy(context, fnName) {
+  proxy: function (context, fnName) {
     var fn = context[fnName];
     return function () {
       return fn.apply(context, arguments);
     };
   },
-  getStyle: function getStyle(oDiv, attr) {
+  getStyle: function (oDiv, attr) {
     var hasX = ['width', 'height', 'top', 'left', 'scrollWith', 'scrollHeight'];
     if (oDiv.currentStyle) return oDiv.currentStyle[attr];
     var v = getComputedStyle(oDiv, null).getPropertyValue(attr);
@@ -296,7 +296,7 @@ var T = {
     }
     return v;
   },
-  addClass: function addClass(element, cls) {
+  addClass: function (element, cls) {
     var className = element.className;
     var classNames = className.split(/\s+/);
     if (classNames.indexOf(cls) === -1) {
@@ -305,7 +305,7 @@ var T = {
     element.className = classNames.join(' ');
     return element;
   },
-  removeClass: function removeClass(element, cls) {
+  removeClass: function (element, cls) {
     var className = element.className;
     var classNames = className.split(/\s+/);
     var index;
@@ -315,7 +315,7 @@ var T = {
     element.className = classNames.join(' ');
     return element;
   },
-  bind: function bind(element, eventType, fn) {
+  bind: function (element, eventType, fn) {
     if (document.addEventListener) {
       element.addEventListener(eventType, fn, false);
     } else if (document.attachEvent) {
@@ -323,7 +323,7 @@ var T = {
     }
     return element;
   },
-  unbind: function unbind(element, eventType, fn) {
+  unbind: function (element, eventType, fn) {
     if (document.removeEventListener) {
       element.removeEventListener(eventType, fn, false);
     } else if (document.detachEvent) {
@@ -571,7 +571,7 @@ Scrollbar.prototype.mousedown = function (ev) {
       self = this;
 
   var move = T.proxy(this, 'mousemove');
-  var mouseup = function mouseup() {
+  var mouseup = function () {
     self.dragging = false;
     this.onselectstart = null;
 
