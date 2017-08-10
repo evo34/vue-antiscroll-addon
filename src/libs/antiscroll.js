@@ -66,7 +66,7 @@
     this.x = (false !== this.options.x) || this.options.forceHorizontal;
     this.y = (false !== this.options.y) || this.options.forceVertical;
     this.autoHide = false !== this.options.autoHide;
-    this.padding = undefined == this.options.padding ? 2 : this.options.padding;
+    this.padding = undefined === this.options.padding ? 2 : this.options.padding;
 
     this.inner = this.el.querySelector('.antiscroll-inner');
 

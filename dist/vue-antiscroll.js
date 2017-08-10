@@ -351,8 +351,8 @@ var T = {
 
   this.inner = this.el.querySelector('.antiscroll-inner');
 
-  var innerWidth = this.inner.clientWidth;
-  var innerHeight = this.inner.clientHeight;
+  var innerWidth = T.getStyle(this.inner, 'width');
+  var innerHeight = T.getStyle(this.inner, 'height');
 
   this.inner.style.cssText = "width: " + (innerWidth + (this.y ? scrollbarSize() : 0)) + 'px;' + "height: " + (innerHeight + (this.x ? scrollbarSize() : 0)) + 'px;';
 
@@ -370,8 +370,8 @@ Antiscroll.prototype.refresh = function () {
   var innerScrollHeight = this.inner.scrollHeight;
   var innerWidth = T.getStyle(this.el, 'width');
   var innerHeight = T.getStyle(this.el, 'height');
-  var needHScroll = innerScrollWidth + this.padding > innerWidth + (this.y ? scrollbarSize() : 0),
-      needVScroll = innerScrollHeight + this.padding > innerHeight + (this.x ? scrollbarSize() : 0);
+  var needHScroll = innerScrollWidth > innerWidth + (this.y ? scrollbarSize() : 0),
+      needVScroll = innerScrollHeight > innerHeight + (this.x ? scrollbarSize() : 0);
 
   if (this.x) {
     if (!this.horizontal && needHScroll) {
