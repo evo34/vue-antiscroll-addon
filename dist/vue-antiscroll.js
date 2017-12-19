@@ -322,7 +322,7 @@ const getStyle = function (oDiv, attr) {
         _refresh() {
             let scroller = this.scroller;
             if (scroller) {
-                scroller && scroller.scroller();
+                scroller && scroller.refresh();
             }
         },
         _loopCheck() {
