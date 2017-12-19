@@ -8,11 +8,12 @@
   display: inline-block;
   position: relative;
   overflow: hidden;
+  z-index: 100;
 }
 
 .antiscroll-scrollbar {
   background: gray;
-  background: rgba(0, 0, 0, 0.5);
+  z-index: 10000;
   -webkit-border-radius: 7px;
   -moz-border-radius: 7px;
   border-radius: 7px;

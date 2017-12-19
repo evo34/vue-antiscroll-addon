@@ -337,20 +337,16 @@ const getStyle = function (oDiv, attr) {
                 var { vertical, horizontal } = scroller;
                 vertical && arr.push(scroller.vertical);
                 horizontal && arr.push(scroller.horizontal);
-                arr.forEach(scroller => scroller.updateViewPort());
+                var innerScrollWidth = scroller.inner.scrollWidth;
+                var innerScrollHeight = scroller.inner.scrollHeight;
+                var innerWidth = __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].getStyle(scroller.el, 'width');
+                var innerHeight = __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].getStyle(scroller.el, 'height');
 
-                var needVScroll, needHScroll;
-                if (!vertical) {
-                    var innerScrollHeight = scroller.inner.scrollHeight;
-                    var innerHeight = __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].getStyle(scroller.el, 'height');
-                    needVScroll = innerScrollHeight > innerHeight + (scroller.x ? scrollbarSize() : 0);
-                }
-                if (!horizontal) {
-                    var innerScrollWidth = scroller.inner.scrollWidth;
-                    var innerWidth = __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].getStyle(scroller.el, 'width');
-                    needHScroll = innerScrollWidth > innerWidth + (scroller.y ? scrollbarSize() : 0);
-                }
-                if (needVScroll || needHScroll) this._rebuild();
+                var needHScroll = innerScrollWidth > innerWidth + (scroller.y ? __WEBPACK_IMPORTED_MODULE_1__libs_antiscroll__["a" /* default */].scrollbarSize() : 0),
+                    needVScroll = innerScrollHeight > innerHeight + (scroller.x ? __WEBPACK_IMPORTED_MODULE_1__libs_antiscroll__["a" /* default */].scrollbarSize() : 0);
+
+                if (needHScroll && !horizontal || needVScroll && !vertical) this._rebuild();else arr.forEach(scroller => scroller.updateViewPort());
+
                 requestAnimationFrame(this._updateContentSize.bind(this));
             } catch (e) {
                 console.info('滚动条错误辣!');
@@ -787,10 +783,8 @@ function inherits(ctorA, ctorB) {
  * Scrollbar size detection.
  */
 
-var size;
-
 function scrollbarSize() {
-  if (size === undefined) {
+  if (Antiscroll.__scrollBarSize === undefined) {
     var div = document.createElement('div');
     var innerDiv = document.createElement('div');
     div.className = 'antiscroll-inner';
@@ -803,11 +797,12 @@ function scrollbarSize() {
     var w2 = __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].getStyle(innerDiv, 'width');
 
     document.body.removeChild(div);
-    size = +w1 - +w2;
+    Antiscroll.__scrollBarSize = +w1 - +w2;
   }
 
-  return size;
+  return Antiscroll.__scrollBarSize;
 };
+Antiscroll.scrollbarSize = scrollbarSize;
 
 /* harmony default export */ __webpack_exports__["a"] = (Antiscroll);
 
@@ -834,7 +829,7 @@ exports = module.exports = __webpack_require__(7)();
 
 
 // module
-exports.push([module.i, "/*\n * Antiscroll: cross-browser native OS X Lion scrollbars\n * https://github.com/Automattic/antiscroll\n * v0.9\n */\n\n.antiscroll-wrap {\n  display: inline-block;\n  position: relative;\n  overflow: hidden;\n}\n\n.antiscroll-scrollbar {\n  background: gray;\n  background: rgba(0, 0, 0, 0.5);\n  -webkit-border-radius: 7px;\n  -moz-border-radius: 7px;\n  border-radius: 7px;\n  -webkit-box-shadow: 0 0 1px #fff;\n  -moz-box-shadow: 0 0 1px #fff;\n  box-shadow: 0 0 1px #fff;\n  position: absolute;\n  opacity: 0;\n  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);\n  -webkit-transition: linear 300ms opacity;\n  -moz-transition: linear 300ms opacity;\n  -o-transition: linear 300ms opacity;\n}\n\n.antiscroll-scrollbar-shown {\n  opacity: 1;\n  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);\n}\n\n.antiscroll-scrollbar-horizontal {\n  height: 7px;\n  margin-left: 2px;\n  bottom: 2px;\n  left: 0;\n}\n\n.antiscroll-scrollbar-vertical {\n  width: 7px;\n  margin-top: 2px;\n  right: 2px;\n  top: 0;\n}\n\n.antiscroll-inner {\n  overflow: scroll;\n}\n\n/** A bug in Chrome 25 on Lion requires each selector to have their own\n    blocks. E.g. the following:\n\n    .antiscroll-inner::-webkit-scrollbar, .antiscroll-inner::scrollbar {...}\n\n    causes the width and height rules to be ignored by the browser resulting\n    in both native and antiscroll scrollbars appearing at the same time.\n */\n.antiscroll-inner::-webkit-scrollbar {\n  width: 0;\n  height: 0;\n}\n\n.antiscroll-inner::scrollbar {\n  width: 0;\n  height: 0;\n}\n", ""]);
+exports.push([module.i, "/*\n * Antiscroll: cross-browser native OS X Lion scrollbars\n * https://github.com/Automattic/antiscroll\n * v0.9\n */\n\n.antiscroll-wrap {\n  display: inline-block;\n  position: relative;\n  overflow: hidden;\n  z-index: 100;\n}\n\n.antiscroll-scrollbar {\n  background: gray;\n  z-index: 10000;\n  -webkit-border-radius: 7px;\n  -moz-border-radius: 7px;\n  border-radius: 7px;\n  -webkit-box-shadow: 0 0 1px #fff;\n  -moz-box-shadow: 0 0 1px #fff;\n  box-shadow: 0 0 1px #fff;\n  position: absolute;\n  opacity: 0;\n  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);\n  -webkit-transition: linear 300ms opacity;\n  -moz-transition: linear 300ms opacity;\n  -o-transition: linear 300ms opacity;\n}\n\n.antiscroll-scrollbar-shown {\n  opacity: 1;\n  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);\n}\n\n.antiscroll-scrollbar-horizontal {\n  height: 7px;\n  margin-left: 2px;\n  bottom: 2px;\n  left: 0;\n}\n\n.antiscroll-scrollbar-vertical {\n  width: 7px;\n  margin-top: 2px;\n  right: 2px;\n  top: 0;\n}\n\n.antiscroll-inner {\n  overflow: scroll;\n}\n\n/** A bug in Chrome 25 on Lion requires each selector to have their own\n    blocks. E.g. the following:\n\n    .antiscroll-inner::-webkit-scrollbar, .antiscroll-inner::scrollbar {...}\n\n    causes the width and height rules to be ignored by the browser resulting\n    in both native and antiscroll scrollbars appearing at the same time.\n */\n.antiscroll-inner::-webkit-scrollbar {\n  width: 0;\n  height: 0;\n}\n\n.antiscroll-inner::scrollbar {\n  width: 0;\n  height: 0;\n}\n", ""]);
 
 // exports
 

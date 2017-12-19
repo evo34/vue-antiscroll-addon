@@ -420,11 +420,10 @@ import T from '../libs/t'
   /**
    * Scrollbar size detection.
    */
-
-  var size;
+  
 
   function scrollbarSize () {
-    if (size === undefined) {
+    if (Antiscroll.__scrollBarSize === undefined) {
       var div = document.createElement('div');
       var innerDiv = document.createElement('div');
       div.className = 'antiscroll-inner';
@@ -437,10 +436,11 @@ import T from '../libs/t'
       var w2 = T.getStyle(innerDiv, 'width');
       
       document.body.removeChild(div);
-      size = +w1 - +w2;
+	    Antiscroll.__scrollBarSize = +w1 - +w2;
     }
 
-    return size;
+    return Antiscroll.__scrollBarSize;
   };
+  Antiscroll.scrollbarSize = scrollbarSize
 
 export default Antiscroll

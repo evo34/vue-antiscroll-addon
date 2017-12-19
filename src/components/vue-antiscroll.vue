@@ -121,20 +121,17 @@
                     var {vertical, horizontal} = scroller
                     vertical && arr.push(scroller.vertical);
                     horizontal && arr.push(scroller.horizontal);
-                    arr.forEach(scroller => scroller.updateViewPort());
+	                var innerScrollWidth = scroller.inner.scrollWidth;
+	                var innerScrollHeight = scroller.inner.scrollHeight;
+	                var innerWidth = T.getStyle(scroller.el, 'width');
+	                var innerHeight = T.getStyle(scroller.el, 'height');
 
-                    var needVScroll, needHScroll
-                    if (!vertical) {
-	                    var innerScrollHeight = scroller.inner.scrollHeight;
-	                    var innerHeight = T.getStyle(scroller.el, 'height');
-                        needVScroll = innerScrollHeight > innerHeight + (scroller.x ? scrollbarSize() : 0);
-                    }
-                    if (!horizontal) {
-	                    var innerScrollWidth = scroller.inner.scrollWidth;
-	                    var innerWidth = T.getStyle(scroller.el, 'width');
-	                    needHScroll = innerScrollWidth > innerWidth + (scroller.y ? scrollbarSize() : 0)
-                    }
-                    if (needVScroll || needHScroll) this._rebuild()
+	                var needHScroll = innerScrollWidth > innerWidth + (scroller.y ? Antiscroll.scrollbarSize() : 0),
+		                needVScroll = innerScrollHeight > innerHeight + (scroller.x ? Antiscroll.scrollbarSize() : 0);
+
+	                if ((needHScroll && !horizontal) || (needVScroll && !vertical)) this._rebuild()
+                    else arr.forEach(scroller => scroller.updateViewPort());
+
                     requestAnimationFrame(this._updateContentSize.bind(this));
                 } catch (e) {
                     console.info('滚动条错误辣!');
