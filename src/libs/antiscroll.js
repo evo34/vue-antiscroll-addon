@@ -34,21 +34,22 @@ import T from '../libs/t'
    * @api public
    */
 
-  Antiscroll.prototype.refresh = function() {
+  Antiscroll.prototype.refresh = function(flag) {
     var innerScrollWidth = this.inner.scrollWidth;
     var innerScrollHeight = this.inner.scrollHeight;
     var innerWidth = T.getStyle(this.el, 'width');
     var innerHeight = T.getStyle(this.el, 'height');
     var needHScroll = innerScrollWidth > innerWidth + (this.y ? scrollbarSize() : 0),
 	    needVScroll = innerScrollHeight > innerHeight + (this.x ? scrollbarSize() : 0);
-
+    
+    flag = flag === false
     if (this.x) {
       if (!this.horizontal && needHScroll) {
         this.horizontal = new Scrollbar.Horizontal(this);
       } else if (this.horizontal && !needHScroll)  {
         this.horizontal.destroy();
         this.horizontal = null;
-      } else if (this.horizontal) {
+      } else if (this.horizontal && !flag) {
         this.horizontal.update();
       }
     }
@@ -59,7 +60,7 @@ import T from '../libs/t'
       } else if (this.vertical && !needVScroll)  {
         this.vertical.destroy();
         this.vertical = null;
-      } else if (this.vertical) {
+      } else if (this.vertical && !flag) {
         this.vertical.update();
       }
     }

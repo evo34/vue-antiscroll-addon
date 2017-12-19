@@ -121,16 +121,9 @@
                     var {vertical, horizontal} = scroller
                     vertical && arr.push(scroller.vertical);
                     horizontal && arr.push(scroller.horizontal);
-	                var innerScrollWidth = scroller.inner.scrollWidth;
-	                var innerScrollHeight = scroller.inner.scrollHeight;
-	                var innerWidth = T.getStyle(scroller.el, 'width');
-	                var innerHeight = T.getStyle(scroller.el, 'height');
 
-	                var needHScroll = innerScrollWidth > innerWidth + (scroller.y ? Antiscroll.scrollbarSize() : 0),
-		                needVScroll = innerScrollHeight > innerHeight + (scroller.x ? Antiscroll.scrollbarSize() : 0);
-
-	                if ((needHScroll && !horizontal) || (needVScroll && !vertical)) this._rebuild()
-                    else arr.forEach(scroller => scroller.updateViewPort());
+	                scroller.refresh(false)
+                    arr.forEach(scroller => scroller.updateViewPort());
 
                     requestAnimationFrame(this._updateContentSize.bind(this));
                 } catch (e) {

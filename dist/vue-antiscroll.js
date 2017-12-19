@@ -337,15 +337,9 @@ const getStyle = function (oDiv, attr) {
                 var { vertical, horizontal } = scroller;
                 vertical && arr.push(scroller.vertical);
                 horizontal && arr.push(scroller.horizontal);
-                var innerScrollWidth = scroller.inner.scrollWidth;
-                var innerScrollHeight = scroller.inner.scrollHeight;
-                var innerWidth = __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].getStyle(scroller.el, 'width');
-                var innerHeight = __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].getStyle(scroller.el, 'height');
 
-                var needHScroll = innerScrollWidth > innerWidth + (scroller.y ? __WEBPACK_IMPORTED_MODULE_1__libs_antiscroll__["a" /* default */].scrollbarSize() : 0),
-                    needVScroll = innerScrollHeight > innerHeight + (scroller.x ? __WEBPACK_IMPORTED_MODULE_1__libs_antiscroll__["a" /* default */].scrollbarSize() : 0);
-
-                if (needHScroll && !horizontal || needVScroll && !vertical) this._rebuild();else arr.forEach(scroller => scroller.updateViewPort());
+                scroller.refresh(false);
+                arr.forEach(scroller => scroller.updateViewPort());
 
                 requestAnimationFrame(this._updateContentSize.bind(this));
             } catch (e) {
@@ -397,7 +391,7 @@ function Antiscroll(el, opts) {
  * @api public
  */
 
-Antiscroll.prototype.refresh = function () {
+Antiscroll.prototype.refresh = function (flag) {
   var innerScrollWidth = this.inner.scrollWidth;
   var innerScrollHeight = this.inner.scrollHeight;
   var innerWidth = __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].getStyle(this.el, 'width');
@@ -405,13 +399,14 @@ Antiscroll.prototype.refresh = function () {
   var needHScroll = innerScrollWidth > innerWidth + (this.y ? scrollbarSize() : 0),
       needVScroll = innerScrollHeight > innerHeight + (this.x ? scrollbarSize() : 0);
 
+  flag = flag === false;
   if (this.x) {
     if (!this.horizontal && needHScroll) {
       this.horizontal = new Scrollbar.Horizontal(this);
     } else if (this.horizontal && !needHScroll) {
       this.horizontal.destroy();
       this.horizontal = null;
-    } else if (this.horizontal) {
+    } else if (this.horizontal && !flag) {
       this.horizontal.update();
     }
   }
@@ -422,7 +417,7 @@ Antiscroll.prototype.refresh = function () {
     } else if (this.vertical && !needVScroll) {
       this.vertical.destroy();
       this.vertical = null;
-    } else if (this.vertical) {
+    } else if (this.vertical && !flag) {
       this.vertical.update();
     }
   }
