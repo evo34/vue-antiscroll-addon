@@ -52,6 +52,10 @@
             this.scroller = null
             this._onScroll = null
         },
+        watch: {
+        	'height': '_rebuild',
+            'width': '_rebuild'
+        },
         computed: {
             _$styObj() {
                 let {
@@ -95,6 +99,13 @@
                     if (typeof this.onScrollToBottom === 'function') {
                         this.onScrollToBottom.call(this, this.scroller, evt)
                     }
+                }
+            },
+            _rebuild() {
+            	let scroller = this.scroller
+                if (scroller) {
+	                scroller.inner.removeEventListener('scroll', this._onScroll, false)
+	                scroller && scroller.rebuild()
                 }
             },
             _loopCheck() {
