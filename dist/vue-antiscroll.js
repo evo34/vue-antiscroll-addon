@@ -248,7 +248,8 @@ const getStyle = function (oDiv, attr) {
         },
         loopCheck: {
             required: false,
-            type: Boolean
+            type: Boolean,
+            default: () => Boolean(1)
         }
     },
     data() {
@@ -270,8 +271,8 @@ const getStyle = function (oDiv, attr) {
         this._onScroll = null;
     },
     watch: {
-        'height': '_rebuild',
-        'width': '_rebuild'
+        'height': '_refresh',
+        'width': '_refresh'
     },
     computed: {
         _$styObj() {
@@ -318,11 +319,10 @@ const getStyle = function (oDiv, attr) {
                 }
             }
         },
-        _rebuild() {
+        _refresh() {
             let scroller = this.scroller;
             if (scroller) {
-                scroller.inner.removeEventListener('scroll', this._onScroll, false);
-                scroller && scroller.rebuild();
+                scroller && scroller.scroller();
             }
         },
         _loopCheck() {
