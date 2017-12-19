@@ -1,4 +1,5 @@
 <script>
+	import T from '../libs/t'
     import Antiscroll from '../libs/antiscroll'
     var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
     const proxy = function(context, fnName) {
@@ -117,10 +118,23 @@
                 try {
                     var scroller = this.scroller;
                     var arr = []
-                    scroller.vertical && arr.push(scroller.vertical);
-                    scroller.horizontal && arr.push(scroller.horizontal);
+                    var {vertical, horizontal} = scroller
+                    vertical && arr.push(scroller.vertical);
+                    horizontal && arr.push(scroller.horizontal);
                     arr.forEach(scroller => scroller.updateViewPort());
 
+                    var needVScroll, needHScroll
+                    if (!vertical) {
+	                    var innerScrollHeight = scroller.inner.scrollHeight;
+	                    var innerHeight = T.getStyle(scroller.el, 'height');
+                        needVScroll = innerScrollHeight > innerHeight + (scroller.x ? scrollbarSize() : 0);
+                    }
+                    if (!horizontal) {
+	                    var innerScrollWidth = scroller.inner.scrollWidth;
+	                    var innerWidth = T.getStyle(scroller.el, 'width');
+	                    needHScroll = innerScrollWidth > innerWidth + (scroller.y ? scrollbarSize() : 0)
+                    }
+                    if (needVScroll || needHScroll) this._rebuild()
                     requestAnimationFrame(this._updateContentSize.bind(this));
                 } catch (e) {
                     console.info('滚动条错误辣!');

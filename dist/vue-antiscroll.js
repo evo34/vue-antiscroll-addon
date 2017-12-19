@@ -73,17 +73,76 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 4);
+/******/ 	return __webpack_require__(__webpack_require__.s = 5);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+var T = {
+	proxy: function (context, fnName) {
+		var fn = context[fnName];
+		return function () {
+			return fn.apply(context, arguments);
+		};
+	},
+	getStyle: function (oDiv, attr) {
+		var hasX = ['width', 'height', 'top', 'left', 'scrollWith', 'scrollHeight'];
+		if (oDiv.currentStyle) return oDiv.currentStyle[attr];
+		var v = getComputedStyle(oDiv, null).getPropertyValue(attr);
+		if (hasX.indexOf(attr) > -1) {
+			v = parseFloat(v);
+		}
+		return v;
+	},
+	addClass: function (element, cls) {
+		var className = element.className;
+		var classNames = className.split(/\s+/);
+		if (classNames.indexOf(cls) === -1) {
+			classNames.push(cls);
+		}
+		element.className = classNames.join(' ');
+		return element;
+	},
+	removeClass: function (element, cls) {
+		var className = element.className;
+		var classNames = className.split(/\s+/);
+		var index;
+		if ((index = classNames.indexOf(cls)) > -1) {
+			classNames.splice(index, 1);
+		}
+		element.className = classNames.join(' ');
+		return element;
+	},
+	bind: function (element, eventType, fn) {
+		if (document.addEventListener) {
+			element.addEventListener(eventType, fn, false);
+		} else if (document.attachEvent) {
+			element.attachEvent('on' + eventType, fn);
+		}
+		return element;
+	},
+	unbind: function (element, eventType, fn) {
+		if (document.removeEventListener) {
+			element.removeEventListener(eventType, fn, false);
+		} else if (document.detachEvent) {
+			element.detachEvent('on' + eventType, fn);
+		}
+		return element;
+	}
+};
+/* harmony default export */ __webpack_exports__["a"] = (T);
+
+/***/ }),
+/* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(5);
+var content = __webpack_require__(6);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -91,7 +150,7 @@ var transform;
 var options = {}
 options.transform = transform
 // add the styles to the DOM
-var update = __webpack_require__(7)(content, options);
+var update = __webpack_require__(8)(content, options);
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {
@@ -108,15 +167,15 @@ if(false) {
 }
 
 /***/ }),
-/* 1 */
+/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var Component = __webpack_require__(9)(
+var Component = __webpack_require__(10)(
   /* script */
-  __webpack_require__(2),
+  __webpack_require__(3),
   /* template */
-  __webpack_require__(10),
+  __webpack_require__(11),
   /* styles */
   null,
   /* scopeId */
@@ -148,12 +207,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 2 */
+/* 3 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__libs_antiscroll__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__libs_t__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__libs_antiscroll__ = __webpack_require__(4);
+
 
 
 var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
@@ -195,7 +256,7 @@ const getStyle = function (oDiv, attr) {
     },
     mounted() {
         // var antiscrollWrap= this.$el.querySelector('.antiscroll-wrap')
-        this.scroller = new __WEBPACK_IMPORTED_MODULE_0__libs_antiscroll__["a" /* default */](this.$el, {
+        this.scroller = new __WEBPACK_IMPORTED_MODULE_1__libs_antiscroll__["a" /* default */](this.$el, {
             initialDisplay: false
         });
         this._onScroll = proxy(this, 'onScroll');
@@ -273,10 +334,23 @@ const getStyle = function (oDiv, attr) {
             try {
                 var scroller = this.scroller;
                 var arr = [];
-                scroller.vertical && arr.push(scroller.vertical);
-                scroller.horizontal && arr.push(scroller.horizontal);
+                var { vertical, horizontal } = scroller;
+                vertical && arr.push(scroller.vertical);
+                horizontal && arr.push(scroller.horizontal);
                 arr.forEach(scroller => scroller.updateViewPort());
 
+                var needVScroll, needHScroll;
+                if (!vertical) {
+                    var innerScrollHeight = scroller.inner.scrollHeight;
+                    var innerHeight = __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].getStyle(scroller.el, 'height');
+                    needVScroll = innerScrollHeight > innerHeight + (scroller.x ? scrollbarSize() : 0);
+                }
+                if (!horizontal) {
+                    var innerScrollWidth = scroller.inner.scrollWidth;
+                    var innerWidth = __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].getStyle(scroller.el, 'width');
+                    needHScroll = innerScrollWidth > innerWidth + (scroller.y ? scrollbarSize() : 0);
+                }
+                if (needVScroll || needHScroll) this._rebuild();
                 requestAnimationFrame(this._updateContentSize.bind(this));
             } catch (e) {
                 console.info('滚动条错误辣!');
@@ -287,71 +361,22 @@ const getStyle = function (oDiv, attr) {
 });
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-var T = {
-  proxy: function (context, fnName) {
-    var fn = context[fnName];
-    return function () {
-      return fn.apply(context, arguments);
-    };
-  },
-  getStyle: function (oDiv, attr) {
-    var hasX = ['width', 'height', 'top', 'left', 'scrollWith', 'scrollHeight'];
-    if (oDiv.currentStyle) return oDiv.currentStyle[attr];
-    var v = getComputedStyle(oDiv, null).getPropertyValue(attr);
-    if (hasX.indexOf(attr) > -1) {
-      v = parseFloat(v);
-    }
-    return v;
-  },
-  addClass: function (element, cls) {
-    var className = element.className;
-    var classNames = className.split(/\s+/);
-    if (classNames.indexOf(cls) === -1) {
-      classNames.push(cls);
-    }
-    element.className = classNames.join(' ');
-    return element;
-  },
-  removeClass: function (element, cls) {
-    var className = element.className;
-    var classNames = className.split(/\s+/);
-    var index;
-    if ((index = classNames.indexOf(cls)) > -1) {
-      classNames.splice(index, 1);
-    }
-    element.className = classNames.join(' ');
-    return element;
-  },
-  bind: function (element, eventType, fn) {
-    if (document.addEventListener) {
-      element.addEventListener(eventType, fn, false);
-    } else if (document.attachEvent) {
-      element.attachEvent('on' + eventType, fn);
-    }
-    return element;
-  },
-  unbind: function (element, eventType, fn) {
-    if (document.removeEventListener) {
-      element.removeEventListener(eventType, fn, false);
-    } else if (document.detachEvent) {
-      element.detachEvent('on' + eventType, fn);
-    }
-    return element;
-  }
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__libs_t__ = __webpack_require__(0);
 
-  /**
-   * Antiscroll pane constructor.
-   *
-   * @param {Element|jQuery} main pane
-   * @parma {Object} options
-   * @api public
-   */
 
-};function Antiscroll(el, opts) {
+/**
+ * Antiscroll pane constructor.
+ *
+ * @param {Element|jQuery} main pane
+ * @parma {Object} options
+ * @api public
+ */
+
+function Antiscroll(el, opts) {
   this.el = el;
   this.options = opts || {};
 
@@ -362,8 +387,8 @@ var T = {
 
   this.inner = this.el.querySelector('.antiscroll-inner');
 
-  var innerWidth = T.getStyle(this.inner, 'width');
-  var innerHeight = T.getStyle(this.inner, 'height');
+  var innerWidth = __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].getStyle(this.inner, 'width');
+  var innerHeight = __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].getStyle(this.inner, 'height');
 
   this.inner.style.cssText = "width: " + (innerWidth + (this.y ? scrollbarSize() : 0)) + 'px;' + "height: " + (innerHeight + (this.x ? scrollbarSize() : 0)) + 'px;';
 
@@ -379,8 +404,8 @@ var T = {
 Antiscroll.prototype.refresh = function () {
   var innerScrollWidth = this.inner.scrollWidth;
   var innerScrollHeight = this.inner.scrollHeight;
-  var innerWidth = T.getStyle(this.el, 'width');
-  var innerHeight = T.getStyle(this.el, 'height');
+  var innerWidth = __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].getStyle(this.el, 'width');
+  var innerHeight = __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].getStyle(this.el, 'height');
   var needHScroll = innerScrollWidth > innerWidth + (this.y ? scrollbarSize() : 0),
       needVScroll = innerScrollHeight > innerHeight + (this.x ? scrollbarSize() : 0);
 
@@ -456,15 +481,15 @@ function Scrollbar(pane) {
   this.shown = false;
 
   // hovering
-  T.bind(this.pane.el, 'mouseenter', T.proxy(this, 'mouseenter'));
-  T.bind(this.pane.el, 'mouseleave', T.proxy(this, 'mouseleave'));
+  __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].bind(this.pane.el, 'mouseenter', __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].proxy(this, 'mouseenter'));
+  __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].bind(this.pane.el, 'mouseleave', __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].proxy(this, 'mouseleave'));
 
   // dragging
-  T.bind(this.el, 'mousedown', T.proxy(this, 'mousedown'));
+  __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].bind(this.el, 'mousedown', __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].proxy(this, 'mousedown'));
 
   // scrolling
-  this.innerPaneScrollListener = T.proxy(this, 'scroll');
-  T.bind(this.pane.inner, 'scroll', T.proxy(this, 'scroll'));
+  this.innerPaneScrollListener = __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].proxy(this, 'scroll');
+  __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].bind(this.pane.inner, 'scroll', __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].proxy(this, 'scroll'));
 
   // show
   var initialDisplay = this.pane.options.initialDisplay;
@@ -472,7 +497,7 @@ function Scrollbar(pane) {
   if (initialDisplay !== false) {
     this.show();
     if (this.pane.autoHide) {
-      this.hiding = setTimeout(T.proxy(this, 'hide'), parseInt(initialDisplay, 10) || 3000);
+      this.hiding = setTimeout(__WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].proxy(this, 'hide'), parseInt(initialDisplay, 10) || 3000);
     }
   }
 };
@@ -486,7 +511,7 @@ function Scrollbar(pane) {
 
 Scrollbar.prototype.destroy = function () {
   this.el.remove();
-  T.unbind(this.pane.inner, 'scroll', this.innerPaneScrollListener);
+  __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].unbind(this.pane.inner, 'scroll', this.innerPaneScrollListener);
   return this;
 };
 
@@ -551,7 +576,7 @@ Scrollbar.prototype.scroll = function () {
     this.show();
     if (!this.enter && !this.dragging) {
       if (this.pane.autoHide) {
-        this.hiding = setTimeout(T.proxy(this, 'hide'), 1500);
+        this.hiding = setTimeout(__WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].proxy(this, 'hide'), 1500);
       }
     }
   }
@@ -570,8 +595,8 @@ Scrollbar.prototype.mousedown = function (ev) {
 
   this.dragging = true;
 
-  this.startPageY = ev.pageY - parseInt(T.getStyle(this.el, 'top'), 10);
-  this.startPageX = ev.pageX - parseInt(T.getStyle(this.el, 'left'), 10);
+  this.startPageY = ev.pageY - parseInt(__WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].getStyle(this.el, 'top'), 10);
+  this.startPageX = ev.pageX - parseInt(__WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].getStyle(this.el, 'left'), 10);
 
   // prevent crazy selections on IE
   this.el.ownerDocument.onselectstart = function () {
@@ -581,20 +606,20 @@ Scrollbar.prototype.mousedown = function (ev) {
   var pane = this.pane,
       self = this;
 
-  var move = T.proxy(this, 'mousemove');
+  var move = __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].proxy(this, 'mousemove');
   var mouseup = function () {
     self.dragging = false;
     this.onselectstart = null;
 
-    T.unbind(this, 'mousemove', move);
+    __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].unbind(this, 'mousemove', move);
 
     if (!self.enter) {
       self.hide();
     }
   };
 
-  T.bind(window.document, 'mousemove', move);
-  T.bind(window.document, 'mouseup', mouseup);
+  __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].bind(window.document, 'mousemove', move);
+  __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].bind(window.document, 'mouseup', mouseup);
 };
 
 /**
@@ -605,7 +630,7 @@ Scrollbar.prototype.mousedown = function (ev) {
 
 Scrollbar.prototype.show = function (duration) {
   if (!this.shown && this.update()) {
-    T.addClass(this.el, 'antiscroll-scrollbar-shown');
+    __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].addClass(this.el, 'antiscroll-scrollbar-shown');
     if (this.hiding) {
       clearTimeout(this.hiding);
       this.hiding = null;
@@ -623,7 +648,7 @@ Scrollbar.prototype.show = function (duration) {
 Scrollbar.prototype.hide = function () {
   if (this.pane.autoHide !== false && this.shown) {
     // check for dragging
-    T.removeClass(this.el, 'antiscroll-scrollbar-shown');
+    __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].removeClass(this.el, 'antiscroll-scrollbar-shown');
     this.shown = false;
   }
 };
@@ -654,7 +679,7 @@ inherits(Scrollbar.Horizontal, Scrollbar);
  */
 
 Scrollbar.Horizontal.prototype.update = function () {
-  var paneWidth = T.getStyle(this.pane.el, 'width'),
+  var paneWidth = __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].getStyle(this.pane.el, 'width'),
       trackWidth = paneWidth - this.pane.padding * 2,
       inner = this.pane.inner;
   this.el.style.cssText = 'width: ' + trackWidth * paneWidth / inner.scrollWidth + 'px;' + 'left: ' + trackWidth * inner.scrollLeft / inner.scrollWidth + 'px;';
@@ -669,15 +694,15 @@ Scrollbar.Horizontal.prototype.update = function () {
  */
 
 Scrollbar.Horizontal.prototype.mousemove = function (ev) {
-  var trackWidth = T.getStyle(this.pane.el, 'width') - this.pane.padding * 2,
+  var trackWidth = __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].getStyle(this.pane.el, 'width') - this.pane.padding * 2,
       pos = ev.pageX - this.startPageX,
-      barWidth = T.getStyle(this.el, 'width'),
+      barWidth = __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].getStyle(this.el, 'width'),
       inner = this.pane.inner;
 
   // minimum top is 0, maximum is the track height
   var y = Math.min(Math.max(pos, 0), trackWidth - barWidth);
 
-  inner.scrollLeft = (inner.scrollWidth - T.getStyle(this.pane.el, 'width')) * y / (trackWidth - barWidth);
+  inner.scrollLeft = (inner.scrollWidth - __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].getStyle(this.pane.el, 'width')) * y / (trackWidth - barWidth);
 };
 
 /**
@@ -706,7 +731,7 @@ inherits(Scrollbar.Vertical, Scrollbar);
  */
 
 Scrollbar.Vertical.prototype.update = function () {
-  var paneHeight = T.getStyle(this.pane.el, 'height'),
+  var paneHeight = __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].getStyle(this.pane.el, 'height'),
       trackHeight = paneHeight - this.pane.padding * 2,
       inner = this.pane.inner;
 
@@ -732,10 +757,10 @@ Scrollbar.Vertical.prototype.update = function () {
  */
 
 Scrollbar.Vertical.prototype.mousemove = function (ev) {
-  var paneHeight = T.getStyle(this.pane.el, 'height'),
+  var paneHeight = __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].getStyle(this.pane.el, 'height'),
       trackHeight = paneHeight - this.pane.padding * 2,
       pos = ev.pageY - this.startPageY,
-      barHeight = T.getStyle(this.el, 'height'),
+      barHeight = __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].getStyle(this.el, 'height'),
       inner = this.pane.inner;
 
   // minimum top is 0, maximum is the track height
@@ -774,8 +799,8 @@ function scrollbarSize() {
     div.appendChild(innerDiv);
 
     document.body.appendChild(div);
-    var w1 = T.getStyle(div, 'width');
-    var w2 = T.getStyle(innerDiv, 'width');
+    var w1 = __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].getStyle(div, 'width');
+    var w2 = __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].getStyle(innerDiv, 'width');
 
     document.body.removeChild(div);
     size = +w1 - +w2;
@@ -787,24 +812,24 @@ function scrollbarSize() {
 /* harmony default export */ __webpack_exports__["a"] = (Antiscroll);
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__assets_antiscroll_css__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__assets_antiscroll_css__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__assets_antiscroll_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__assets_antiscroll_css__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_vue_antiscroll_vue__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_vue_antiscroll_vue__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_vue_antiscroll_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__components_vue_antiscroll_vue__);
 /* harmony reexport (default from non-hamory) */ __webpack_require__.d(__webpack_exports__, "default", function() { return __WEBPACK_IMPORTED_MODULE_1__components_vue_antiscroll_vue___default.a; });
 
 
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(6)();
+exports = module.exports = __webpack_require__(7)();
 // imports
 
 
@@ -815,7 +840,7 @@ exports.push([module.i, "/*\n * Antiscroll: cross-browser native OS X Lion scrol
 
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports) {
 
 /*
@@ -871,7 +896,7 @@ module.exports = function() {
 
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -917,7 +942,7 @@ var singleton = null;
 var	singletonCounter = 0;
 var	stylesInsertedAtTop = [];
 
-var	fixUrls = __webpack_require__(8);
+var	fixUrls = __webpack_require__(9);
 
 module.exports = function(list, options) {
 	if (typeof DEBUG !== "undefined" && DEBUG) {
@@ -1230,7 +1255,7 @@ function updateLink (link, options, obj) {
 
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports) {
 
 
@@ -1325,7 +1350,7 @@ module.exports = function (css) {
 
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports) {
 
 /* globals __VUE_SSR_CONTEXT__ */
@@ -1422,7 +1447,7 @@ module.exports = function normalizeComponent (
 
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
