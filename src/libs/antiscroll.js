@@ -1,5 +1,4 @@
 import T from '../libs/t'
-  
   /**
    * Antiscroll pane constructor.
    *
@@ -30,26 +29,27 @@ import T from '../libs/t'
 
   /**
    * refresh scrollbars
-   *
+   * arg scrollbar 是否需要更新
    * @api public
    */
 
-  Antiscroll.prototype.refresh = function(flag) {
+  Antiscroll.prototype.refresh = function(arg) {
     var innerScrollWidth = this.inner.scrollWidth;
     var innerScrollHeight = this.inner.scrollHeight;
     var innerWidth = T.getStyle(this.el, 'width');
     var innerHeight = T.getStyle(this.el, 'height');
     var needHScroll = innerScrollWidth > innerWidth + (this.y ? scrollbarSize() : 0),
 	    needVScroll = innerScrollHeight > innerHeight + (this.x ? scrollbarSize() : 0);
+    var updatable = (arg || { updatable: true }).updatable
     
-    flag = flag === false
     if (this.x) {
       if (!this.horizontal && needHScroll) {
         this.horizontal = new Scrollbar.Horizontal(this);
       } else if (this.horizontal && !needHScroll)  {
         this.horizontal.destroy();
         this.horizontal = null;
-      } else if (this.horizontal && !flag) {
+        // Loop check whether there is no need to update the scroll bar
+      } else if (this.horizontal && updatable) {
         this.horizontal.update();
       }
     }
@@ -60,7 +60,8 @@ import T from '../libs/t'
       } else if (this.vertical && !needVScroll)  {
         this.vertical.destroy();
         this.vertical = null;
-      } else if (this.vertical && !flag) {
+	      // Loop check whether there is no need to update the scroll bar
+      } else if (this.vertical && updatable) {
         this.vertical.update();
       }
     }
@@ -148,31 +149,7 @@ import T from '../libs/t'
     T.unbind(this.pane.inner, 'scroll', this.innerPaneScrollListener)
     return this;
   };
-
-
-  /**
-   * check and resize.
-   *
-   * @return {Scrollbar} for chaining
-   * @api public
-   */
-
-  Scrollbar.prototype.updateViewPort = function(){
-    var innerScrollHeight = this.pane.inner.scrollHeight;
-    var innerScrollWidth = this.pane.inner.scrollWidth;
-
-    if((this.__scrollWidth !== innerScrollWidth || this.__scrollHeight !== innerScrollHeight) && this.enter){
-
-      if(!this.update()){
-        this.hide();
-      }else {
-        this.show();
-      }
-
-      this.__scrollWidth = innerScrollWidth;
-      this.__scrollHeight = innerScrollHeight;
-    }
-  };
+  
   /**
    * Called upon mouseenter.
    *

@@ -1,17 +1,8 @@
 <script>
 	import T from '../libs/t'
     import Antiscroll from '../libs/antiscroll'
-    var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
-    const proxy = function(context, fnName) {
-        var fn = context[fnName]
-        return function() {
-            return fn.apply(context, arguments)
-        }
-    }
-    const getStyle = function(oDiv, attr) {
-        if (oDiv.currentStyle) return oDiv.currentStyle[attr];
-        return getComputedStyle(oDiv, false)[attr];
-    }
+	import ResizeSensor from 'css-element-queries/src/ResizeSensor'
+
     export default {
         props: {
             height: {
@@ -40,17 +31,22 @@
             return {}
         },
         mounted() {
-            // var antiscrollWrap= this.$el.querySelector('.antiscroll-wrap')
+        	if(!this.checkStructure()) {
+        		console.log(new Error('vue-antiscroll slot 有且只能包裹一个子元素'))
+                return
+            }
             this.scroller = new Antiscroll(this.$el, {
                 initialDisplay: false
             })
-            this._onScroll = proxy(this, 'onScroll')
+            this._onScroll = T.proxy(this, 'onScroll')
             this.scroller.inner.addEventListener('scroll', this._onScroll, false)
-            this._loopCheck()
+            this.attachDimensionChangeEvent()
         },
         beforeDestroy() {
             this.scroller && this.scroller.destroy()
             this.scroller && this.scroller.inner.removeEventListener('scroll', this._onScroll, false)
+            Object.keys(this.resizeSensors).forEach(key => this.resizeSensors[key].detach())
+            this.resizeSensors = null
             this.scroller = null
             this._onScroll = null
         },
@@ -60,28 +56,19 @@
         },
         computed: {
             _$styObj() {
-                let {
-                    _$height,
-                    _$width
-                } = this
-                let hash = {
-                    height: _$height
-                }
+                let {_$height, _$width} = this
+                let hash = {height: _$height}
                 _$width && (hash['width'] = _$width)
                 return hash
             },
             _$height() {
-                let {
-                    height
-                } = this
+                let {height} = this
                 height = height + ''
                 if (height.lastIndexOf('px') === -1) return height + 'px'
                 return height
             },
             _$width() {
-                let {
-                    width
-                } = this
+                let {width} = this
                 width = width && width + ''
                 if (!width) return null
                 if (width.lastIndexOf('px') === -1) return width + 'px'
@@ -90,9 +77,9 @@
         },
         methods: {
             onScroll(evt) {
-                let innerHeight = getStyle(this.scroller.inner, 'height')
-                let scrollHeight = getStyle(this.scroller.inner, 'scrollHeight')
-                let scrollTop = getStyle(this.scroller.inner, 'scrollTop')
+                let innerHeight = T.getStyle(this.scroller.inner, 'height')
+                let scrollHeight = T.getStyle(this.scroller.inner, 'scrollHeight')
+                let scrollTop = T.getStyle(this.scroller.inner, 'scrollTop')
     
                 if (typeof this.onScrolling === 'function') {
                     this.onScrolling.call(this, this.scroller, evt)
@@ -109,23 +96,16 @@
 	                scroller && scroller.refresh()
                 }
             },
-            _loopCheck() {
-                if (this.loopCheck) {
-                    requestAnimationFrame(this._updateContentSize.bind(this));
-                }
+	        checkStructure() {
+                let antiscrollInner = this.$el.querySelector('.antiscroll-inner')
+                return antiscrollInner.childNodes.length === 1
             },
-            _updateContentSize() {
+	        attachDimensionChangeEvent() {
                 try {
-                    var scroller = this.scroller;
-                    var arr = []
-                    var {vertical, horizontal} = scroller
-                    vertical && arr.push(scroller.vertical);
-                    horizontal && arr.push(scroller.horizontal);
-
-	                scroller.refresh(false)
-                    arr.forEach(scroller => scroller.updateViewPort());
-
-                    requestAnimationFrame(this._updateContentSize.bind(this));
+	                var resizeSensors = this.resizeSensors = {}
+                    var scroller = this.scroller
+                    var innerChild = scroller.inner.childNodes[0]
+	                resizeSensors.innerChildObserver = new ResizeSensor(innerChild, () => scroller.refresh({updatable: false}))
                 } catch (e) {
                     console.info('滚动条错误辣!');
                 }

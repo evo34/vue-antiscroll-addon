@@ -50,4 +50,12 @@ var T = {
 		return element;
 	}
 }
+window.requestAnimFrame = (function () {
+	return window.requestAnimationFrame ||
+		window.webkitRequestAnimationFrame ||
+		window.mozRequestAnimationFrame ||
+		function (callback) {
+			window.setTimeout(callback, 100)
+		}
+})()
 export default T
