@@ -1,7 +1,7 @@
 {
   "name": "vue-antiscroll",
   "description": "A Vue.js project",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "author": "evox <1212>",
   "main": "dist/vue-antiscroll.js",
   "private": true,
