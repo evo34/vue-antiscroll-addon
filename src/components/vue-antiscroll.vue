@@ -51,8 +51,8 @@
 			this._onScroll = null
 		},
 		watch: {
-			'height': '_refresh',
-			'width': '_refresh'
+			'height': 'refresh',
+			'width': 'refresh'
 		},
 		computed: {
 			_$styObj() {
@@ -90,7 +90,8 @@
 					}
 				}
 			},
-			_refresh() {
+
+			refresh() {
 				let scroller = this.scroller
 				if (scroller) {
 					scroller && scroller.refresh()

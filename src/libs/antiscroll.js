@@ -124,7 +124,7 @@ import T from '../libs/t'
 
     // scrolling
     this.innerPaneScrollListener = T.proxy(this, 'scroll');
-    T.bind(this.pane.inner, 'scroll', T.proxy(this, 'scroll'));
+    T.bind(this.pane.inner, 'scroll', this.innerPaneScrollListener);
 
     // show
     var initialDisplay = this.pane.options.initialDisplay;

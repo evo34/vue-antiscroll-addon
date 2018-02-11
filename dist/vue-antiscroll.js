@@ -274,8 +274,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		this._onScroll = null;
 	},
 	watch: {
-		'height': '_refresh',
-		'width': '_refresh'
+		'height': 'refresh',
+		'width': 'refresh'
 	},
 	computed: {
 		_$styObj() {
@@ -313,7 +313,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				}
 			}
 		},
-		_refresh() {
+
+		refresh() {
 			let scroller = this.scroller;
 			if (scroller) {
 				scroller && scroller.refresh();
@@ -468,7 +469,7 @@ function Scrollbar(pane) {
 
   // scrolling
   this.innerPaneScrollListener = __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].proxy(this, 'scroll');
-  __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].bind(this.pane.inner, 'scroll', __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].proxy(this, 'scroll'));
+  __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].bind(this.pane.inner, 'scroll', this.innerPaneScrollListener);
 
   // show
   var initialDisplay = this.pane.options.initialDisplay;
