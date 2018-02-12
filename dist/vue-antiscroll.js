@@ -244,7 +244,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			required: false,
 			type: Function
 		},
-		loopCheck: {
+		initialDisplay: {
 			required: false,
 			type: Boolean,
 			default: () => Boolean(1)
@@ -258,9 +258,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			console.log(new Error('vue-antiscroll slot 有且只能包裹一个子元素'));
 			return;
 		}
-		this.scroller = new __WEBPACK_IMPORTED_MODULE_1__libs_antiscroll__["a" /* default */](this.$el, {
-			initialDisplay: false
-		});
+		let { initialDisplay } = this;
+		this.scroller = new __WEBPACK_IMPORTED_MODULE_1__libs_antiscroll__["a" /* default */](this.$el, { initialDisplay });
 		this._onScroll = __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].proxy(this, 'onScroll');
 		this.scroller.inner.addEventListener('scroll', this._onScroll, false);
 		this.attachDimensionChangeEvent();

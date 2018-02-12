@@ -21,7 +21,7 @@
 				required: false,
 				type: Function
 			},
-			loopCheck: {
+            initialDisplay: {
 				required: false,
 				type: Boolean,
 				default: () => Boolean(1)
@@ -35,9 +35,8 @@
 				console.log(new Error('vue-antiscroll slot 有且只能包裹一个子元素'))
 				return
 			}
-			this.scroller = new Antiscroll(this.$el, {
-				initialDisplay: false
-			})
+			let { initialDisplay } = this
+			this.scroller = new Antiscroll(this.$el, {initialDisplay})
 			this._onScroll = T.proxy(this, 'onScroll')
 			this.scroller.inner.addEventListener('scroll', this._onScroll, false)
 			this.attachDimensionChangeEvent()
