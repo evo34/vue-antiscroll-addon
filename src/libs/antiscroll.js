@@ -224,20 +224,18 @@ import T from '../libs/t'
   Scrollbar.prototype.scrollTo = function (placement) {
     var fns = {
 	    verticalToBottom: function (inner) {
-		    var paneHeight = T.getStyle(this.pane.el, 'height'),
-			    trackHeight = paneHeight - this.pane.padding * 2;
-		    var scrollbarHeight = trackHeight * paneHeight / inner.scrollHeight;
-		    scrollbarHeight = scrollbarHeight < 20 ? 20 : scrollbarHeight;
-		    inner.scrollTop = inner.scrollHeight - scrollbarHeight
+		    var paneHeight = T.getStyle(this.pane.el, 'height');
+		    inner.scrollTop = inner.scrollHeight - paneHeight
 	    },
 	    verticalToTop: function (inner) {
 		    inner.scrollTop = 0
 	    },
 	    horizontalToLeft: function (inner) {
-     
+        inner.scrollLeft = 0
 	    },
 	    horizontalToRight: function (inner) {
-     
+		    var paneWidth = T.getStyle(this.pane.el, 'width');
+		    inner.scrollLeft = inner.scrollWidth - paneWidth
 	    }
     }
     var inner = this.pane.inner;
