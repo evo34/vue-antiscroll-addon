@@ -99,6 +99,25 @@ import T from '../libs/t'
     Antiscroll.call(this, this.el, this.options);
     return this;
   };
+  /**
+   * scrollToBottom Antiscroll.
+   *
+   * @return {Antiscroll} for chaining
+   * @api public
+   */
+  Antiscroll.prototype.scrollTo = function (placement) {
+	  var placements = ['bottom', 'top', 'left', 'right'];
+	  var vertical = this.vertical
+    var horizontal = this.horizontal
+    if (placements.indexOf(placement) === -1) return this
+    if (['bottom', 'top'].indexOf(placement) > -1) {
+	    vertical && vertical.scrollTo(placement)
+    }
+    if (['left', 'right'].indexOf(placement) > -1) {
+	    horizontal && horizontal.scrollTo(placement)
+    }
+    return this
+  };
 
   /**
    * Scrollbar constructor.
@@ -194,6 +213,43 @@ import T from '../libs/t'
     }
 
     this.update();
+  };
+
+  /**
+   *
+   *
+   * @api private
+   */
+  
+  Scrollbar.prototype.scrollTo = function (placement) {
+    var fns = {
+	    verticalToBottom: function (inner) {
+		    var paneHeight = T.getStyle(this.pane.el, 'height'),
+			    trackHeight = paneHeight - this.pane.padding * 2;
+		    var scrollbarHeight = trackHeight * paneHeight / inner.scrollHeight;
+		    scrollbarHeight = scrollbarHeight < 20 ? 20 : scrollbarHeight;
+		    inner.scrollTop = inner.scrollHeight - scrollbarHeight
+	    },
+	    verticalToTop: function (inner) {
+		    inner.scrollTop = 0
+	    },
+	    horizontalToLeft: function (inner) {
+     
+	    },
+	    horizontalToRight: function (inner) {
+     
+	    }
+    }
+    var inner = this.pane.inner;
+    switch (placement) {
+      case 'bottom': fns.verticalToBottom.call(this, inner); break;
+      case 'top': fns.verticalToTop.call(this, inner); break;
+      case 'left': fns.horizontalToLeft.call(this, inner); break;
+      case 'right': fns.horizontalToRight.call(this, inner); break;
+    }
+    var event = document.createEvent('MouseEvents');
+    event.initEvent('scroll', true, true);
+    inner.dispatchEvent(event);
   };
 
   /**

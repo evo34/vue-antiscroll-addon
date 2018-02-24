@@ -89,11 +89,17 @@
 					}
 				}
 			},
+            scrollTo (placement) {
+				let scroller = this.scroller
+                if (scroller) {
+					scroller.scrollTo(placement)
+                }
+            },
 
 			refresh() {
 				let scroller = this.scroller
 				if (scroller) {
-					scroller && scroller.refresh()
+					scroller.refresh()
 				}
 			},
 			checkStructure() {
