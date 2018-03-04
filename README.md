@@ -1,4 +1,4 @@
-# Vue-Antiscroll
+# Vue-Antiscroll-Addon
 
 
 ## Features
