@@ -2,7 +2,7 @@
   "name": "vue-antiscroll",
   "description": "A Vue.js project",
   "version": "2.0.0",
-  "author": "evox <1212>",
+  "author": "evox",
   "main": "dist/vue-antiscroll.js",
   "private": true,
   "scripts": {
@@ -25,5 +25,10 @@
     "vue-template-compiler": "^2.3.3",
     "webpack": "^2.6.1",
     "webpack-dev-server": "^2.4.5"
-  }
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/evo34/vue-antiscroll/issues"
+  },
+  "homepage": "https://github.com/evo34/vue-antiscroll"
 }
