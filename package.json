@@ -9,7 +9,6 @@
   },
   "dependencies": {
     "css-element-queries": "^1.0.1",
-    "jquery": "^3.2.1",
     "vue": "^2.3.3"
   },
   "devDependencies": {
@@ -27,7 +26,7 @@
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/evo34/vue-antiscroll/issues"
+    "url": "https://github.com/evo34/vue-antiscroll-addon/issues"
   },
-  "homepage": "https://github.com/evo34/vue-antiscroll"
+  "homepage": "https://github.com/evo34/vue-antiscroll-addon"
 }

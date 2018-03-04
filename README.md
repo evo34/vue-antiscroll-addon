@@ -14,14 +14,14 @@ Support Vue.js 2.0+
 ## Install
 
 ```javascript
-npm install vue-antiscroll
+npm install vue-antiscroll-addon
 ```
 
 ## Useage
 ```javascript
 // in entry file
 import Vue from 'vue'
-import vueAntiscroll from 'vue-antiscroll'
+import vueAntiscroll from 'vue-antiscroll-addon'
 Vue.component('vueAntiscroll', vueAntiscroll)
 ```
 
