@@ -1,478 +1,490 @@
 import T from '../libs/t'
-  /**
-   * Antiscroll pane constructor.
-   *
-   * @param {Element|jQuery} main pane
-   * @parma {Object} options
-   * @api public
-   */
 
-  function Antiscroll (el, opts) {
-    this.el = el;
-    this.options = opts || {};
+/**
+ * Antiscroll pane constructor.
+ *
+ * @param {Element|jQuery} main pane
+ * @parma {Object} options
+ * @api public
+ */
 
-    this.x = (false !== this.options.x) || this.options.forceHorizontal;
-    this.y = (false !== this.options.y) || this.options.forceVertical;
-    this.autoHide = false !== this.options.autoHide;
-    this.padding = undefined === this.options.padding ? 2 : this.options.padding;
+function Antiscroll(el, opts) {
+	this.el = el;
+	this.options = opts || {};
+	
+	this.x = (false !== this.options.x) || this.options.forceHorizontal;
+	this.y = (false !== this.options.y) || this.options.forceVertical;
+	this.autoHide = false !== this.options.autoHide;
+	this.padding = undefined === this.options.padding ? 2 : this.options.padding;
+	
+	this.inner = this.el.querySelector('.antiscroll-inner');
+	
+	var innerWidth = T.getStyle(this.inner, 'width');
+	var innerHeight = T.getStyle(this.inner, 'height');
+	
+	this.inner.style.cssText = "width: " + (innerWidth + (this.y ? scrollbarSize() : 0)) + 'px;' +
+		"height: " + (innerHeight + (this.x ? scrollbarSize() : 0)) + 'px;';
+	
+	this.refresh();
+};
 
-    this.inner = this.el.querySelector('.antiscroll-inner');
+/**
+ * refresh scrollbars
+ * arg scrollbar 是否需要更新
+ * @api public
+ */
 
-    var innerWidth = T.getStyle(this.inner, 'width');
-    var innerHeight = T.getStyle(this.inner, 'height');
+Antiscroll.prototype.refresh = function (arg) {
+	var innerScrollWidth = this.inner.scrollWidth;
+	var innerScrollHeight = this.inner.scrollHeight;
+	var innerWidth = T.getStyle(this.el, 'width');
+	var innerHeight = T.getStyle(this.el, 'height');
+	var needHScroll = innerScrollWidth > innerWidth + (this.y ? scrollbarSize() : 0),
+		needVScroll = innerScrollHeight > innerHeight + (this.x ? scrollbarSize() : 0);
+	var updatable = (arg || {updatable: true}).updatable
+	
+	if (this.x) {
+		if (!this.horizontal && needHScroll) {
+			this.horizontal = new Scrollbar.Horizontal(this);
+		} else if (this.horizontal && !needHScroll) {
+			this.horizontal.destroy();
+			this.horizontal = null;
+			// Loop check whether there is no need to update the scroll bar
+		} else if (this.horizontal && updatable) {
+			this.horizontal.update();
+		}
+	}
+	
+	if (this.y) {
+		if (!this.vertical && needVScroll) {
+			this.vertical = new Scrollbar.Vertical(this);
+		} else if (this.vertical && !needVScroll) {
+			this.vertical.destroy();
+			this.vertical = null;
+			// Loop check whether there is no need to update the scroll bar
+		} else if (this.vertical && updatable) {
+			this.vertical.update();
+		}
+	}
+};
 
-    this.inner.style.cssText = "width: " + (innerWidth + (this.y ? scrollbarSize() : 0)) + 'px;' +
-                               "height: " + (innerHeight + (this.x ? scrollbarSize() : 0)) + 'px;';
+/**
+ * Cleans up.
+ *
+ * @return {Antiscroll} for chaining
+ * @api public
+ */
 
-    this.refresh();
-  };
+Antiscroll.prototype.destroy = function () {
+	if (this.horizontal) {
+		this.horizontal.destroy();
+		this.horizontal = null
+	}
+	if (this.vertical) {
+		this.vertical.destroy();
+		this.vertical = null
+	}
+	return this;
+};
 
-  /**
-   * refresh scrollbars
-   * arg scrollbar 是否需要更新
-   * @api public
-   */
+/**
+ * Rebuild Antiscroll.
+ *
+ * @return {Antiscroll} for chaining
+ * @api public
+ */
 
-  Antiscroll.prototype.refresh = function(arg) {
-    var innerScrollWidth = this.inner.scrollWidth;
-    var innerScrollHeight = this.inner.scrollHeight;
-    var innerWidth = T.getStyle(this.el, 'width');
-    var innerHeight = T.getStyle(this.el, 'height');
-    var needHScroll = innerScrollWidth > innerWidth + (this.y ? scrollbarSize() : 0),
-	    needVScroll = innerScrollHeight > innerHeight + (this.x ? scrollbarSize() : 0);
-    var updatable = (arg || { updatable: true }).updatable
-    
-    if (this.x) {
-      if (!this.horizontal && needHScroll) {
-        this.horizontal = new Scrollbar.Horizontal(this);
-      } else if (this.horizontal && !needHScroll)  {
-        this.horizontal.destroy();
-        this.horizontal = null;
-        // Loop check whether there is no need to update the scroll bar
-      } else if (this.horizontal && updatable) {
-        this.horizontal.update();
-      }
-    }
+Antiscroll.prototype.rebuild = function () {
+	this.destroy();
+	this.inner.style.cssText = "";
+	Antiscroll.call(this, this.el, this.options);
+	return this;
+};
+/**
+ * scrollToBottom Antiscroll.
+ *
+ * @return {Antiscroll} for chaining
+ * @api public
+ */
+Antiscroll.prototype.scrollTo = function (placement) {
+	var placements = ['bottom', 'top', 'left', 'right'];
+	var vertical = this.vertical
+	var horizontal = this.horizontal
+	if (placements.indexOf(placement) === -1) return this
+	if (['bottom', 'top'].indexOf(placement) > -1) {
+		vertical && vertical.scrollTo(placement)
+	}
+	if (['left', 'right'].indexOf(placement) > -1) {
+		horizontal && horizontal.scrollTo(placement)
+	}
+	return this
+};
 
-    if (this.y) {
-      if (!this.vertical && needVScroll) {
-        this.vertical = new Scrollbar.Vertical(this);
-      } else if (this.vertical && !needVScroll)  {
-        this.vertical.destroy();
-        this.vertical = null;
-	      // Loop check whether there is no need to update the scroll bar
-      } else if (this.vertical && updatable) {
-        this.vertical.update();
-      }
-    }
-  };
+/**
+ * Scrollbar constructor.
+ *
+ * @param {Element|jQuery} element
+ * @api public
+ */
 
-  /**
-   * Cleans up.
-   *
-   * @return {Antiscroll} for chaining
-   * @api public
-   */
+function Scrollbar(pane) {
+	this.pane = pane;
+	this.pane.el.appendChild(this.el);
+	
+	this.dragging = false;
+	this.enter = false;
+	this.shown = false;
+	
+	// hovering
+	T.bind(this.pane.el, 'mouseenter', T.proxy(this, 'mouseenter'));
+	T.bind(this.pane.el, 'mouseleave', T.proxy(this, 'mouseleave'))
+	
+	// dragging
+	T.bind(this.el, 'mousedown', T.proxy(this, 'mousedown'));
+	
+	// scrolling
+	this.innerPaneScrollListener = T.proxy(this, 'scroll');
+	T.bind(this.pane.inner, 'scroll', this.innerPaneScrollListener);
+	
+	// show
+	var initialDisplay = this.pane.options.initialDisplay;
+	
+	if (initialDisplay !== false) {
+		this.show();
+		if (this.pane.autoHide) {
+			this.hiding = setTimeout(T.proxy(this, 'hide'), parseInt(initialDisplay, 10) || 3000);
+		}
+	}
+};
 
-  Antiscroll.prototype.destroy = function () {
-    if (this.horizontal) {
-      this.horizontal.destroy();
-      this.horizontal = null
-    }
-    if (this.vertical) {
-      this.vertical.destroy();
-      this.vertical = null
-    }
-    return this;
-  };
+/**
+ * Cleans up.
+ *
+ * @return {Scrollbar} for chaining
+ * @api public
+ */
 
-  /**
-   * Rebuild Antiscroll.
-   *
-   * @return {Antiscroll} for chaining
-   * @api public
-   */
+Scrollbar.prototype.destroy = function () {
+	this.el.remove();
+	T.unbind(this.pane.inner, 'scroll', this.innerPaneScrollListener)
+	return this;
+};
 
-  Antiscroll.prototype.rebuild = function () {
-    this.destroy();
-    this.inner.style.cssText = "";
-    Antiscroll.call(this, this.el, this.options);
-    return this;
-  };
-  /**
-   * scrollToBottom Antiscroll.
-   *
-   * @return {Antiscroll} for chaining
-   * @api public
-   */
-  Antiscroll.prototype.scrollTo = function (placement) {
-	  var placements = ['bottom', 'top', 'left', 'right'];
-	  var vertical = this.vertical
-    var horizontal = this.horizontal
-    if (placements.indexOf(placement) === -1) return this
-    if (['bottom', 'top'].indexOf(placement) > -1) {
-	    vertical && vertical.scrollTo(placement)
-    }
-    if (['left', 'right'].indexOf(placement) > -1) {
-	    horizontal && horizontal.scrollTo(placement)
-    }
-    return this
-  };
+/**
+ * Called upon mouseenter.
+ *
+ * @api private
+ */
 
-  /**
-   * Scrollbar constructor.
-   *
-   * @param {Element|jQuery} element
-   * @api public
-   */
+Scrollbar.prototype.mouseenter = function () {
+	this.enter = true;
+	this.show();
+};
 
-  function Scrollbar (pane) {
-    this.pane = pane;
-    this.pane.el.appendChild(this.el);
+/**
+ * Called upon mouseleave.
+ *
+ * @api private
+ */
 
-    this.dragging = false;
-    this.enter = false;
-    this.shown = false;
+Scrollbar.prototype.mouseleave = function () {
+	this.enter = false;
+	
+	if (!this.dragging) {
+		if (this.pane.autoHide) {
+			this.hide();
+		}
+	}
+};
 
-    // hovering
-    T.bind(this.pane.el, 'mouseenter', T.proxy(this, 'mouseenter'));
-    T.bind(this.pane.el, 'mouseleave', T.proxy(this, 'mouseleave'))
+/**
+ * Called upon wrap scroll.
+ *
+ * @api private
+ */
 
-    // dragging
-    T.bind(this.el, 'mousedown', T.proxy(this, 'mousedown'));
+Scrollbar.prototype.scroll = function () {
+	if (!this.shown) {
+		this.show();
+		if (!this.enter && !this.dragging) {
+			if (this.pane.autoHide) {
+				this.hiding = setTimeout(T.proxy(this, 'hide'), 1500);
+			}
+		}
+	}
+	
+	this.update();
+};
 
-    // scrolling
-    this.innerPaneScrollListener = T.proxy(this, 'scroll');
-    T.bind(this.pane.inner, 'scroll', this.innerPaneScrollListener);
+/**
+ *
+ *
+ * @api private
+ */
 
-    // show
-    var initialDisplay = this.pane.options.initialDisplay;
+Scrollbar.prototype.scrollTo = function (placement) {
+	var fns = {
+		verticalToBottom: function (inner) {
+			var paneHeight = T.getStyle(this.pane.el, 'height');
+			inner.scrollTop = inner.scrollHeight - paneHeight
+		},
+		verticalToTop: function (inner) {
+			inner.scrollTop = 0
+		},
+		horizontalToLeft: function (inner) {
+			inner.scrollLeft = 0
+		},
+		horizontalToRight: function (inner) {
+			var paneWidth = T.getStyle(this.pane.el, 'width');
+			inner.scrollLeft = inner.scrollWidth - paneWidth
+		}
+	}
+	var inner = this.pane.inner;
+	switch (placement) {
+		case 'bottom':
+			fns.verticalToBottom.call(this, inner);
+			break;
+		case 'top':
+			fns.verticalToTop.call(this, inner);
+			break;
+		case 'left':
+			fns.horizontalToLeft.call(this, inner);
+			break;
+		case 'right':
+			fns.horizontalToRight.call(this, inner);
+			break;
+	}
+	var event = document.createEvent('MouseEvents');
+	event.initEvent('scroll', true, true);
+	inner.dispatchEvent(event);
+};
 
-    if (initialDisplay !== false) {
-      this.show();
-      if (this.pane.autoHide) {
-          this.hiding = setTimeout(T.proxy(this, 'hide'), parseInt(initialDisplay, 10) || 3000);
-      }
-    }
-  };
+/**
+ * Called upon scrollbar mousedown.
+ *
+ * @api private
+ */
 
-  /**
-   * Cleans up.
-   *
-   * @return {Scrollbar} for chaining
-   * @api public
-   */
+Scrollbar.prototype.mousedown = function (ev) {
+	ev.preventDefault();
+	
+	this.dragging = true;
+	
+	this.startPageY = ev.pageY - parseInt(T.getStyle(this.el, 'top'), 10);
+	this.startPageX = ev.pageX - parseInt(T.getStyle(this.el, 'left'), 10);
+	
+	// prevent crazy selections on IE
+	this.el.ownerDocument.onselectstart = function () {
+		return false;
+	};
+	
+	var pane = this.pane, self = this;
+	
+	var move = T.proxy(this, 'mousemove');
+	var mouseup = function () {
+		self.dragging = false;
+		this.onselectstart = null;
+		
+		T.unbind(this, 'mousemove', move);
+		
+		if (!self.enter) {
+			self.hide();
+		}
+	}
+	
+	T.bind(window.document, 'mousemove', move);
+	T.bind(window.document, 'mouseup', mouseup);
+};
 
-  Scrollbar.prototype.destroy = function () {
-    this.el.remove();
-    T.unbind(this.pane.inner, 'scroll', this.innerPaneScrollListener)
-    return this;
-  };
-  
-  /**
-   * Called upon mouseenter.
-   *
-   * @api private
-   */
+/**
+ * Show scrollbar.
+ *
+ * @api private
+ */
 
-  Scrollbar.prototype.mouseenter = function () {
-    this.enter = true;
-    this.show();
-  };
+Scrollbar.prototype.show = function (duration) {
+	if (!this.shown && this.update()) {
+		T.addClass(this.el, 'antiscroll-scrollbar-shown');
+		if (this.hiding) {
+			clearTimeout(this.hiding);
+			this.hiding = null;
+		}
+		this.shown = true;
+	}
+};
 
-  /**
-   * Called upon mouseleave.
-   *
-   * @api private
-   */
+/**
+ * Hide scrollbar.
+ *
+ * @api private
+ */
 
-  Scrollbar.prototype.mouseleave = function () {
-    this.enter = false;
+Scrollbar.prototype.hide = function () {
+	if (this.pane.autoHide !== false && this.shown) {
+		// check for dragging
+		T.removeClass(this.el, 'antiscroll-scrollbar-shown')
+		this.shown = false;
+	}
+};
 
-    if (!this.dragging) {
-        if (this.pane.autoHide) {
-            this.hide();
-        }
-    }
-  };
+/**
+ * Horizontal scrollbar constructor
+ *
+ * @api private
+ */
 
-  /**
-   * Called upon wrap scroll.
-   *
-   * @api private
-   */
+Scrollbar.Horizontal = function (pane) {
+	var scrollbarH = document.createElement('div');
+	scrollbarH.className = 'antiscroll-scrollbar antiscroll-scrollbar-horizontal';
+	this.el = pane.el.appendChild(scrollbarH);
+	Scrollbar.call(this, pane);
+};
 
-  Scrollbar.prototype.scroll = function () {
-    if (!this.shown) {
-      this.show();
-      if (!this.enter && !this.dragging) {
-        if (this.pane.autoHide) {
-            this.hiding = setTimeout(T.proxy(this, 'hide'), 1500);
-        }
-      }
-    }
+/**
+ * Inherits from Scrollbar.
+ */
 
-    this.update();
-  };
+inherits(Scrollbar.Horizontal, Scrollbar);
 
-  /**
-   *
-   *
-   * @api private
-   */
-  
-  Scrollbar.prototype.scrollTo = function (placement) {
-    var fns = {
-	    verticalToBottom: function (inner) {
-		    var paneHeight = T.getStyle(this.pane.el, 'height');
-		    inner.scrollTop = inner.scrollHeight - paneHeight
-	    },
-	    verticalToTop: function (inner) {
-		    inner.scrollTop = 0
-	    },
-	    horizontalToLeft: function (inner) {
-        inner.scrollLeft = 0
-	    },
-	    horizontalToRight: function (inner) {
-		    var paneWidth = T.getStyle(this.pane.el, 'width');
-		    inner.scrollLeft = inner.scrollWidth - paneWidth
-	    }
-    }
-    var inner = this.pane.inner;
-    switch (placement) {
-      case 'bottom': fns.verticalToBottom.call(this, inner); break;
-      case 'top': fns.verticalToTop.call(this, inner); break;
-      case 'left': fns.horizontalToLeft.call(this, inner); break;
-      case 'right': fns.horizontalToRight.call(this, inner); break;
-    }
-    var event = document.createEvent('MouseEvents');
-    event.initEvent('scroll', true, true);
-    inner.dispatchEvent(event);
-  };
+/**
+ * Updates size/position of scrollbar.
+ *
+ * @api private
+ */
 
-  /**
-   * Called upon scrollbar mousedown.
-   *
-   * @api private
-   */
+Scrollbar.Horizontal.prototype.update = function () {
+	var paneWidth = T.getStyle(this.pane.el, 'width'),
+		trackWidth = paneWidth - this.pane.padding * 2,
+		inner = this.pane.inner;
+	this.el.style.cssText = 'width: ' + (trackWidth * paneWidth / inner.scrollWidth) + 'px;' +
+		'left: ' + (trackWidth * inner.scrollLeft / inner.scrollWidth) + 'px;';
+	
+	return paneWidth < inner.scrollWidth;
+};
 
-  Scrollbar.prototype.mousedown = function (ev) {
-    ev.preventDefault();
+/**
+ * Called upon drag.
+ *
+ * @api private
+ */
 
-    this.dragging = true;
-
-    this.startPageY = ev.pageY - parseInt(T.getStyle(this.el, 'top'), 10);
-    this.startPageX = ev.pageX - parseInt(T.getStyle(this.el, 'left'), 10);
-
-    // prevent crazy selections on IE
-    this.el.ownerDocument.onselectstart = function () { return false; };
-
-    var pane = this.pane, self = this;
-
-	  var move = T.proxy(this, 'mousemove');
-    var mouseup = function () {
-        self.dragging = false;
-        this.onselectstart = null;
-
-        T.unbind(this, 'mousemove', move);
-
-        if (!self.enter) {
-          self.hide();
-        }
-      }
-
-    T.bind(window.document, 'mousemove', move);
-    T.bind(window.document, 'mouseup', mouseup);
-  };
-
-  /**
-   * Show scrollbar.
-   *
-   * @api private
-   */
-
-  Scrollbar.prototype.show = function (duration) {
-    if (!this.shown && this.update()) {
-      T.addClass(this.el, 'antiscroll-scrollbar-shown');
-      if (this.hiding) {
-        clearTimeout(this.hiding);
-        this.hiding = null;
-      }
-      this.shown = true;
-    }
-  };
-
-  /**
-   * Hide scrollbar.
-   *
-   * @api private
-   */
-
-  Scrollbar.prototype.hide = function () {
-    if (this.pane.autoHide !== false && this.shown) {
-      // check for dragging
-      T.removeClass(this.el, 'antiscroll-scrollbar-shown')
-      this.shown = false;
-    }
-  };
-
-  /**
-   * Horizontal scrollbar constructor
-   *
-   * @api private
-   */
-
-  Scrollbar.Horizontal = function (pane) {
-    var scrollbarH = document.createElement('div');
-    scrollbarH.className = 'antiscroll-scrollbar antiscroll-scrollbar-horizontal';
-    this.el = pane.el.appendChild(scrollbarH);
-    Scrollbar.call(this, pane);
-  };
-
-  /**
-   * Inherits from Scrollbar.
-   */
-
-  inherits(Scrollbar.Horizontal, Scrollbar);
-
-  /**
-   * Updates size/position of scrollbar.
-   *
-   * @api private
-   */
-
-  Scrollbar.Horizontal.prototype.update = function () {
-    var paneWidth = T.getStyle(this.pane.el, 'width'), 
-	    trackWidth = paneWidth - this.pane.padding * 2,
-      inner = this.pane.inner;
-    this.el.style.cssText = 'width: ' + (trackWidth * paneWidth / inner.scrollWidth) + 'px;' +
-      'left: '+ (trackWidth * inner.scrollLeft / inner.scrollWidth) + 'px;';
-
-    return paneWidth < inner.scrollWidth;
-  };
-
-  /**
-   * Called upon drag.
-   *
-   * @api private
-   */
-
-  Scrollbar.Horizontal.prototype.mousemove = function (ev) {
-    var trackWidth = T.getStyle(this.pane.el, 'width') - this.pane.padding * 2, 
-	    pos = ev.pageX - this.startPageX,
+Scrollbar.Horizontal.prototype.mousemove = function (ev) {
+	var trackWidth = T.getStyle(this.pane.el, 'width') - this.pane.padding * 2,
+		pos = ev.pageX - this.startPageX,
 		barWidth = T.getStyle(this.el, 'width'),
 		inner = this.pane.inner;
+	
+	// minimum top is 0, maximum is the track height
+	var y = Math.min(Math.max(pos, 0), trackWidth - barWidth);
+	
+	inner.scrollLeft = (inner.scrollWidth - T.getStyle(this.pane.el, 'width'))
+		* y / (trackWidth - barWidth);
+};
 
-    // minimum top is 0, maximum is the track height
-    var y = Math.min(Math.max(pos, 0), trackWidth - barWidth);
+/**
+ * Vertical scrollbar constructor
+ *
+ * @api private
+ */
 
-    inner.scrollLeft = (inner.scrollWidth - T.getStyle(this.pane.el, 'width'))
-      * y / (trackWidth - barWidth);
-  };
+Scrollbar.Vertical = function (pane) {
+	var scrollbarV = document.createElement('div');
+	scrollbarV.className = 'antiscroll-scrollbar antiscroll-scrollbar-vertical';
+	this.el = pane.el.appendChild(scrollbarV);
+	Scrollbar.call(this, pane);
+};
 
-  /**
-   * Vertical scrollbar constructor
-   *
-   * @api private
-   */
+/**
+ * Inherits from Scrollbar.
+ */
 
-  Scrollbar.Vertical = function (pane) {
-    var scrollbarV = document.createElement('div');
-    scrollbarV.className = 'antiscroll-scrollbar antiscroll-scrollbar-vertical';
-    this.el = pane.el.appendChild(scrollbarV);
-    Scrollbar.call(this, pane);
-  };
+inherits(Scrollbar.Vertical, Scrollbar);
 
-  /**
-   * Inherits from Scrollbar.
-   */
+/**
+ * Updates size/position of scrollbar.
+ *
+ * @api private
+ */
 
-  inherits(Scrollbar.Vertical, Scrollbar);
-
-  /**
-   * Updates size/position of scrollbar.
-   *
-   * @api private
-   */
-
-  Scrollbar.Vertical.prototype.update = function () {
-    var paneHeight = T.getStyle(this.pane.el, 'height'), 
-	    trackHeight = paneHeight - this.pane.padding * 2,
+Scrollbar.Vertical.prototype.update = function () {
+	var paneHeight = T.getStyle(this.pane.el, 'height'),
+		trackHeight = paneHeight - this.pane.padding * 2,
 		inner = this.pane.inner;
-      
-    var scrollbarHeight = trackHeight * paneHeight / inner.scrollHeight;
-    scrollbarHeight = scrollbarHeight < 20 ? 20 : scrollbarHeight;
-    
-    var topPos = trackHeight * inner.scrollTop / inner.scrollHeight;
-    
-    if((topPos + scrollbarHeight) > trackHeight) {
-        var diff = (topPos + scrollbarHeight) - trackHeight;
-        topPos = topPos - diff - 3;
-    }
+	
+	var scrollbarHeight = trackHeight * paneHeight / inner.scrollHeight;
+	scrollbarHeight = scrollbarHeight < 20 ? 20 : scrollbarHeight;
+	
+	var topPos = trackHeight * inner.scrollTop / inner.scrollHeight;
+	
+	if ((topPos + scrollbarHeight) > trackHeight) {
+		var diff = (topPos + scrollbarHeight) - trackHeight;
+		topPos = topPos - diff - 3;
+	}
+	
+	this.el.style.cssText = 'height: ' + scrollbarHeight + 'px;top: ' + topPos + 'px';
+	
+	return paneHeight < inner.scrollHeight;
+};
 
-    this.el.style.cssText = 'height: '+ scrollbarHeight + 'px;top: ' + topPos + 'px';
-	  
-	  return paneHeight < inner.scrollHeight;
-  };
+/**
+ * Called upon drag.
+ *
+ * @api private
+ */
 
-  /**
-   * Called upon drag.
-   *
-   * @api private
-   */
-
-  Scrollbar.Vertical.prototype.mousemove = function (ev) {
-    var paneHeight = T.getStyle(this.pane.el, 'height'),
-	    trackHeight = paneHeight - this.pane.padding * 2,
+Scrollbar.Vertical.prototype.mousemove = function (ev) {
+	var paneHeight = T.getStyle(this.pane.el, 'height'),
+		trackHeight = paneHeight - this.pane.padding * 2,
 		pos = ev.pageY - this.startPageY,
 		barHeight = T.getStyle(this.el, 'height'),
 		inner = this.pane.inner
+	
+	// minimum top is 0, maximum is the track height
+	var y = Math.min(Math.max(pos, 0), trackHeight - barHeight);
+	
+	inner.scrollTop = (inner.scrollHeight - paneHeight)
+		* y / (trackHeight - barHeight);
+};
 
-    // minimum top is 0, maximum is the track height
-    var y = Math.min(Math.max(pos, 0), trackHeight - barHeight);
+/**
+ * Cross-browser inheritance.
+ *
+ * @param {Function} constructor
+ * @param {Function} constructor we inherit from
+ * @api private
+ */
 
-    inner.scrollTop = (inner.scrollHeight - paneHeight)
-      * y / (trackHeight - barHeight);
-  };
+function inherits(ctorA, ctorB) {
+	function f() {
+	};
+	f.prototype = ctorB.prototype;
+	ctorA.prototype = new f;
+};
 
-  /**
-   * Cross-browser inheritance.
-   *
-   * @param {Function} constructor
-   * @param {Function} constructor we inherit from
-   * @api private
-   */
+/**
+ * Scrollbar size detection.
+ */
 
-  function inherits (ctorA, ctorB) {
-    function f() {};
-    f.prototype = ctorB.prototype;
-    ctorA.prototype = new f;
-  };
 
-  /**
-   * Scrollbar size detection.
-   */
-  
-
-  function scrollbarSize () {
-    if (Antiscroll.__scrollBarSize === undefined) {
-      var div = document.createElement('div');
-      var innerDiv = document.createElement('div');
-      div.className = 'antiscroll-inner';
-      div.style.cssText = 'width:50px;height:50px;overflow-y:scroll;position:absolute;top:-200px;left:-200px;';
-      innerDiv.style.cssText = 'height:100px;width:100%';
-      div.appendChild(innerDiv);
-
-      document.body.appendChild(div);
-      var w1 = T.getStyle(div, 'width');
-      var w2 = T.getStyle(innerDiv, 'width');
-      
-      document.body.removeChild(div);
-	    Antiscroll.__scrollBarSize = +w1 - +w2;
-    }
-
-    return Antiscroll.__scrollBarSize;
-  };
-  Antiscroll.scrollbarSize = scrollbarSize
+function scrollbarSize() {
+	if (Antiscroll.__scrollBarSize === undefined) {
+		var div = document.createElement('div');
+		var innerDiv = document.createElement('div');
+		div.className = 'antiscroll-inner';
+		div.style.cssText = 'width:50px;height:50px;overflow-y:scroll;position:absolute;top:-200px;left:-200px;';
+		innerDiv.style.cssText = 'height:100px;width:100%';
+		div.appendChild(innerDiv);
+		
+		document.body.appendChild(div);
+		var w1 = T.getStyle(div, 'width');
+		var w2 = T.getStyle(innerDiv, 'width');
+		
+		document.body.removeChild(div);
+		Antiscroll.__scrollBarSize = +w1 - +w2;
+	}
+	
+	return Antiscroll.__scrollBarSize;
+};
+Antiscroll.scrollbarSize = scrollbarSize
 
 export default Antiscroll

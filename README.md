@@ -1,18 +1,72 @@
-# vue-antiscroll
+# Vue-Antiscroll
 
-> A Vue.js project
 
-## Build Setup
+## Features
++ package the ***antiscroll*** use vue component
++ enhance it with ***css-element-queries***
++ perfectly unified native scroll bar
 
-``` bash
-# install dependencies
-npm install
+## Support
 
-# serve with hot reload at localhost:8080
-npm run dev
+Support Vue.js 2.0+
 
-# build for production with minification
-npm run build
+
+## Install
+
+```javascript
+npm install vue-antiscroll
 ```
 
-For detailed explanation on how things work, consult the [docs for vue-loader](http://vuejs.github.io/vue-loader).
+## Useage
+```javascript
+// in entry file
+import Vue from 'vue'
+import vueAntiscroll from 'vue-antiscroll'
+Vue.component('vueAntiscroll', vueAntiscroll)
+```
+
+### Example
+```html
+<VueAntiscroll class="el-menu__wrapper width-100" :height="menuBoxHeight">
+    // 滚动内容
+</VueAntiscroll>
+```
+
+## Props
+
+| Name    | Type    | Description   |  Optional value | Default |
+| ------------- |-------| -----| ----| -------|
+| height |int|the container height| —|—|
+| width |int|the container width| —|—|
+| onScrolling |function|on scroll callback —|—|
+| onScrollToBottom |function|on scrollToBottom called up| —|—|
+| initialDisplay |boolean|Whether to display when initialized scrollbar| —|—|
+
+## Api
+1. scrollTo
+
+```javascript
+   <VueAntiscroll ref="antiscroll" class="el-menu__wrapper width-100" :height="menuBoxHeight">
+       // 滚动内容
+   </VueAntiscroll>
+   // paramter
+   // bottom, top, left, right
+   this.$refs.antiscroll.scrollTo('bottom')
+```
+2. refresh
+```javascript
+   <VueAntiscroll ref="antiscroll" class="el-menu__wrapper width-100" :height="menuBoxHeight">
+       // 滚动内容
+    </VueAntiscroll>
+    //You may need it when the display is switched
+    this.$refs.antiscroll.refresh()
+```
+## Compatibility
+
+PC: IE9+
+
+Mobile: be happy to use
+
+## LICENSE
+
+MIT
