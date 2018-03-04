@@ -188,7 +188,7 @@ var Component = __webpack_require__(11)(
   /* moduleIdentifier (server only) */
   null
 )
-Component.options.__file = "/Users/evox/Repos/vue-antiscroll/src/components/vue-antiscroll.vue"
+Component.options.__file = "/Users/evox/Repos/vue-antiscroll-addon/src/components/vue-antiscroll.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] vue-antiscroll.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -199,9 +199,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-68697719", Component.options)
+    hotAPI.createRecord("data-v-6387978c", Component.options)
   } else {
-    hotAPI.reload("data-v-68697719", Component.options)
+    hotAPI.reload("data-v-6387978c", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -323,6 +323,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			let scroller = this.scroller;
 			if (scroller) {
 				scroller.refresh();
+				this.detachDimensionChangeEvent();
+				this.attachDimensionChangeEvent();
 			}
 		},
 		checkStructure() {
@@ -338,6 +340,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			} catch (e) {
 				console.info('滚动条错误辣!');
 			}
+		},
+		detachDimensionChangeEvent() {
+			let resizeSensors = this.resizeSensors;
+			Object.keys(resizeSensors).forEach(key => this.resizeSensors[key].detach());
 		}
 	}
 
@@ -350,6 +356,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__libs_t__ = __webpack_require__(0);
 
+
 /**
  * Antiscroll pane constructor.
  *
@@ -359,22 +366,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
  */
 
 function Antiscroll(el, opts) {
-  this.el = el;
-  this.options = opts || {};
+	this.el = el;
+	this.options = opts || {};
 
-  this.x = false !== this.options.x || this.options.forceHorizontal;
-  this.y = false !== this.options.y || this.options.forceVertical;
-  this.autoHide = false !== this.options.autoHide;
-  this.padding = undefined === this.options.padding ? 2 : this.options.padding;
+	this.x = false !== this.options.x || this.options.forceHorizontal;
+	this.y = false !== this.options.y || this.options.forceVertical;
+	this.autoHide = false !== this.options.autoHide;
+	this.padding = undefined === this.options.padding ? 2 : this.options.padding;
 
-  this.inner = this.el.querySelector('.antiscroll-inner');
+	this.inner = this.el.querySelector('.antiscroll-inner');
 
-  var innerWidth = __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].getStyle(this.inner, 'width');
-  var innerHeight = __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].getStyle(this.inner, 'height');
+	var innerWidth = __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].getStyle(this.inner, 'width');
+	var innerHeight = __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].getStyle(this.inner, 'height');
 
-  this.inner.style.cssText = "width: " + (innerWidth + (this.y ? scrollbarSize() : 0)) + 'px;' + "height: " + (innerHeight + (this.x ? scrollbarSize() : 0)) + 'px;';
+	this.inner.style.cssText = "width: " + (innerWidth + (this.y ? scrollbarSize() : 0)) + 'px;' + "height: " + (innerHeight + (this.x ? scrollbarSize() : 0)) + 'px;';
 
-  this.refresh();
+	this.refresh();
 };
 
 /**
@@ -384,37 +391,37 @@ function Antiscroll(el, opts) {
  */
 
 Antiscroll.prototype.refresh = function (arg) {
-  var innerScrollWidth = this.inner.scrollWidth;
-  var innerScrollHeight = this.inner.scrollHeight;
-  var innerWidth = __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].getStyle(this.el, 'width');
-  var innerHeight = __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].getStyle(this.el, 'height');
-  var needHScroll = innerScrollWidth > innerWidth + (this.y ? scrollbarSize() : 0),
-      needVScroll = innerScrollHeight > innerHeight + (this.x ? scrollbarSize() : 0);
-  var updatable = (arg || { updatable: true }).updatable;
+	var innerScrollWidth = this.inner.scrollWidth;
+	var innerScrollHeight = this.inner.scrollHeight;
+	var innerWidth = __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].getStyle(this.el, 'width');
+	var innerHeight = __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].getStyle(this.el, 'height');
+	var needHScroll = innerScrollWidth > innerWidth + (this.y ? scrollbarSize() : 0),
+	    needVScroll = innerScrollHeight > innerHeight + (this.x ? scrollbarSize() : 0);
+	var updatable = (arg || { updatable: true }).updatable;
 
-  if (this.x) {
-    if (!this.horizontal && needHScroll) {
-      this.horizontal = new Scrollbar.Horizontal(this);
-    } else if (this.horizontal && !needHScroll) {
-      this.horizontal.destroy();
-      this.horizontal = null;
-      // Loop check whether there is no need to update the scroll bar
-    } else if (this.horizontal && updatable) {
-      this.horizontal.update();
-    }
-  }
+	if (this.x) {
+		if (!this.horizontal && needHScroll) {
+			this.horizontal = new Scrollbar.Horizontal(this);
+		} else if (this.horizontal && !needHScroll) {
+			this.horizontal.destroy();
+			this.horizontal = null;
+			// Loop check whether there is no need to update the scroll bar
+		} else if (this.horizontal && updatable) {
+			this.horizontal.update();
+		}
+	}
 
-  if (this.y) {
-    if (!this.vertical && needVScroll) {
-      this.vertical = new Scrollbar.Vertical(this);
-    } else if (this.vertical && !needVScroll) {
-      this.vertical.destroy();
-      this.vertical = null;
-      // Loop check whether there is no need to update the scroll bar
-    } else if (this.vertical && updatable) {
-      this.vertical.update();
-    }
-  }
+	if (this.y) {
+		if (!this.vertical && needVScroll) {
+			this.vertical = new Scrollbar.Vertical(this);
+		} else if (this.vertical && !needVScroll) {
+			this.vertical.destroy();
+			this.vertical = null;
+			// Loop check whether there is no need to update the scroll bar
+		} else if (this.vertical && updatable) {
+			this.vertical.update();
+		}
+	}
 };
 
 /**
@@ -425,15 +432,15 @@ Antiscroll.prototype.refresh = function (arg) {
  */
 
 Antiscroll.prototype.destroy = function () {
-  if (this.horizontal) {
-    this.horizontal.destroy();
-    this.horizontal = null;
-  }
-  if (this.vertical) {
-    this.vertical.destroy();
-    this.vertical = null;
-  }
-  return this;
+	if (this.horizontal) {
+		this.horizontal.destroy();
+		this.horizontal = null;
+	}
+	if (this.vertical) {
+		this.vertical.destroy();
+		this.vertical = null;
+	}
+	return this;
 };
 
 /**
@@ -444,10 +451,10 @@ Antiscroll.prototype.destroy = function () {
  */
 
 Antiscroll.prototype.rebuild = function () {
-  this.destroy();
-  this.inner.style.cssText = "";
-  Antiscroll.call(this, this.el, this.options);
-  return this;
+	this.destroy();
+	this.inner.style.cssText = "";
+	Antiscroll.call(this, this.el, this.options);
+	return this;
 };
 /**
  * scrollToBottom Antiscroll.
@@ -456,17 +463,17 @@ Antiscroll.prototype.rebuild = function () {
  * @api public
  */
 Antiscroll.prototype.scrollTo = function (placement) {
-  var placements = ['bottom', 'top', 'left', 'right'];
-  var vertical = this.vertical;
-  var horizontal = this.horizontal;
-  if (placements.indexOf(placement) === -1) return this;
-  if (['bottom', 'top'].indexOf(placement) > -1) {
-    vertical && vertical.scrollTo(placement);
-  }
-  if (['left', 'right'].indexOf(placement) > -1) {
-    horizontal && horizontal.scrollTo(placement);
-  }
-  return this;
+	var placements = ['bottom', 'top', 'left', 'right'];
+	var vertical = this.vertical;
+	var horizontal = this.horizontal;
+	if (placements.indexOf(placement) === -1) return this;
+	if (['bottom', 'top'].indexOf(placement) > -1) {
+		vertical && vertical.scrollTo(placement);
+	}
+	if (['left', 'right'].indexOf(placement) > -1) {
+		horizontal && horizontal.scrollTo(placement);
+	}
+	return this;
 };
 
 /**
@@ -477,33 +484,33 @@ Antiscroll.prototype.scrollTo = function (placement) {
  */
 
 function Scrollbar(pane) {
-  this.pane = pane;
-  this.pane.el.appendChild(this.el);
+	this.pane = pane;
+	this.pane.el.appendChild(this.el);
 
-  this.dragging = false;
-  this.enter = false;
-  this.shown = false;
+	this.dragging = false;
+	this.enter = false;
+	this.shown = false;
 
-  // hovering
-  __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].bind(this.pane.el, 'mouseenter', __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].proxy(this, 'mouseenter'));
-  __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].bind(this.pane.el, 'mouseleave', __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].proxy(this, 'mouseleave'));
+	// hovering
+	__WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].bind(this.pane.el, 'mouseenter', __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].proxy(this, 'mouseenter'));
+	__WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].bind(this.pane.el, 'mouseleave', __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].proxy(this, 'mouseleave'));
 
-  // dragging
-  __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].bind(this.el, 'mousedown', __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].proxy(this, 'mousedown'));
+	// dragging
+	__WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].bind(this.el, 'mousedown', __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].proxy(this, 'mousedown'));
 
-  // scrolling
-  this.innerPaneScrollListener = __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].proxy(this, 'scroll');
-  __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].bind(this.pane.inner, 'scroll', this.innerPaneScrollListener);
+	// scrolling
+	this.innerPaneScrollListener = __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].proxy(this, 'scroll');
+	__WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].bind(this.pane.inner, 'scroll', this.innerPaneScrollListener);
 
-  // show
-  var initialDisplay = this.pane.options.initialDisplay;
+	// show
+	var initialDisplay = this.pane.options.initialDisplay;
 
-  if (initialDisplay !== false) {
-    this.show();
-    if (this.pane.autoHide) {
-      this.hiding = setTimeout(__WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].proxy(this, 'hide'), parseInt(initialDisplay, 10) || 3000);
-    }
-  }
+	if (initialDisplay !== false) {
+		this.show();
+		if (this.pane.autoHide) {
+			this.hiding = setTimeout(__WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].proxy(this, 'hide'), parseInt(initialDisplay, 10) || 3000);
+		}
+	}
 };
 
 /**
@@ -514,9 +521,9 @@ function Scrollbar(pane) {
  */
 
 Scrollbar.prototype.destroy = function () {
-  this.el.remove();
-  __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].unbind(this.pane.inner, 'scroll', this.innerPaneScrollListener);
-  return this;
+	this.el.remove();
+	__WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].unbind(this.pane.inner, 'scroll', this.innerPaneScrollListener);
+	return this;
 };
 
 /**
@@ -526,8 +533,8 @@ Scrollbar.prototype.destroy = function () {
  */
 
 Scrollbar.prototype.mouseenter = function () {
-  this.enter = true;
-  this.show();
+	this.enter = true;
+	this.show();
 };
 
 /**
@@ -537,13 +544,13 @@ Scrollbar.prototype.mouseenter = function () {
  */
 
 Scrollbar.prototype.mouseleave = function () {
-  this.enter = false;
+	this.enter = false;
 
-  if (!this.dragging) {
-    if (this.pane.autoHide) {
-      this.hide();
-    }
-  }
+	if (!this.dragging) {
+		if (this.pane.autoHide) {
+			this.hide();
+		}
+	}
 };
 
 /**
@@ -553,16 +560,16 @@ Scrollbar.prototype.mouseleave = function () {
  */
 
 Scrollbar.prototype.scroll = function () {
-  if (!this.shown) {
-    this.show();
-    if (!this.enter && !this.dragging) {
-      if (this.pane.autoHide) {
-        this.hiding = setTimeout(__WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].proxy(this, 'hide'), 1500);
-      }
-    }
-  }
+	if (!this.shown) {
+		this.show();
+		if (!this.enter && !this.dragging) {
+			if (this.pane.autoHide) {
+				this.hiding = setTimeout(__WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].proxy(this, 'hide'), 1500);
+			}
+		}
+	}
 
-  this.update();
+	this.update();
 };
 
 /**
@@ -572,36 +579,40 @@ Scrollbar.prototype.scroll = function () {
  */
 
 Scrollbar.prototype.scrollTo = function (placement) {
-  var fns = {
-    verticalToBottom: function (inner) {
-      var paneHeight = __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].getStyle(this.pane.el, 'height');
-      inner.scrollTop = inner.scrollHeight - paneHeight;
-    },
-    verticalToTop: function (inner) {
-      inner.scrollTop = 0;
-    },
-    horizontalToLeft: function (inner) {
-      inner.scrollLeft = 0;
-    },
-    horizontalToRight: function (inner) {
-      var paneWidth = __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].getStyle(this.pane.el, 'width');
-      inner.scrollLeft = inner.scrollWidth - paneWidth;
-    }
-  };
-  var inner = this.pane.inner;
-  switch (placement) {
-    case 'bottom':
-      fns.verticalToBottom.call(this, inner);break;
-    case 'top':
-      fns.verticalToTop.call(this, inner);break;
-    case 'left':
-      fns.horizontalToLeft.call(this, inner);break;
-    case 'right':
-      fns.horizontalToRight.call(this, inner);break;
-  }
-  var event = document.createEvent('MouseEvents');
-  event.initEvent('scroll', true, true);
-  inner.dispatchEvent(event);
+	var fns = {
+		verticalToBottom: function (inner) {
+			var paneHeight = __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].getStyle(this.pane.el, 'height');
+			inner.scrollTop = inner.scrollHeight - paneHeight;
+		},
+		verticalToTop: function (inner) {
+			inner.scrollTop = 0;
+		},
+		horizontalToLeft: function (inner) {
+			inner.scrollLeft = 0;
+		},
+		horizontalToRight: function (inner) {
+			var paneWidth = __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].getStyle(this.pane.el, 'width');
+			inner.scrollLeft = inner.scrollWidth - paneWidth;
+		}
+	};
+	var inner = this.pane.inner;
+	switch (placement) {
+		case 'bottom':
+			fns.verticalToBottom.call(this, inner);
+			break;
+		case 'top':
+			fns.verticalToTop.call(this, inner);
+			break;
+		case 'left':
+			fns.horizontalToLeft.call(this, inner);
+			break;
+		case 'right':
+			fns.horizontalToRight.call(this, inner);
+			break;
+	}
+	var event = document.createEvent('MouseEvents');
+	event.initEvent('scroll', true, true);
+	inner.dispatchEvent(event);
 };
 
 /**
@@ -611,35 +622,35 @@ Scrollbar.prototype.scrollTo = function (placement) {
  */
 
 Scrollbar.prototype.mousedown = function (ev) {
-  ev.preventDefault();
+	ev.preventDefault();
 
-  this.dragging = true;
+	this.dragging = true;
 
-  this.startPageY = ev.pageY - parseInt(__WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].getStyle(this.el, 'top'), 10);
-  this.startPageX = ev.pageX - parseInt(__WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].getStyle(this.el, 'left'), 10);
+	this.startPageY = ev.pageY - parseInt(__WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].getStyle(this.el, 'top'), 10);
+	this.startPageX = ev.pageX - parseInt(__WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].getStyle(this.el, 'left'), 10);
 
-  // prevent crazy selections on IE
-  this.el.ownerDocument.onselectstart = function () {
-    return false;
-  };
+	// prevent crazy selections on IE
+	this.el.ownerDocument.onselectstart = function () {
+		return false;
+	};
 
-  var pane = this.pane,
-      self = this;
+	var pane = this.pane,
+	    self = this;
 
-  var move = __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].proxy(this, 'mousemove');
-  var mouseup = function () {
-    self.dragging = false;
-    this.onselectstart = null;
+	var move = __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].proxy(this, 'mousemove');
+	var mouseup = function () {
+		self.dragging = false;
+		this.onselectstart = null;
 
-    __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].unbind(this, 'mousemove', move);
+		__WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].unbind(this, 'mousemove', move);
 
-    if (!self.enter) {
-      self.hide();
-    }
-  };
+		if (!self.enter) {
+			self.hide();
+		}
+	};
 
-  __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].bind(window.document, 'mousemove', move);
-  __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].bind(window.document, 'mouseup', mouseup);
+	__WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].bind(window.document, 'mousemove', move);
+	__WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].bind(window.document, 'mouseup', mouseup);
 };
 
 /**
@@ -649,14 +660,14 @@ Scrollbar.prototype.mousedown = function (ev) {
  */
 
 Scrollbar.prototype.show = function (duration) {
-  if (!this.shown && this.update()) {
-    __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].addClass(this.el, 'antiscroll-scrollbar-shown');
-    if (this.hiding) {
-      clearTimeout(this.hiding);
-      this.hiding = null;
-    }
-    this.shown = true;
-  }
+	if (!this.shown && this.update()) {
+		__WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].addClass(this.el, 'antiscroll-scrollbar-shown');
+		if (this.hiding) {
+			clearTimeout(this.hiding);
+			this.hiding = null;
+		}
+		this.shown = true;
+	}
 };
 
 /**
@@ -666,11 +677,11 @@ Scrollbar.prototype.show = function (duration) {
  */
 
 Scrollbar.prototype.hide = function () {
-  if (this.pane.autoHide !== false && this.shown) {
-    // check for dragging
-    __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].removeClass(this.el, 'antiscroll-scrollbar-shown');
-    this.shown = false;
-  }
+	if (this.pane.autoHide !== false && this.shown) {
+		// check for dragging
+		__WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].removeClass(this.el, 'antiscroll-scrollbar-shown');
+		this.shown = false;
+	}
 };
 
 /**
@@ -680,10 +691,10 @@ Scrollbar.prototype.hide = function () {
  */
 
 Scrollbar.Horizontal = function (pane) {
-  var scrollbarH = document.createElement('div');
-  scrollbarH.className = 'antiscroll-scrollbar antiscroll-scrollbar-horizontal';
-  this.el = pane.el.appendChild(scrollbarH);
-  Scrollbar.call(this, pane);
+	var scrollbarH = document.createElement('div');
+	scrollbarH.className = 'antiscroll-scrollbar antiscroll-scrollbar-horizontal';
+	this.el = pane.el.appendChild(scrollbarH);
+	Scrollbar.call(this, pane);
 };
 
 /**
@@ -699,12 +710,12 @@ inherits(Scrollbar.Horizontal, Scrollbar);
  */
 
 Scrollbar.Horizontal.prototype.update = function () {
-  var paneWidth = __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].getStyle(this.pane.el, 'width'),
-      trackWidth = paneWidth - this.pane.padding * 2,
-      inner = this.pane.inner;
-  this.el.style.cssText = 'width: ' + trackWidth * paneWidth / inner.scrollWidth + 'px;' + 'left: ' + trackWidth * inner.scrollLeft / inner.scrollWidth + 'px;';
+	var paneWidth = __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].getStyle(this.pane.el, 'width'),
+	    trackWidth = paneWidth - this.pane.padding * 2,
+	    inner = this.pane.inner;
+	this.el.style.cssText = 'width: ' + trackWidth * paneWidth / inner.scrollWidth + 'px;' + 'left: ' + trackWidth * inner.scrollLeft / inner.scrollWidth + 'px;';
 
-  return paneWidth < inner.scrollWidth;
+	return paneWidth < inner.scrollWidth;
 };
 
 /**
@@ -714,15 +725,15 @@ Scrollbar.Horizontal.prototype.update = function () {
  */
 
 Scrollbar.Horizontal.prototype.mousemove = function (ev) {
-  var trackWidth = __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].getStyle(this.pane.el, 'width') - this.pane.padding * 2,
-      pos = ev.pageX - this.startPageX,
-      barWidth = __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].getStyle(this.el, 'width'),
-      inner = this.pane.inner;
+	var trackWidth = __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].getStyle(this.pane.el, 'width') - this.pane.padding * 2,
+	    pos = ev.pageX - this.startPageX,
+	    barWidth = __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].getStyle(this.el, 'width'),
+	    inner = this.pane.inner;
 
-  // minimum top is 0, maximum is the track height
-  var y = Math.min(Math.max(pos, 0), trackWidth - barWidth);
+	// minimum top is 0, maximum is the track height
+	var y = Math.min(Math.max(pos, 0), trackWidth - barWidth);
 
-  inner.scrollLeft = (inner.scrollWidth - __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].getStyle(this.pane.el, 'width')) * y / (trackWidth - barWidth);
+	inner.scrollLeft = (inner.scrollWidth - __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].getStyle(this.pane.el, 'width')) * y / (trackWidth - barWidth);
 };
 
 /**
@@ -732,10 +743,10 @@ Scrollbar.Horizontal.prototype.mousemove = function (ev) {
  */
 
 Scrollbar.Vertical = function (pane) {
-  var scrollbarV = document.createElement('div');
-  scrollbarV.className = 'antiscroll-scrollbar antiscroll-scrollbar-vertical';
-  this.el = pane.el.appendChild(scrollbarV);
-  Scrollbar.call(this, pane);
+	var scrollbarV = document.createElement('div');
+	scrollbarV.className = 'antiscroll-scrollbar antiscroll-scrollbar-vertical';
+	this.el = pane.el.appendChild(scrollbarV);
+	Scrollbar.call(this, pane);
 };
 
 /**
@@ -751,23 +762,23 @@ inherits(Scrollbar.Vertical, Scrollbar);
  */
 
 Scrollbar.Vertical.prototype.update = function () {
-  var paneHeight = __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].getStyle(this.pane.el, 'height'),
-      trackHeight = paneHeight - this.pane.padding * 2,
-      inner = this.pane.inner;
+	var paneHeight = __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].getStyle(this.pane.el, 'height'),
+	    trackHeight = paneHeight - this.pane.padding * 2,
+	    inner = this.pane.inner;
 
-  var scrollbarHeight = trackHeight * paneHeight / inner.scrollHeight;
-  scrollbarHeight = scrollbarHeight < 20 ? 20 : scrollbarHeight;
+	var scrollbarHeight = trackHeight * paneHeight / inner.scrollHeight;
+	scrollbarHeight = scrollbarHeight < 20 ? 20 : scrollbarHeight;
 
-  var topPos = trackHeight * inner.scrollTop / inner.scrollHeight;
+	var topPos = trackHeight * inner.scrollTop / inner.scrollHeight;
 
-  if (topPos + scrollbarHeight > trackHeight) {
-    var diff = topPos + scrollbarHeight - trackHeight;
-    topPos = topPos - diff - 3;
-  }
+	if (topPos + scrollbarHeight > trackHeight) {
+		var diff = topPos + scrollbarHeight - trackHeight;
+		topPos = topPos - diff - 3;
+	}
 
-  this.el.style.cssText = 'height: ' + scrollbarHeight + 'px;top: ' + topPos + 'px';
+	this.el.style.cssText = 'height: ' + scrollbarHeight + 'px;top: ' + topPos + 'px';
 
-  return paneHeight < inner.scrollHeight;
+	return paneHeight < inner.scrollHeight;
 };
 
 /**
@@ -777,16 +788,16 @@ Scrollbar.Vertical.prototype.update = function () {
  */
 
 Scrollbar.Vertical.prototype.mousemove = function (ev) {
-  var paneHeight = __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].getStyle(this.pane.el, 'height'),
-      trackHeight = paneHeight - this.pane.padding * 2,
-      pos = ev.pageY - this.startPageY,
-      barHeight = __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].getStyle(this.el, 'height'),
-      inner = this.pane.inner;
+	var paneHeight = __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].getStyle(this.pane.el, 'height'),
+	    trackHeight = paneHeight - this.pane.padding * 2,
+	    pos = ev.pageY - this.startPageY,
+	    barHeight = __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].getStyle(this.el, 'height'),
+	    inner = this.pane.inner;
 
-  // minimum top is 0, maximum is the track height
-  var y = Math.min(Math.max(pos, 0), trackHeight - barHeight);
+	// minimum top is 0, maximum is the track height
+	var y = Math.min(Math.max(pos, 0), trackHeight - barHeight);
 
-  inner.scrollTop = (inner.scrollHeight - paneHeight) * y / (trackHeight - barHeight);
+	inner.scrollTop = (inner.scrollHeight - paneHeight) * y / (trackHeight - barHeight);
 };
 
 /**
@@ -798,9 +809,9 @@ Scrollbar.Vertical.prototype.mousemove = function (ev) {
  */
 
 function inherits(ctorA, ctorB) {
-  function f() {};
-  f.prototype = ctorB.prototype;
-  ctorA.prototype = new f();
+	function f() {};
+	f.prototype = ctorB.prototype;
+	ctorA.prototype = new f();
 };
 
 /**
@@ -808,23 +819,23 @@ function inherits(ctorA, ctorB) {
  */
 
 function scrollbarSize() {
-  if (Antiscroll.__scrollBarSize === undefined) {
-    var div = document.createElement('div');
-    var innerDiv = document.createElement('div');
-    div.className = 'antiscroll-inner';
-    div.style.cssText = 'width:50px;height:50px;overflow-y:scroll;position:absolute;top:-200px;left:-200px;';
-    innerDiv.style.cssText = 'height:100px;width:100%';
-    div.appendChild(innerDiv);
+	if (Antiscroll.__scrollBarSize === undefined) {
+		var div = document.createElement('div');
+		var innerDiv = document.createElement('div');
+		div.className = 'antiscroll-inner';
+		div.style.cssText = 'width:50px;height:50px;overflow-y:scroll;position:absolute;top:-200px;left:-200px;';
+		innerDiv.style.cssText = 'height:100px;width:100%';
+		div.appendChild(innerDiv);
 
-    document.body.appendChild(div);
-    var w1 = __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].getStyle(div, 'width');
-    var w2 = __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].getStyle(innerDiv, 'width');
+		document.body.appendChild(div);
+		var w1 = __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].getStyle(div, 'width');
+		var w2 = __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].getStyle(innerDiv, 'width');
 
-    document.body.removeChild(div);
-    Antiscroll.__scrollBarSize = +w1 - +w2;
-  }
+		document.body.removeChild(div);
+		Antiscroll.__scrollBarSize = +w1 - +w2;
+	}
 
-  return Antiscroll.__scrollBarSize;
+	return Antiscroll.__scrollBarSize;
 };
 Antiscroll.scrollbarSize = scrollbarSize;
 
@@ -1755,7 +1766,7 @@ module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-68697719", module.exports)
+     require("vue-hot-reload-api").rerender("data-v-6387978c", module.exports)
   }
 }
 

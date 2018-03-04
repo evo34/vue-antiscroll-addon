@@ -100,6 +100,8 @@
 				let scroller = this.scroller
 				if (scroller) {
 					scroller.refresh()
+                    this.detachDimensionChangeEvent()
+                    this.attachDimensionChangeEvent()
 				}
 			},
 			checkStructure() {
@@ -116,6 +118,10 @@
 					console.info('滚动条错误辣!');
 				}
 			},
+            detachDimensionChangeEvent() {
+	            let resizeSensors = this.resizeSensors
+	            Object.keys(resizeSensors).forEach(key => this.resizeSensors[key].detach())
+            }
 		}
 
 	}
