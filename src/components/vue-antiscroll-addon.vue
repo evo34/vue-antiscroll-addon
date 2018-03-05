@@ -21,7 +21,7 @@
 				required: false,
 				type: Function
 			},
-            initialDisplay: {
+			initialDisplay: {
 				required: false,
 				type: Boolean,
 				default: () => Boolean(1)
@@ -31,11 +31,7 @@
 			return {}
 		},
 		mounted() {
-			if (!this.checkStructure()) {
-				console.log(new Error('vue-antiscroll slot 有且只能包裹一个子元素'))
-				return
-			}
-			let { initialDisplay } = this
+			let {initialDisplay} = this
 			this.scroller = new Antiscroll(this.$el, {initialDisplay})
 			this._onScroll = T.proxy(this, 'onScroll')
 			this.scroller.inner.addEventListener('scroll', this._onScroll, false)
@@ -63,15 +59,15 @@
 			_$height() {
 				let {height} = this
 				height = height + ''
-				if (height.lastIndexOf('px') === -1) return height + 'px'
-				return height
+                height = parseFloat(height) + + Antiscroll.scrollbarSize
+				return height + 'px'
 			},
 			_$width() {
 				let {width} = this
 				width = width && width + ''
 				if (!width) return null
-				if (width.lastIndexOf('px') === -1) return width + 'px'
-				return width
+                width = parseFloat(width) + Antiscroll.scrollbarSize
+				return width + 'px'
 			}
 		},
 		methods: {
@@ -89,24 +85,20 @@
 					}
 				}
 			},
-            scrollTo (placement) {
+			scrollTo(placement) {
 				let scroller = this.scroller
-                if (scroller) {
+				if (scroller) {
 					scroller.scrollTo(placement)
-                }
-            },
+				}
+			},
 
 			refresh() {
 				let scroller = this.scroller
 				if (scroller) {
 					scroller.refresh()
-                    this.detachDimensionChangeEvent()
-                    this.attachDimensionChangeEvent()
+					this.detachDimensionChangeEvent()
+					this.attachDimensionChangeEvent()
 				}
-			},
-			checkStructure() {
-				let antiscrollInner = this.$el.querySelector('.antiscroll-inner')
-				return antiscrollInner.childNodes.length === 1
 			},
 			attachDimensionChangeEvent() {
 				try {
@@ -118,10 +110,10 @@
 					console.info('滚动条错误辣!');
 				}
 			},
-            detachDimensionChangeEvent() {
-	            let resizeSensors = this.resizeSensors
-	            Object.keys(resizeSensors).forEach(key => this.resizeSensors[key].detach())
-            }
+			detachDimensionChangeEvent() {
+				let resizeSensors = this.resizeSensors
+				Object.keys(resizeSensors).forEach(key => this.resizeSensors[key].detach())
+			}
 		}
 
 	}
@@ -130,7 +122,9 @@
 <template>
     <div class="antiscroll-wrap">
         <div class="antiscroll-inner" :style="_$styObj">
-            <slot></slot>
+            <div class="inner-in-fact">
+                <slot></slot>
+            </div>
         </div>
     </div>
 </template>

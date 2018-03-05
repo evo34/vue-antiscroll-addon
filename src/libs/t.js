@@ -1,20 +1,29 @@
 var T = {
-	proxy: function(context, fnName) {
+	proxy: function (context, fnName) {
 		var fn = context[fnName]
 		return function () {
 			return fn.apply(context, arguments)
 		}
 	},
-	getStyle: function(oDiv, attr){
-		var hasX = ['width', 'height', 'top', 'left', 'scrollWith', 'scrollHeight'];
-		if (oDiv.currentStyle) return oDiv.currentStyle[attr];
-		var v = getComputedStyle(oDiv, null).getPropertyValue(attr);
-		if (hasX.indexOf(attr) > -1) {
-			v = parseFloat(v);
+	getStyle: function (obj, prop, parse) {
+		let ret
+		if (['width', 'height'].indexOf(prop) > -1) return this.getDimension(obj, prop)
+		if (obj.currentStyle) {
+			ret = obj.currentStyle[prop];
+		} else if (window.getComputedStyle) {
+			prop = prop.replace(/([A-Z])/g, "-$1");
+			prop = prop.toLowerCase();
+			ret = window.getComputedStyle(obj, null).getPropertyValue(prop);
+			return ret
 		}
-		return v
+		return parse ? window[parse](ret) : ret;
 	},
-	addClass: function(element, cls) {
+	
+	getDimension: function (elem, prop) {
+		return prop === 'width' ? elem.offsetWidth : elem.offsetHeight
+	},
+	
+	addClass: function (element, cls) {
 		var className = element.className;
 		var classNames = className.split(/\s+/);
 		if (classNames.indexOf(cls) === -1) {
@@ -23,7 +32,7 @@ var T = {
 		element.className = classNames.join(' ');
 		return element
 	},
-	removeClass: function(element, cls) {
+	removeClass: function (element, cls) {
 		var className = element.className;
 		var classNames = className.split(/\s+/);
 		var index;
@@ -33,7 +42,7 @@ var T = {
 		element.className = classNames.join(' ');
 		return element
 	},
-	bind: function(element, eventType, fn) {
+	bind: function (element, eventType, fn) {
 		if (document.addEventListener) {
 			element.addEventListener(eventType, fn, false);
 		} else if (document.attachEvent) {
@@ -41,7 +50,7 @@ var T = {
 		}
 		return element;
 	},
-	unbind: function(element, eventType, fn){
+	unbind: function (element, eventType, fn) {
 		if (document.removeEventListener) {
 			element.removeEventListener(eventType, fn, false);
 		} else if (document.detachEvent) {

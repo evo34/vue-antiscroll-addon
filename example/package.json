@@ -3,7 +3,7 @@
   "description": "A Vue.js project",
   "version": "1.0.0",
   "author": "evox <1212>",
-  "main": "dist/vue-antiscroll.js",
+  "main": "dist/vue-antiscroll-addon.js",
   "private": true,
   "scripts": {
     "build": "webpack --progress"

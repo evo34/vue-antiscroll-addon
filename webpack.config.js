@@ -4,10 +4,10 @@ var webpack = require('webpack')
 module.exports = {
   entry: './src/main.js',
   output: {
-    library: 'vue-antiscroll',
+    library: 'vue-antiscroll-addon',
     libraryTarget: 'umd',
     path: path.resolve(__dirname, './dist'),
-    filename: 'vue-antiscroll.js'
+    filename: 'vue-antiscroll-addon.js'
   },
   module: {
     rules: [

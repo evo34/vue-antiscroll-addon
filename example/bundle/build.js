@@ -63,1463 +63,2888 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 3);
+/******/ 	return __webpack_require__(__webpack_require__.s = 40);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, exports, __webpack_require__) {
-
-(function webpackUniversalModuleDefinition(root, factory) {
-  if (true) module.exports = factory();else if (typeof define === 'function' && define.amd) define([], factory);else if (typeof exports === 'object') exports["vue-antiscroll"] = factory();else root["vue-antiscroll"] = factory();
-})(this, function () {
-  return (/******/function (modules) {
-      // webpackBootstrap
-      /******/ // The module cache
-      /******/var installedModules = {};
-      /******/
-      /******/ // The require function
-      /******/function __webpack_require__(moduleId) {
-        /******/
-        /******/ // Check if module is in cache
-        /******/if (installedModules[moduleId]) {
-          /******/return installedModules[moduleId].exports;
-          /******/
-        }
-        /******/ // Create a new module (and put it into the cache)
-        /******/var module = installedModules[moduleId] = {
-          /******/i: moduleId,
-          /******/l: false,
-          /******/exports: {}
-          /******/ };
-        /******/
-        /******/ // Execute the module function
-        /******/modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-        /******/
-        /******/ // Flag the module as loaded
-        /******/module.l = true;
-        /******/
-        /******/ // Return the exports of the module
-        /******/return module.exports;
-        /******/
-      }
-      /******/
-      /******/
-      /******/ // expose the modules object (__webpack_modules__)
-      /******/__webpack_require__.m = modules;
-      /******/
-      /******/ // expose the module cache
-      /******/__webpack_require__.c = installedModules;
-      /******/
-      /******/ // identity function for calling harmony imports with the correct context
-      /******/__webpack_require__.i = function (value) {
-        return value;
-      };
-      /******/
-      /******/ // define getter function for harmony exports
-      /******/__webpack_require__.d = function (exports, name, getter) {
-        /******/if (!__webpack_require__.o(exports, name)) {
-          /******/Object.defineProperty(exports, name, {
-            /******/configurable: false,
-            /******/enumerable: true,
-            /******/get: getter
-            /******/ });
-          /******/
-        }
-        /******/
-      };
-      /******/
-      /******/ // getDefaultExport function for compatibility with non-harmony modules
-      /******/__webpack_require__.n = function (module) {
-        /******/var getter = module && module.__esModule ?
-        /******/function getDefault() {
-          return module['default'];
-        } :
-        /******/function getModuleExports() {
-          return module;
-        };
-        /******/__webpack_require__.d(getter, 'a', getter);
-        /******/return getter;
-        /******/
-      };
-      /******/
-      /******/ // Object.prototype.hasOwnProperty.call
-      /******/__webpack_require__.o = function (object, property) {
-        return Object.prototype.hasOwnProperty.call(object, property);
-      };
-      /******/
-      /******/ // __webpack_public_path__
-      /******/__webpack_require__.p = "";
-      /******/
-      /******/ // Load entry module and return exports
-      /******/return __webpack_require__(__webpack_require__.s = 4);
-      /******/
-    }(
-    /************************************************************************/
-    /******/[
-    /* 0 */
-    /***/function (module, exports, __webpack_require__) {
-
-      // style-loader: Adds some css to the DOM by adding a <style> tag
-
-      // load the styles
-      var content = __webpack_require__(5);
-      if (typeof content === 'string') content = [[module.i, content, '']];
-      // Prepare cssTransformation
-      var transform;
-
-      var options = {};
-      options.transform = transform;
-      // add the styles to the DOM
-      var update = __webpack_require__(7)(content, options);
-      if (content.locals) module.exports = content.locals;
-      // Hot Module Replacement
-      if (false) {
-        // When the styles change, update the <style> tags
-        if (!content.locals) {
-          module.hot.accept("!!../../node_modules/css-loader/index.js!./antiscroll.css", function () {
-            var newContent = require("!!../../node_modules/css-loader/index.js!./antiscroll.css");
-            if (typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-            update(newContent);
-          });
-        }
-        // When the module is disposed, remove the <style> tags
-        module.hot.dispose(function () {
-          update();
-        });
-      }
-
-      /***/
-    },
-    /* 1 */
-    /***/function (module, exports, __webpack_require__) {
-
-      var disposed = false;
-      var Component = __webpack_require__(9)(
-      /* script */
-      __webpack_require__(2),
-      /* template */
-      __webpack_require__(10),
-      /* styles */
-      null,
-      /* scopeId */
-      null,
-      /* moduleIdentifier (server only) */
-      null);
-      Component.options.__file = "/Users/evox/Repos/vue-antiscroll/src/components/vue-antiscroll.vue";
-      if (Component.esModule && Object.keys(Component.esModule).some(function (key) {
-        return key !== "default" && key.substr(0, 2) !== "__";
-      })) {
-        console.error("named exports are not supported in *.vue files.");
-      }
-      if (Component.options.functional) {
-        console.error("[vue-loader] vue-antiscroll.vue: functional components are not supported with templates, they should use render functions.");
-      }
-
-      /* hot reload */
-      if (false) {
-        (function () {
-          var hotAPI = require("vue-hot-reload-api");
-          hotAPI.install(require("vue"), false);
-          if (!hotAPI.compatible) return;
-          module.hot.accept();
-          if (!module.hot.data) {
-            hotAPI.createRecord("data-v-68697719", Component.options);
-          } else {
-            hotAPI.reload("data-v-68697719", Component.options);
-          }
-          module.hot.dispose(function (data) {
-            disposed = true;
-          });
-        })();
-      }
-
-      module.exports = Component.exports;
-
-      /***/
-    },
-    /* 2 */
-    /***/function (module, __webpack_exports__, __webpack_require__) {
-
-      "use strict";
-
-      Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-      /* harmony import */var __WEBPACK_IMPORTED_MODULE_0__libs_antiscroll__ = __webpack_require__(3);
-
-      var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
-      const proxy = function (context, fnName) {
-        var fn = context[fnName];
-        return function () {
-          return fn.apply(context, arguments);
-        };
-      };
-      const getStyle = function (oDiv, attr) {
-        if (oDiv.currentStyle) return oDiv.currentStyle[attr];
-        return getComputedStyle(oDiv, false)[attr];
-      };
-      /* harmony default export */__webpack_exports__["default"] = {
-        props: {
-          height: {
-            required: false,
-            type: null
-          },
-          width: {
-            required: false,
-            type: null
-          },
-          onScrolling: {
-            required: false,
-            type: Function
-          },
-          onScrollToBottom: {
-            required: false,
-            type: Function
-          },
-          loopCheck: {
-            required: false,
-            type: Boolean
-          }
-        },
-        data() {
-          return {};
-        },
-        mounted() {
-          // var antiscrollWrap= this.$el.querySelector('.antiscroll-wrap')
-          this.scroller = new __WEBPACK_IMPORTED_MODULE_0__libs_antiscroll__["a" /* default */](this.$el, {
-            initialDisplay: false
-          });
-          this._onScroll = proxy(this, 'onScroll');
-          this.scroller.inner.addEventListener('scroll', this._onScroll, false);
-          this._loopCheck();
-        },
-        beforeDestroy() {
-          this.scroller && this.scroller.destroy();
-          this.scroller && this.scroller.inner.removeEventListener('scroll', this._onScroll, false);
-          this.scroller = null;
-          this._onScroll = null;
-        },
-        computed: {
-          _$styObj() {
-            let {
-              _$height,
-              _$width
-            } = this;
-            let hash = {
-              height: _$height
-            };
-            _$width && (hash['width'] = _$width);
-            return hash;
-          },
-          _$height() {
-            let {
-              height
-            } = this;
-            height = height + '';
-            if (height.lastIndexOf('px') === -1) return height + 'px';
-            return height;
-          },
-          _$width() {
-            let {
-              width
-            } = this;
-            width = width && width + '';
-            if (!width) return null;
-            if (width.lastIndexOf('px') === -1) return width + 'px';
-            return width;
-          }
-        },
-        methods: {
-          onScroll(evt) {
-            let innerHeight = getStyle(this.scroller.inner, 'height');
-            let scrollHeight = getStyle(this.scroller.inner, 'scrollHeight');
-            let scrollTop = getStyle(this.scroller.inner, 'scrollTop');
-
-            if (typeof this.onScrolling === 'function') {
-              this.onScrolling.call(this, this.scroller, evt);
-            }
-            if (scrollHeight <= innerHeight + scrollTop) {
-              if (typeof this.onScrollToBottom === 'function') {
-                this.onScrollToBottom.call(this, this.scroller, evt);
-              }
-            }
-          },
-          _loopCheck() {
-            if (this.loopCheck) {
-              requestAnimationFrame(this._updateContentSize.bind(this));
-            }
-          },
-          _updateContentSize() {
-            try {
-              var scroller = this.scroller;
-              var arr = [];
-              scroller.vertical && arr.push(scroller.vertical);
-              scroller.horizontal && arr.push(scroller.horizontal);
-              arr.forEach(scroller => scroller.updateViewPort());
-
-              requestAnimationFrame(this._updateContentSize.bind(this));
-            } catch (e) {
-              console.info('滚动条错误辣!');
-            }
-          }
-        }
-
-      };
-
-      /***/
-    },
-    /* 3 */
-    /***/function (module, __webpack_exports__, __webpack_require__) {
-
-      "use strict";
-
-      var T = {
-        proxy: function (context, fnName) {
-          var fn = context[fnName];
-          return function () {
-            return fn.apply(context, arguments);
-          };
-        },
-        getStyle: function (oDiv, attr) {
-          var hasX = ['width', 'height', 'top', 'left', 'scrollWith', 'scrollHeight'];
-          if (oDiv.currentStyle) return oDiv.currentStyle[attr];
-          var v = getComputedStyle(oDiv, null).getPropertyValue(attr);
-          if (hasX.indexOf(attr) > -1) {
-            v = parseFloat(v);
-          }
-          return v;
-        },
-        addClass: function (element, cls) {
-          var className = element.className;
-          var classNames = className.split(/\s+/);
-          if (classNames.indexOf(cls) === -1) {
-            classNames.push(cls);
-          }
-          element.className = classNames.join(' ');
-          return element;
-        },
-        removeClass: function (element, cls) {
-          var className = element.className;
-          var classNames = className.split(/\s+/);
-          var index;
-          if ((index = classNames.indexOf(cls)) > -1) {
-            classNames.splice(index, 1);
-          }
-          element.className = classNames.join(' ');
-          return element;
-        },
-        bind: function (element, eventType, fn) {
-          if (document.addEventListener) {
-            element.addEventListener(eventType, fn, false);
-          } else if (document.attachEvent) {
-            element.attachEvent('on' + eventType, fn);
-          }
-          return element;
-        },
-        unbind: function (element, eventType, fn) {
-          if (document.removeEventListener) {
-            element.removeEventListener(eventType, fn, false);
-          } else if (document.detachEvent) {
-            element.detachEvent('on' + eventType, fn);
-          }
-          return element;
-        }
-
-        /**
-         * Antiscroll pane constructor.
-         *
-         * @param {Element|jQuery} main pane
-         * @parma {Object} options
-         * @api public
-         */
-
-      };function Antiscroll(el, opts) {
-        this.el = el;
-        this.options = opts || {};
-
-        this.x = false !== this.options.x || this.options.forceHorizontal;
-        this.y = false !== this.options.y || this.options.forceVertical;
-        this.autoHide = false !== this.options.autoHide;
-        this.padding = undefined === this.options.padding ? 2 : this.options.padding;
-
-        this.inner = this.el.querySelector('.antiscroll-inner');
-
-        var innerWidth = this.inner.clientWidth;
-        var innerHeight = this.inner.clientHeight;
-
-        this.inner.style.cssText = "width: " + (innerWidth + (this.y ? scrollbarSize() : 0)) + 'px;' + "height: " + (innerHeight + (this.x ? scrollbarSize() : 0)) + 'px;';
-
-        this.refresh();
-      };
-
-      /**
-       * refresh scrollbars
-       *
-       * @api public
-       */
-
-      Antiscroll.prototype.refresh = function () {
-        var innerScrollWidth = this.inner.scrollWidth;
-        var innerScrollHeight = this.inner.scrollHeight;
-        var innerWidth = T.getStyle(this.el, 'width');
-        var innerHeight = T.getStyle(this.el, 'height');
-        var needHScroll = innerScrollWidth + this.padding > innerWidth + (this.y ? scrollbarSize() : 0),
-            needVScroll = innerScrollHeight + this.padding > innerHeight + (this.x ? scrollbarSize() : 0);
-
-        if (this.x) {
-          if (!this.horizontal && needHScroll) {
-            this.horizontal = new Scrollbar.Horizontal(this);
-          } else if (this.horizontal && !needHScroll) {
-            this.horizontal.destroy();
-            this.horizontal = null;
-          } else if (this.horizontal) {
-            this.horizontal.update();
-          }
-        }
-
-        if (this.y) {
-          if (!this.vertical && needVScroll) {
-            this.vertical = new Scrollbar.Vertical(this);
-          } else if (this.vertical && !needVScroll) {
-            this.vertical.destroy();
-            this.vertical = null;
-          } else if (this.vertical) {
-            this.vertical.update();
-          }
-        }
-      };
-
-      /**
-       * Cleans up.
-       *
-       * @return {Antiscroll} for chaining
-       * @api public
-       */
-
-      Antiscroll.prototype.destroy = function () {
-        if (this.horizontal) {
-          this.horizontal.destroy();
-          this.horizontal = null;
-        }
-        if (this.vertical) {
-          this.vertical.destroy();
-          this.vertical = null;
-        }
-        return this;
-      };
-
-      /**
-       * Rebuild Antiscroll.
-       *
-       * @return {Antiscroll} for chaining
-       * @api public
-       */
-
-      Antiscroll.prototype.rebuild = function () {
-        this.destroy();
-        this.inner.style.cssText = "";
-        Antiscroll.call(this, this.el, this.options);
-        return this;
-      };
-
-      /**
-       * Scrollbar constructor.
-       *
-       * @param {Element|jQuery} element
-       * @api public
-       */
-
-      function Scrollbar(pane) {
-        this.pane = pane;
-        this.pane.el.appendChild(this.el);
-
-        this.dragging = false;
-        this.enter = false;
-        this.shown = false;
-
-        // hovering
-        T.bind(this.pane.el, 'mouseenter', T.proxy(this, 'mouseenter'));
-        T.bind(this.pane.el, 'mouseleave', T.proxy(this, 'mouseleave'));
-
-        // dragging
-        T.bind(this.el, 'mousedown', T.proxy(this, 'mousedown'));
-
-        // scrolling
-        this.innerPaneScrollListener = T.proxy(this, 'scroll');
-        T.bind(this.pane.inner, 'scroll', T.proxy(this, 'scroll'));
-
-        // show
-        var initialDisplay = this.pane.options.initialDisplay;
-
-        if (initialDisplay !== false) {
-          this.show();
-          if (this.pane.autoHide) {
-            this.hiding = setTimeout(T.proxy(this, 'hide'), parseInt(initialDisplay, 10) || 3000);
-          }
-        }
-      };
-
-      /**
-       * Cleans up.
-       *
-       * @return {Scrollbar} for chaining
-       * @api public
-       */
-
-      Scrollbar.prototype.destroy = function () {
-        this.el.remove();
-        T.unbind(this.pane.inner, 'scroll', this.innerPaneScrollListener);
-        return this;
-      };
-
-      /**
-       * check and resize.
-       *
-       * @return {Scrollbar} for chaining
-       * @api public
-       */
-
-      Scrollbar.prototype.updateViewPort = function () {
-        var innerScrollHeight = this.pane.inner.scrollHeight;
-        var innerScrollWidth = this.pane.inner.scrollWidth;
-
-        if ((this.__scrollWidth !== innerScrollWidth || this.__scrollHeight !== innerScrollHeight) && this.enter) {
-
-          if (!this.update()) {
-            this.hide();
-          } else {
-            this.show();
-          }
-
-          this.__scrollWidth = innerScrollWidth;
-          this.__scrollHeight = innerScrollHeight;
-        }
-      };
-      /**
-       * Called upon mouseenter.
-       *
-       * @api private
-       */
-
-      Scrollbar.prototype.mouseenter = function () {
-        this.enter = true;
-        this.show();
-      };
-
-      /**
-       * Called upon mouseleave.
-       *
-       * @api private
-       */
-
-      Scrollbar.prototype.mouseleave = function () {
-        this.enter = false;
-
-        if (!this.dragging) {
-          if (this.pane.autoHide) {
-            this.hide();
-          }
-        }
-      };
-
-      /**
-       * Called upon wrap scroll.
-       *
-       * @api private
-       */
-
-      Scrollbar.prototype.scroll = function () {
-        if (!this.shown) {
-          this.show();
-          if (!this.enter && !this.dragging) {
-            if (this.pane.autoHide) {
-              this.hiding = setTimeout(T.proxy(this, 'hide'), 1500);
-            }
-          }
-        }
-
-        this.update();
-      };
-
-      /**
-       * Called upon scrollbar mousedown.
-       *
-       * @api private
-       */
-
-      Scrollbar.prototype.mousedown = function (ev) {
-        ev.preventDefault();
-
-        this.dragging = true;
-
-        this.startPageY = ev.pageY - parseInt(T.getStyle(this.el, 'top'), 10);
-        this.startPageX = ev.pageX - parseInt(T.getStyle(this.el, 'left'), 10);
-
-        // prevent crazy selections on IE
-        this.el.ownerDocument.onselectstart = function () {
-          return false;
-        };
-
-        var pane = this.pane,
-            self = this;
-
-        var move = T.proxy(this, 'mousemove');
-        var mouseup = function () {
-          self.dragging = false;
-          this.onselectstart = null;
-
-          T.unbind(this, 'mousemove', move);
-
-          if (!self.enter) {
-            self.hide();
-          }
-        };
-
-        T.bind(window.document, 'mousemove', move);
-        T.bind(window.document, 'mouseup', mouseup);
-      };
-
-      /**
-       * Show scrollbar.
-       *
-       * @api private
-       */
-
-      Scrollbar.prototype.show = function (duration) {
-        if (!this.shown && this.update()) {
-          T.addClass(this.el, 'antiscroll-scrollbar-shown');
-          if (this.hiding) {
-            clearTimeout(this.hiding);
-            this.hiding = null;
-          }
-          this.shown = true;
-        }
-      };
-
-      /**
-       * Hide scrollbar.
-       *
-       * @api private
-       */
-
-      Scrollbar.prototype.hide = function () {
-        if (this.pane.autoHide !== false && this.shown) {
-          // check for dragging
-          T.removeClass(this.el, 'antiscroll-scrollbar-shown');
-          this.shown = false;
-        }
-      };
-
-      /**
-       * Horizontal scrollbar constructor
-       *
-       * @api private
-       */
-
-      Scrollbar.Horizontal = function (pane) {
-        var scrollbarH = document.createElement('div');
-        scrollbarH.className = 'antiscroll-scrollbar antiscroll-scrollbar-horizontal';
-        this.el = pane.el.appendChild(scrollbarH);
-        Scrollbar.call(this, pane);
-      };
-
-      /**
-       * Inherits from Scrollbar.
-       */
-
-      inherits(Scrollbar.Horizontal, Scrollbar);
-
-      /**
-       * Updates size/position of scrollbar.
-       *
-       * @api private
-       */
-
-      Scrollbar.Horizontal.prototype.update = function () {
-        var paneWidth = T.getStyle(this.pane.el, 'width'),
-            trackWidth = paneWidth - this.pane.padding * 2,
-            inner = this.pane.inner;
-        this.el.style.cssText = 'width: ' + trackWidth * paneWidth / inner.scrollWidth + 'px;' + 'left: ' + trackWidth * inner.scrollLeft / inner.scrollWidth + 'px;';
-
-        return paneWidth < inner.scrollWidth;
-      };
-
-      /**
-       * Called upon drag.
-       *
-       * @api private
-       */
-
-      Scrollbar.Horizontal.prototype.mousemove = function (ev) {
-        var trackWidth = T.getStyle(this.pane.el, 'width') - this.pane.padding * 2,
-            pos = ev.pageX - this.startPageX,
-            barWidth = T.getStyle(this.el, 'width'),
-            inner = this.pane.inner;
-
-        // minimum top is 0, maximum is the track height
-        var y = Math.min(Math.max(pos, 0), trackWidth - barWidth);
-
-        inner.scrollLeft = (inner.scrollWidth - T.getStyle(this.pane.el, 'width')) * y / (trackWidth - barWidth);
-      };
-
-      /**
-       * Vertical scrollbar constructor
-       *
-       * @api private
-       */
-
-      Scrollbar.Vertical = function (pane) {
-        var scrollbarV = document.createElement('div');
-        scrollbarV.className = 'antiscroll-scrollbar antiscroll-scrollbar-vertical';
-        this.el = pane.el.appendChild(scrollbarV);
-        Scrollbar.call(this, pane);
-      };
-
-      /**
-       * Inherits from Scrollbar.
-       */
-
-      inherits(Scrollbar.Vertical, Scrollbar);
-
-      /**
-       * Updates size/position of scrollbar.
-       *
-       * @api private
-       */
-
-      Scrollbar.Vertical.prototype.update = function () {
-        var paneHeight = T.getStyle(this.pane.el, 'height'),
-            trackHeight = paneHeight - this.pane.padding * 2,
-            inner = this.pane.inner;
-
-        var scrollbarHeight = trackHeight * paneHeight / inner.scrollHeight;
-        scrollbarHeight = scrollbarHeight < 20 ? 20 : scrollbarHeight;
-
-        var topPos = trackHeight * inner.scrollTop / inner.scrollHeight;
-
-        if (topPos + scrollbarHeight > trackHeight) {
-          var diff = topPos + scrollbarHeight - trackHeight;
-          topPos = topPos - diff - 3;
-        }
-
-        this.el.style.cssText = 'height: ' + scrollbarHeight + 'px;top: ' + topPos + 'px';
-
-        return paneHeight < inner.scrollHeight;
-      };
-
-      /**
-       * Called upon drag.
-       *
-       * @api private
-       */
-
-      Scrollbar.Vertical.prototype.mousemove = function (ev) {
-        var paneHeight = T.getStyle(this.pane.el, 'height'),
-            trackHeight = paneHeight - this.pane.padding * 2,
-            pos = ev.pageY - this.startPageY,
-            barHeight = T.getStyle(this.el, 'height'),
-            inner = this.pane.inner;
-
-        // minimum top is 0, maximum is the track height
-        var y = Math.min(Math.max(pos, 0), trackHeight - barHeight);
-
-        inner.scrollTop = (inner.scrollHeight - paneHeight) * y / (trackHeight - barHeight);
-      };
-
-      /**
-       * Cross-browser inheritance.
-       *
-       * @param {Function} constructor
-       * @param {Function} constructor we inherit from
-       * @api private
-       */
-
-      function inherits(ctorA, ctorB) {
-        function f() {};
-        f.prototype = ctorB.prototype;
-        ctorA.prototype = new f();
-      };
-
-      /**
-       * Scrollbar size detection.
-       */
-
-      var size;
-
-      function scrollbarSize() {
-        if (size === undefined) {
-          var div = document.createElement('div');
-          var innerDiv = document.createElement('div');
-          div.className = 'antiscroll-inner';
-          div.style.cssText = 'width:50px;height:50px;overflow-y:scroll;position:absolute;top:-200px;left:-200px;';
-          innerDiv.style.cssText = 'height:100px;width:100%';
-          div.appendChild(innerDiv);
-
-          document.body.appendChild(div);
-          var w1 = T.getStyle(div, 'width');
-          var w2 = T.getStyle(innerDiv, 'width');
-
-          document.body.removeChild(div);
-          size = +w1 - +w2;
-        }
-
-        return size;
-      };
-
-      /* harmony default export */__webpack_exports__["a"] = Antiscroll;
-
-      /***/
-    },
-    /* 4 */
-    /***/function (module, __webpack_exports__, __webpack_require__) {
-
-      "use strict";
-
-      Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-      /* harmony import */var __WEBPACK_IMPORTED_MODULE_0__assets_antiscroll_css__ = __webpack_require__(0);
-      /* harmony import */var __WEBPACK_IMPORTED_MODULE_0__assets_antiscroll_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__assets_antiscroll_css__);
-      /* harmony import */var __WEBPACK_IMPORTED_MODULE_1__components_vue_antiscroll_vue__ = __webpack_require__(1);
-      /* harmony import */var __WEBPACK_IMPORTED_MODULE_1__components_vue_antiscroll_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__components_vue_antiscroll_vue__);
-      /* harmony reexport (default from non-hamory) */__webpack_require__.d(__webpack_exports__, "default", function () {
-        return __WEBPACK_IMPORTED_MODULE_1__components_vue_antiscroll_vue___default.a;
-      });
-
-      /***/
-    },
-    /* 5 */
-    /***/function (module, exports, __webpack_require__) {
-
-      exports = module.exports = __webpack_require__(6)();
-      // imports
-
-
-      // module
-      exports.push([module.i, "/*\n * Antiscroll: cross-browser native OS X Lion scrollbars\n * https://github.com/Automattic/antiscroll\n * v0.9\n */\n\n.antiscroll-wrap {\n  display: inline-block;\n  position: relative;\n  overflow: hidden;\n}\n\n.antiscroll-scrollbar {\n  background: gray;\n  background: rgba(0, 0, 0, 0.5);\n  -webkit-border-radius: 7px;\n  -moz-border-radius: 7px;\n  border-radius: 7px;\n  -webkit-box-shadow: 0 0 1px #fff;\n  -moz-box-shadow: 0 0 1px #fff;\n  box-shadow: 0 0 1px #fff;\n  position: absolute;\n  opacity: 0;\n  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);\n  -webkit-transition: linear 300ms opacity;\n  -moz-transition: linear 300ms opacity;\n  -o-transition: linear 300ms opacity;\n}\n\n.antiscroll-scrollbar-shown {\n  opacity: 1;\n  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);\n}\n\n.antiscroll-scrollbar-horizontal {\n  height: 7px;\n  margin-left: 2px;\n  bottom: 2px;\n  left: 0;\n}\n\n.antiscroll-scrollbar-vertical {\n  width: 7px;\n  margin-top: 2px;\n  right: 2px;\n  top: 0;\n}\n\n.antiscroll-inner {\n  overflow: scroll;\n}\n\n/** A bug in Chrome 25 on Lion requires each selector to have their own\n    blocks. E.g. the following:\n\n    .antiscroll-inner::-webkit-scrollbar, .antiscroll-inner::scrollbar {...}\n\n    causes the width and height rules to be ignored by the browser resulting\n    in both native and antiscroll scrollbars appearing at the same time.\n */\n.antiscroll-inner::-webkit-scrollbar {\n  width: 0;\n  height: 0;\n}\n\n.antiscroll-inner::scrollbar {\n  width: 0;\n  height: 0;\n}\n", ""]);
-
-      // exports
-
-
-      /***/
-    },
-    /* 6 */
-    /***/function (module, exports) {
-
-      /*
-      	MIT License http://www.opensource.org/licenses/mit-license.php
-      	Author Tobias Koppers @sokra
-      */
-      // css base code, injected by the css-loader
-      module.exports = function () {
-        var list = [];
-
-        // return the list of modules as css string
-        list.toString = function toString() {
-          var result = [];
-          for (var i = 0; i < this.length; i++) {
-            var item = this[i];
-            if (item[2]) {
-              result.push("@media " + item[2] + "{" + item[1] + "}");
-            } else {
-              result.push(item[1]);
-            }
-          }
-          return result.join("");
-        };
-
-        // import a list of modules into the list
-        list.i = function (modules, mediaQuery) {
-          if (typeof modules === "string") modules = [[null, modules, ""]];
-          var alreadyImportedModules = {};
-          for (var i = 0; i < this.length; i++) {
-            var id = this[i][0];
-            if (typeof id === "number") alreadyImportedModules[id] = true;
-          }
-          for (i = 0; i < modules.length; i++) {
-            var item = modules[i];
-            // skip already imported module
-            // this implementation is not 100% perfect for weird media query combinations
-            //  when a module is imported multiple times with different media queries.
-            //  I hope this will never occur (Hey this way we have smaller bundles)
-            if (typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
-              if (mediaQuery && !item[2]) {
-                item[2] = mediaQuery;
-              } else if (mediaQuery) {
-                item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
-              }
-              list.push(item);
-            }
-          }
-        };
-        return list;
-      };
-
-      /***/
-    },
-    /* 7 */
-    /***/function (module, exports, __webpack_require__) {
-
-      /*
-      	MIT License http://www.opensource.org/licenses/mit-license.php
-      	Author Tobias Koppers @sokra
-      */
-
-      var stylesInDom = {};
-
-      var memoize = function (fn) {
-        var memo;
-
-        return function () {
-          if (typeof memo === "undefined") memo = fn.apply(this, arguments);
-          return memo;
-        };
-      };
-
-      var isOldIE = memoize(function () {
-        // Test for IE <= 9 as proposed by Browserhacks
-        // @see http://browserhacks.com/#hack-e71d8692f65334173fee715c222cb805
-        // Tests for existence of standard globals is to allow style-loader
-        // to operate correctly into non-standard environments
-        // @see https://github.com/webpack-contrib/style-loader/issues/177
-        return window && document && document.all && !window.atob;
-      });
-
-      var getElement = function (fn) {
-        var memo = {};
-
-        return function (selector) {
-          if (typeof memo[selector] === "undefined") {
-            memo[selector] = fn.call(this, selector);
-          }
-
-          return memo[selector];
-        };
-      }(function (target) {
-        return document.querySelector(target);
-      });
-
-      var singleton = null;
-      var singletonCounter = 0;
-      var stylesInsertedAtTop = [];
-
-      var fixUrls = __webpack_require__(8);
-
-      module.exports = function (list, options) {
-        if (typeof DEBUG !== "undefined" && DEBUG) {
-          if (typeof document !== "object") throw new Error("The style-loader cannot be used in a non-browser environment");
-        }
-
-        options = options || {};
-
-        options.attrs = typeof options.attrs === "object" ? options.attrs : {};
-
-        // Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
-        // tags it will allow on a page
-        if (!options.singleton) options.singleton = isOldIE();
-
-        // By default, add <style> tags to the <head> element
-        if (!options.insertInto) options.insertInto = "head";
-
-        // By default, add <style> tags to the bottom of the target
-        if (!options.insertAt) options.insertAt = "bottom";
-
-        var styles = listToStyles(list, options);
-
-        addStylesToDom(styles, options);
-
-        return function update(newList) {
-          var mayRemove = [];
-
-          for (var i = 0; i < styles.length; i++) {
-            var item = styles[i];
-            var domStyle = stylesInDom[item.id];
-
-            domStyle.refs--;
-            mayRemove.push(domStyle);
-          }
-
-          if (newList) {
-            var newStyles = listToStyles(newList, options);
-            addStylesToDom(newStyles, options);
-          }
-
-          for (var i = 0; i < mayRemove.length; i++) {
-            var domStyle = mayRemove[i];
-
-            if (domStyle.refs === 0) {
-              for (var j = 0; j < domStyle.parts.length; j++) domStyle.parts[j]();
-
-              delete stylesInDom[domStyle.id];
-            }
-          }
-        };
-      };
-
-      function addStylesToDom(styles, options) {
-        for (var i = 0; i < styles.length; i++) {
-          var item = styles[i];
-          var domStyle = stylesInDom[item.id];
-
-          if (domStyle) {
-            domStyle.refs++;
-
-            for (var j = 0; j < domStyle.parts.length; j++) {
-              domStyle.parts[j](item.parts[j]);
-            }
-
-            for (; j < item.parts.length; j++) {
-              domStyle.parts.push(addStyle(item.parts[j], options));
-            }
-          } else {
-            var parts = [];
-
-            for (var j = 0; j < item.parts.length; j++) {
-              parts.push(addStyle(item.parts[j], options));
-            }
-
-            stylesInDom[item.id] = { id: item.id, refs: 1, parts: parts };
-          }
-        }
-      }
-
-      function listToStyles(list, options) {
-        var styles = [];
-        var newStyles = {};
-
-        for (var i = 0; i < list.length; i++) {
-          var item = list[i];
-          var id = options.base ? item[0] + options.base : item[0];
-          var css = item[1];
-          var media = item[2];
-          var sourceMap = item[3];
-          var part = { css: css, media: media, sourceMap: sourceMap };
-
-          if (!newStyles[id]) styles.push(newStyles[id] = { id: id, parts: [part] });else newStyles[id].parts.push(part);
-        }
-
-        return styles;
-      }
-
-      function insertStyleElement(options, style) {
-        var target = getElement(options.insertInto);
-
-        if (!target) {
-          throw new Error("Couldn't find a style target. This probably means that the value for the 'insertInto' parameter is invalid.");
-        }
-
-        var lastStyleElementInsertedAtTop = stylesInsertedAtTop[stylesInsertedAtTop.length - 1];
-
-        if (options.insertAt === "top") {
-          if (!lastStyleElementInsertedAtTop) {
-            target.insertBefore(style, target.firstChild);
-          } else if (lastStyleElementInsertedAtTop.nextSibling) {
-            target.insertBefore(style, lastStyleElementInsertedAtTop.nextSibling);
-          } else {
-            target.appendChild(style);
-          }
-          stylesInsertedAtTop.push(style);
-        } else if (options.insertAt === "bottom") {
-          target.appendChild(style);
-        } else {
-          throw new Error("Invalid value for parameter 'insertAt'. Must be 'top' or 'bottom'.");
-        }
-      }
-
-      function removeStyleElement(style) {
-        if (style.parentNode === null) return false;
-        style.parentNode.removeChild(style);
-
-        var idx = stylesInsertedAtTop.indexOf(style);
-        if (idx >= 0) {
-          stylesInsertedAtTop.splice(idx, 1);
-        }
-      }
-
-      function createStyleElement(options) {
-        var style = document.createElement("style");
-
-        options.attrs.type = "text/css";
-
-        addAttrs(style, options.attrs);
-        insertStyleElement(options, style);
-
-        return style;
-      }
-
-      function createLinkElement(options) {
-        var link = document.createElement("link");
-
-        options.attrs.type = "text/css";
-        options.attrs.rel = "stylesheet";
-
-        addAttrs(link, options.attrs);
-        insertStyleElement(options, link);
-
-        return link;
-      }
-
-      function addAttrs(el, attrs) {
-        Object.keys(attrs).forEach(function (key) {
-          el.setAttribute(key, attrs[key]);
-        });
-      }
-
-      function addStyle(obj, options) {
-        var style, update, remove, result;
-
-        // If a transform function was defined, run it on the css
-        if (options.transform && obj.css) {
-          result = options.transform(obj.css);
-
-          if (result) {
-            // If transform returns a value, use that instead of the original css.
-            // This allows running runtime transformations on the css.
-            obj.css = result;
-          } else {
-            // If the transform function returns a falsy value, don't add this css.
-            // This allows conditional loading of css
-            return function () {
-              // noop
-            };
-          }
-        }
-
-        if (options.singleton) {
-          var styleIndex = singletonCounter++;
-
-          style = singleton || (singleton = createStyleElement(options));
-
-          update = applyToSingletonTag.bind(null, style, styleIndex, false);
-          remove = applyToSingletonTag.bind(null, style, styleIndex, true);
-        } else if (obj.sourceMap && typeof URL === "function" && typeof URL.createObjectURL === "function" && typeof URL.revokeObjectURL === "function" && typeof Blob === "function" && typeof btoa === "function") {
-          style = createLinkElement(options);
-          update = updateLink.bind(null, style, options);
-          remove = function () {
-            removeStyleElement(style);
-
-            if (style.href) URL.revokeObjectURL(style.href);
-          };
-        } else {
-          style = createStyleElement(options);
-          update = applyToTag.bind(null, style);
-          remove = function () {
-            removeStyleElement(style);
-          };
-        }
-
-        update(obj);
-
-        return function updateStyle(newObj) {
-          if (newObj) {
-            if (newObj.css === obj.css && newObj.media === obj.media && newObj.sourceMap === obj.sourceMap) {
-              return;
-            }
-
-            update(obj = newObj);
-          } else {
-            remove();
-          }
-        };
-      }
-
-      var replaceText = function () {
-        var textStore = [];
-
-        return function (index, replacement) {
-          textStore[index] = replacement;
-
-          return textStore.filter(Boolean).join('\n');
-        };
-      }();
-
-      function applyToSingletonTag(style, index, remove, obj) {
-        var css = remove ? "" : obj.css;
-
-        if (style.styleSheet) {
-          style.styleSheet.cssText = replaceText(index, css);
-        } else {
-          var cssNode = document.createTextNode(css);
-          var childNodes = style.childNodes;
-
-          if (childNodes[index]) style.removeChild(childNodes[index]);
-
-          if (childNodes.length) {
-            style.insertBefore(cssNode, childNodes[index]);
-          } else {
-            style.appendChild(cssNode);
-          }
-        }
-      }
-
-      function applyToTag(style, obj) {
-        var css = obj.css;
-        var media = obj.media;
-
-        if (media) {
-          style.setAttribute("media", media);
-        }
-
-        if (style.styleSheet) {
-          style.styleSheet.cssText = css;
-        } else {
-          while (style.firstChild) {
-            style.removeChild(style.firstChild);
-          }
-
-          style.appendChild(document.createTextNode(css));
-        }
-      }
-
-      function updateLink(link, options, obj) {
-        var css = obj.css;
-        var sourceMap = obj.sourceMap;
-
-        /*
-        	If convertToAbsoluteUrls isn't defined, but sourcemaps are enabled
-        	and there is no publicPath defined then lets turn convertToAbsoluteUrls
-        	on by default.  Otherwise default to the convertToAbsoluteUrls option
-        	directly
-        */
-        var autoFixUrls = options.convertToAbsoluteUrls === undefined && sourceMap;
-
-        if (options.convertToAbsoluteUrls || autoFixUrls) {
-          css = fixUrls(css);
-        }
-
-        if (sourceMap) {
-          // http://stackoverflow.com/a/26603875
-          css += "\n/*# sourceMappingURL=data:application/json;base64," + btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))) + " */";
-        }
-
-        var blob = new Blob([css], { type: "text/css" });
-
-        var oldSrc = link.href;
-
-        link.href = URL.createObjectURL(blob);
-
-        if (oldSrc) URL.revokeObjectURL(oldSrc);
-      }
-
-      /***/
-    },
-    /* 8 */
-    /***/function (module, exports) {
-
-      /**
-       * When source maps are enabled, `style-loader` uses a link element with a data-uri to
-       * embed the css on the page. This breaks all relative urls because now they are relative to a
-       * bundle instead of the current page.
-       *
-       * One solution is to only use full urls, but that may be impossible.
-       *
-       * Instead, this function "fixes" the relative urls to be absolute according to the current page location.
-       *
-       * A rudimentary test suite is located at `test/fixUrls.js` and can be run via the `npm test` command.
-       *
-       */
-
-      module.exports = function (css) {
-        // get current location
-        var location = typeof window !== "undefined" && window.location;
-
-        if (!location) {
-          throw new Error("fixUrls requires window.location");
-        }
-
-        // blank or null?
-        if (!css || typeof css !== "string") {
-          return css;
-        }
-
-        var baseUrl = location.protocol + "//" + location.host;
-        var currentDir = baseUrl + location.pathname.replace(/\/[^\/]*$/, "/");
-
-        // convert each url(...)
-        /*
-        This regular expression is just a way to recursively match brackets within
-        a string.
-        	 /url\s*\(  = Match on the word "url" with any whitespace after it and then a parens
-           (  = Start a capturing group
-             (?:  = Start a non-capturing group
-                 [^)(]  = Match anything that isn't a parentheses
-                 |  = OR
-                 \(  = Match a start parentheses
-                     (?:  = Start another non-capturing groups
-                         [^)(]+  = Match anything that isn't a parentheses
-                         |  = OR
-                         \(  = Match a start parentheses
-                             [^)(]*  = Match anything that isn't a parentheses
-                         \)  = Match a end parentheses
-                     )  = End Group
-                     *\) = Match anything and then a close parens
-                 )  = Close non-capturing group
-                 *  = Match anything
-              )  = Close capturing group
-         \)  = Match a close parens
-        	 /gi  = Get all matches, not the first.  Be case insensitive.
-         */
-        var fixedCss = css.replace(/url\s*\(((?:[^)(]|\((?:[^)(]+|\([^)(]*\))*\))*)\)/gi, function (fullMatch, origUrl) {
-          // strip quotes (if they exist)
-          var unquotedOrigUrl = origUrl.trim().replace(/^"(.*)"$/, function (o, $1) {
-            return $1;
-          }).replace(/^'(.*)'$/, function (o, $1) {
-            return $1;
-          });
-
-          // already a full url? no change
-          if (/^(#|data:|http:\/\/|https:\/\/|file:\/\/\/)/i.test(unquotedOrigUrl)) {
-            return fullMatch;
-          }
-
-          // convert the url to a full url
-          var newUrl;
-
-          if (unquotedOrigUrl.indexOf("//") === 0) {
-            //TODO: should we add protocol?
-            newUrl = unquotedOrigUrl;
-          } else if (unquotedOrigUrl.indexOf("/") === 0) {
-            // path should be relative to the base url
-            newUrl = baseUrl + unquotedOrigUrl; // already starts with '/'
-          } else {
-            // path should be relative to current directory
-            newUrl = currentDir + unquotedOrigUrl.replace(/^\.\//, ""); // Strip leading './'
-          }
-
-          // send back the fixed url(...)
-          return "url(" + JSON.stringify(newUrl) + ")";
-        });
-
-        // send back the fixed css
-        return fixedCss;
-      };
-
-      /***/
-    },
-    /* 9 */
-    /***/function (module, exports) {
-
-      /* globals __VUE_SSR_CONTEXT__ */
-
-      // this module is a runtime utility for cleaner component module output and will
-      // be included in the final webpack user bundle
-
-      module.exports = function normalizeComponent(rawScriptExports, compiledTemplate, injectStyles, scopeId, moduleIdentifier /* server only */
-      ) {
-        var esModule;
-        var scriptExports = rawScriptExports = rawScriptExports || {};
-
-        // ES6 modules interop
-        var type = typeof rawScriptExports.default;
-        if (type === 'object' || type === 'function') {
-          esModule = rawScriptExports;
-          scriptExports = rawScriptExports.default;
-        }
-
-        // Vue.extend constructor export interop
-        var options = typeof scriptExports === 'function' ? scriptExports.options : scriptExports;
-
-        // render functions
-        if (compiledTemplate) {
-          options.render = compiledTemplate.render;
-          options.staticRenderFns = compiledTemplate.staticRenderFns;
-        }
-
-        // scopedId
-        if (scopeId) {
-          options._scopeId = scopeId;
-        }
-
-        var hook;
-        if (moduleIdentifier) {
-          // server build
-          hook = function (context) {
-            // 2.3 injection
-            context = context || // cached call
-            this.$vnode && this.$vnode.ssrContext || // stateful
-            this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext; // functional
-            // 2.2 with runInNewContext: true
-            if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
-              context = __VUE_SSR_CONTEXT__;
-            }
-            // inject component styles
-            if (injectStyles) {
-              injectStyles.call(this, context);
-            }
-            // register component module identifier for async chunk inferrence
-            if (context && context._registeredComponents) {
-              context._registeredComponents.add(moduleIdentifier);
-            }
-          };
-          // used by ssr in case component is cached and beforeCreate
-          // never gets called
-          options._ssrRegister = hook;
-        } else if (injectStyles) {
-          hook = injectStyles;
-        }
-
-        if (hook) {
-          var functional = options.functional;
-          var existing = functional ? options.render : options.beforeCreate;
-          if (!functional) {
-            // inject component registration as beforeCreate hook
-            options.beforeCreate = existing ? [].concat(existing, hook) : [hook];
-          } else {
-            // register for functioal component in vue file
-            options.render = function renderWithStyleInjection(h, context) {
-              hook.call(context);
-              return existing(h, context);
-            };
-          }
-        }
-
-        return {
-          esModule: esModule,
-          exports: scriptExports,
-          options: options
-        };
-      };
-
-      /***/
-    },
-    /* 10 */
-    /***/function (module, exports, __webpack_require__) {
-
-      module.exports = { render: function () {
-          var _vm = this;var _h = _vm.$createElement;var _c = _vm._self._c || _h;
-          return _c('div', {
-            staticClass: "antiscroll-wrap"
-          }, [_c('div', {
-            staticClass: "antiscroll-inner",
-            style: _vm._$styObj
-          }, [_vm._t("default")], 2)]);
-        }, staticRenderFns: [] };
-      module.exports.render._withStripped = true;
-      if (false) {
-        module.hot.accept();
-        if (module.hot.data) {
-          require("vue-hot-reload-api").rerender("data-v-68697719", module.exports);
-        }
-      }
-
-      /***/
-    }]
-    /******/)
-  );
-});
-//# sourceMappingURL=vue-antiscroll.js.map
+/***/ (function(module, exports) {
+
+// https://github.com/zloirock/core-js/issues/86#issuecomment-115759028
+var global = module.exports = typeof window != 'undefined' && window.Math == Math
+  ? window : typeof self != 'undefined' && self.Math == Math ? self : Function('return this')();
+if(typeof __g == 'number')__g = global; // eslint-disable-line no-undef
 
 /***/ }),
 /* 1 */
+/***/ (function(module, exports) {
+
+var core = module.exports = {version: '2.4.0'};
+if(typeof __e == 'number')__e = core; // eslint-disable-line no-undef
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// Thank's IE8 for his funny defineProperty
+module.exports = !__webpack_require__(8)(function(){
+  return Object.defineProperty({}, 'a', {get: function(){ return 7; }}).a != 7;
+});
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports) {
+
+var hasOwnProperty = {}.hasOwnProperty;
+module.exports = function(it, key){
+  return hasOwnProperty.call(it, key);
+};
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var anObject       = __webpack_require__(10)
+  , IE8_DOM_DEFINE = __webpack_require__(29)
+  , toPrimitive    = __webpack_require__(24)
+  , dP             = Object.defineProperty;
+
+exports.f = __webpack_require__(2) ? Object.defineProperty : function defineProperty(O, P, Attributes){
+  anObject(O);
+  P = toPrimitive(P, true);
+  anObject(Attributes);
+  if(IE8_DOM_DEFINE)try {
+    return dP(O, P, Attributes);
+  } catch(e){ /* empty */ }
+  if('get' in Attributes || 'set' in Attributes)throw TypeError('Accessors not supported!');
+  if('value' in Attributes)O[P] = Attributes.value;
+  return O;
+};
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// to indexed object, toObject with fallback for non-array-like ES3 strings
+var IObject = __webpack_require__(70)
+  , defined = __webpack_require__(15);
+module.exports = function(it){
+  return IObject(defined(it));
+};
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var dP         = __webpack_require__(4)
+  , createDesc = __webpack_require__(13);
+module.exports = __webpack_require__(2) ? function(object, key, value){
+  return dP.f(object, key, createDesc(1, value));
+} : function(object, key, value){
+  object[key] = value;
+  return object;
+};
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var store      = __webpack_require__(22)('wks')
+  , uid        = __webpack_require__(14)
+  , Symbol     = __webpack_require__(0).Symbol
+  , USE_SYMBOL = typeof Symbol == 'function';
+
+var $exports = module.exports = function(name){
+  return store[name] || (store[name] =
+    USE_SYMBOL && Symbol[name] || (USE_SYMBOL ? Symbol : uid)('Symbol.' + name));
+};
+
+$exports.store = store;
+
+/***/ }),
+/* 8 */
+/***/ (function(module, exports) {
+
+module.exports = function(exec){
+  try {
+    return !!exec();
+  } catch(e){
+    return true;
+  }
+};
+
+/***/ }),
+/* 9 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 19.1.2.14 / 15.2.3.14 Object.keys(O)
+var $keys       = __webpack_require__(34)
+  , enumBugKeys = __webpack_require__(16);
+
+module.exports = Object.keys || function keys(O){
+  return $keys(O, enumBugKeys);
+};
+
+/***/ }),
+/* 10 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var isObject = __webpack_require__(12);
+module.exports = function(it){
+  if(!isObject(it))throw TypeError(it + ' is not an object!');
+  return it;
+};
+
+/***/ }),
+/* 11 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var global    = __webpack_require__(0)
+  , core      = __webpack_require__(1)
+  , ctx       = __webpack_require__(67)
+  , hide      = __webpack_require__(6)
+  , PROTOTYPE = 'prototype';
+
+var $export = function(type, name, source){
+  var IS_FORCED = type & $export.F
+    , IS_GLOBAL = type & $export.G
+    , IS_STATIC = type & $export.S
+    , IS_PROTO  = type & $export.P
+    , IS_BIND   = type & $export.B
+    , IS_WRAP   = type & $export.W
+    , exports   = IS_GLOBAL ? core : core[name] || (core[name] = {})
+    , expProto  = exports[PROTOTYPE]
+    , target    = IS_GLOBAL ? global : IS_STATIC ? global[name] : (global[name] || {})[PROTOTYPE]
+    , key, own, out;
+  if(IS_GLOBAL)source = name;
+  for(key in source){
+    // contains in native
+    own = !IS_FORCED && target && target[key] !== undefined;
+    if(own && key in exports)continue;
+    // export native or passed
+    out = own ? target[key] : source[key];
+    // prevent global pollution for namespaces
+    exports[key] = IS_GLOBAL && typeof target[key] != 'function' ? source[key]
+    // bind timers to global for call from export context
+    : IS_BIND && own ? ctx(out, global)
+    // wrap global constructors for prevent change them in library
+    : IS_WRAP && target[key] == out ? (function(C){
+      var F = function(a, b, c){
+        if(this instanceof C){
+          switch(arguments.length){
+            case 0: return new C;
+            case 1: return new C(a);
+            case 2: return new C(a, b);
+          } return new C(a, b, c);
+        } return C.apply(this, arguments);
+      };
+      F[PROTOTYPE] = C[PROTOTYPE];
+      return F;
+    // make static versions for prototype methods
+    })(out) : IS_PROTO && typeof out == 'function' ? ctx(Function.call, out) : out;
+    // export proto methods to core.%CONSTRUCTOR%.methods.%NAME%
+    if(IS_PROTO){
+      (exports.virtual || (exports.virtual = {}))[key] = out;
+      // export proto methods to core.%CONSTRUCTOR%.prototype.%NAME%
+      if(type & $export.R && expProto && !expProto[key])hide(expProto, key, out);
+    }
+  }
+};
+// type bitmap
+$export.F = 1;   // forced
+$export.G = 2;   // global
+$export.S = 4;   // static
+$export.P = 8;   // proto
+$export.B = 16;  // bind
+$export.W = 32;  // wrap
+$export.U = 64;  // safe
+$export.R = 128; // real proto method for `library` 
+module.exports = $export;
+
+/***/ }),
+/* 12 */
+/***/ (function(module, exports) {
+
+module.exports = function(it){
+  return typeof it === 'object' ? it !== null : typeof it === 'function';
+};
+
+/***/ }),
+/* 13 */
+/***/ (function(module, exports) {
+
+module.exports = function(bitmap, value){
+  return {
+    enumerable  : !(bitmap & 1),
+    configurable: !(bitmap & 2),
+    writable    : !(bitmap & 4),
+    value       : value
+  };
+};
+
+/***/ }),
+/* 14 */
+/***/ (function(module, exports) {
+
+var id = 0
+  , px = Math.random();
+module.exports = function(key){
+  return 'Symbol('.concat(key === undefined ? '' : key, ')_', (++id + px).toString(36));
+};
+
+/***/ }),
+/* 15 */
+/***/ (function(module, exports) {
+
+// 7.2.1 RequireObjectCoercible(argument)
+module.exports = function(it){
+  if(it == undefined)throw TypeError("Can't call method on  " + it);
+  return it;
+};
+
+/***/ }),
+/* 16 */
+/***/ (function(module, exports) {
+
+// IE 8- don't enum bug keys
+module.exports = (
+  'constructor,hasOwnProperty,isPrototypeOf,propertyIsEnumerable,toLocaleString,toString,valueOf'
+).split(',');
+
+/***/ }),
+/* 17 */
+/***/ (function(module, exports) {
+
+module.exports = {};
+
+/***/ }),
+/* 18 */
+/***/ (function(module, exports) {
+
+module.exports = true;
+
+/***/ }),
+/* 19 */
+/***/ (function(module, exports) {
+
+exports.f = {}.propertyIsEnumerable;
+
+/***/ }),
+/* 20 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var def = __webpack_require__(4).f
+  , has = __webpack_require__(3)
+  , TAG = __webpack_require__(7)('toStringTag');
+
+module.exports = function(it, tag, stat){
+  if(it && !has(it = stat ? it : it.prototype, TAG))def(it, TAG, {configurable: true, value: tag});
+};
+
+/***/ }),
+/* 21 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var shared = __webpack_require__(22)('keys')
+  , uid    = __webpack_require__(14);
+module.exports = function(key){
+  return shared[key] || (shared[key] = uid(key));
+};
+
+/***/ }),
+/* 22 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var global = __webpack_require__(0)
+  , SHARED = '__core-js_shared__'
+  , store  = global[SHARED] || (global[SHARED] = {});
+module.exports = function(key){
+  return store[key] || (store[key] = {});
+};
+
+/***/ }),
+/* 23 */
+/***/ (function(module, exports) {
+
+// 7.1.4 ToInteger
+var ceil  = Math.ceil
+  , floor = Math.floor;
+module.exports = function(it){
+  return isNaN(it = +it) ? 0 : (it > 0 ? floor : ceil)(it);
+};
+
+/***/ }),
+/* 24 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 7.1.1 ToPrimitive(input [, PreferredType])
+var isObject = __webpack_require__(12);
+// instead of the ES6 spec version, we didn't implement @@toPrimitive case
+// and the second argument - flag - preferred type is a string
+module.exports = function(it, S){
+  if(!isObject(it))return it;
+  var fn, val;
+  if(S && typeof (fn = it.toString) == 'function' && !isObject(val = fn.call(it)))return val;
+  if(typeof (fn = it.valueOf) == 'function' && !isObject(val = fn.call(it)))return val;
+  if(!S && typeof (fn = it.toString) == 'function' && !isObject(val = fn.call(it)))return val;
+  throw TypeError("Can't convert object to primitive value");
+};
+
+/***/ }),
+/* 25 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var global         = __webpack_require__(0)
+  , core           = __webpack_require__(1)
+  , LIBRARY        = __webpack_require__(18)
+  , wksExt         = __webpack_require__(26)
+  , defineProperty = __webpack_require__(4).f;
+module.exports = function(name){
+  var $Symbol = core.Symbol || (core.Symbol = LIBRARY ? {} : global.Symbol || {});
+  if(name.charAt(0) != '_' && !(name in $Symbol))defineProperty($Symbol, name, {value: wksExt.f(name)});
+};
+
+/***/ }),
+/* 26 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports.f = __webpack_require__(7);
+
+/***/ }),
+/* 27 */
+/***/ (function(module, exports) {
+
+var toString = {}.toString;
+
+module.exports = function(it){
+  return toString.call(it).slice(8, -1);
+};
+
+/***/ }),
+/* 28 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var isObject = __webpack_require__(12)
+  , document = __webpack_require__(0).document
+  // in old IE typeof document.createElement is 'object'
+  , is = isObject(document) && isObject(document.createElement);
+module.exports = function(it){
+  return is ? document.createElement(it) : {};
+};
+
+/***/ }),
+/* 29 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = !__webpack_require__(2) && !__webpack_require__(8)(function(){
+  return Object.defineProperty(__webpack_require__(28)('div'), 'a', {get: function(){ return 7; }}).a != 7;
+});
+
+/***/ }),
+/* 30 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var LIBRARY        = __webpack_require__(18)
+  , $export        = __webpack_require__(11)
+  , redefine       = __webpack_require__(35)
+  , hide           = __webpack_require__(6)
+  , has            = __webpack_require__(3)
+  , Iterators      = __webpack_require__(17)
+  , $iterCreate    = __webpack_require__(72)
+  , setToStringTag = __webpack_require__(20)
+  , getPrototypeOf = __webpack_require__(79)
+  , ITERATOR       = __webpack_require__(7)('iterator')
+  , BUGGY          = !([].keys && 'next' in [].keys()) // Safari has buggy iterators w/o `next`
+  , FF_ITERATOR    = '@@iterator'
+  , KEYS           = 'keys'
+  , VALUES         = 'values';
+
+var returnThis = function(){ return this; };
+
+module.exports = function(Base, NAME, Constructor, next, DEFAULT, IS_SET, FORCED){
+  $iterCreate(Constructor, NAME, next);
+  var getMethod = function(kind){
+    if(!BUGGY && kind in proto)return proto[kind];
+    switch(kind){
+      case KEYS: return function keys(){ return new Constructor(this, kind); };
+      case VALUES: return function values(){ return new Constructor(this, kind); };
+    } return function entries(){ return new Constructor(this, kind); };
+  };
+  var TAG        = NAME + ' Iterator'
+    , DEF_VALUES = DEFAULT == VALUES
+    , VALUES_BUG = false
+    , proto      = Base.prototype
+    , $native    = proto[ITERATOR] || proto[FF_ITERATOR] || DEFAULT && proto[DEFAULT]
+    , $default   = $native || getMethod(DEFAULT)
+    , $entries   = DEFAULT ? !DEF_VALUES ? $default : getMethod('entries') : undefined
+    , $anyNative = NAME == 'Array' ? proto.entries || $native : $native
+    , methods, key, IteratorPrototype;
+  // Fix native
+  if($anyNative){
+    IteratorPrototype = getPrototypeOf($anyNative.call(new Base));
+    if(IteratorPrototype !== Object.prototype){
+      // Set @@toStringTag to native iterators
+      setToStringTag(IteratorPrototype, TAG, true);
+      // fix for some old engines
+      if(!LIBRARY && !has(IteratorPrototype, ITERATOR))hide(IteratorPrototype, ITERATOR, returnThis);
+    }
+  }
+  // fix Array#{values, @@iterator}.name in V8 / FF
+  if(DEF_VALUES && $native && $native.name !== VALUES){
+    VALUES_BUG = true;
+    $default = function values(){ return $native.call(this); };
+  }
+  // Define iterator
+  if((!LIBRARY || FORCED) && (BUGGY || VALUES_BUG || !proto[ITERATOR])){
+    hide(proto, ITERATOR, $default);
+  }
+  // Plug for library
+  Iterators[NAME] = $default;
+  Iterators[TAG]  = returnThis;
+  if(DEFAULT){
+    methods = {
+      values:  DEF_VALUES ? $default : getMethod(VALUES),
+      keys:    IS_SET     ? $default : getMethod(KEYS),
+      entries: $entries
+    };
+    if(FORCED)for(key in methods){
+      if(!(key in proto))redefine(proto, key, methods[key]);
+    } else $export($export.P + $export.F * (BUGGY || VALUES_BUG), NAME, methods);
+  }
+  return methods;
+};
+
+/***/ }),
+/* 31 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 19.1.2.2 / 15.2.3.5 Object.create(O [, Properties])
+var anObject    = __webpack_require__(10)
+  , dPs         = __webpack_require__(76)
+  , enumBugKeys = __webpack_require__(16)
+  , IE_PROTO    = __webpack_require__(21)('IE_PROTO')
+  , Empty       = function(){ /* empty */ }
+  , PROTOTYPE   = 'prototype';
+
+// Create object with fake `null` prototype: use iframe Object with cleared prototype
+var createDict = function(){
+  // Thrash, waste and sodomy: IE GC bug
+  var iframe = __webpack_require__(28)('iframe')
+    , i      = enumBugKeys.length
+    , lt     = '<'
+    , gt     = '>'
+    , iframeDocument;
+  iframe.style.display = 'none';
+  __webpack_require__(69).appendChild(iframe);
+  iframe.src = 'javascript:'; // eslint-disable-line no-script-url
+  // createDict = iframe.contentWindow.Object;
+  // html.removeChild(iframe);
+  iframeDocument = iframe.contentWindow.document;
+  iframeDocument.open();
+  iframeDocument.write(lt + 'script' + gt + 'document.F=Object' + lt + '/script' + gt);
+  iframeDocument.close();
+  createDict = iframeDocument.F;
+  while(i--)delete createDict[PROTOTYPE][enumBugKeys[i]];
+  return createDict();
+};
+
+module.exports = Object.create || function create(O, Properties){
+  var result;
+  if(O !== null){
+    Empty[PROTOTYPE] = anObject(O);
+    result = new Empty;
+    Empty[PROTOTYPE] = null;
+    // add "__proto__" for Object.getPrototypeOf polyfill
+    result[IE_PROTO] = O;
+  } else result = createDict();
+  return Properties === undefined ? result : dPs(result, Properties);
+};
+
+
+/***/ }),
+/* 32 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 19.1.2.7 / 15.2.3.4 Object.getOwnPropertyNames(O)
+var $keys      = __webpack_require__(34)
+  , hiddenKeys = __webpack_require__(16).concat('length', 'prototype');
+
+exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O){
+  return $keys(O, hiddenKeys);
+};
+
+/***/ }),
+/* 33 */
+/***/ (function(module, exports) {
+
+exports.f = Object.getOwnPropertySymbols;
+
+/***/ }),
+/* 34 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var has          = __webpack_require__(3)
+  , toIObject    = __webpack_require__(5)
+  , arrayIndexOf = __webpack_require__(66)(false)
+  , IE_PROTO     = __webpack_require__(21)('IE_PROTO');
+
+module.exports = function(object, names){
+  var O      = toIObject(object)
+    , i      = 0
+    , result = []
+    , key;
+  for(key in O)if(key != IE_PROTO)has(O, key) && result.push(key);
+  // Don't enum bug & hidden keys
+  while(names.length > i)if(has(O, key = names[i++])){
+    ~arrayIndexOf(result, key) || result.push(key);
+  }
+  return result;
+};
+
+/***/ }),
+/* 35 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(6);
+
+/***/ }),
+/* 36 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 7.1.13 ToObject(argument)
+var defined = __webpack_require__(15);
+module.exports = function(it){
+  return Object(defined(it));
+};
+
+/***/ }),
+/* 37 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(module) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_json_stringify__ = __webpack_require__(53);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_json_stringify___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_json_stringify__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_object_keys__ = __webpack_require__(55);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_object_keys___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_object_keys__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_babel_runtime_core_js_object_define_property__ = __webpack_require__(54);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_babel_runtime_core_js_object_define_property___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_babel_runtime_core_js_object_define_property__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_typeof__ = __webpack_require__(58);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_typeof___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_typeof__);
+
+
+
+
+(function webpackUniversalModuleDefinition(root, factory) {
+	if ((typeof exports === 'undefined' ? 'undefined' : __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_typeof___default()(exports)) === 'object' && ( false ? 'undefined' : __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_typeof___default()(module)) === 'object') module.exports = factory();else if (typeof define === 'function' && __webpack_require__(50)) define([], factory);else if ((typeof exports === 'undefined' ? 'undefined' : __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_typeof___default()(exports)) === 'object') exports["vue-antiscroll-addon"] = factory();else root["vue-antiscroll-addon"] = factory();
+})(this, function () {
+	return (/******/function (modules) {
+			// webpackBootstrap
+			/******/ // The module cache
+			/******/var installedModules = {};
+			/******/
+			/******/ // The require function
+			/******/function __webpack_require__(moduleId) {
+				/******/
+				/******/ // Check if module is in cache
+				/******/if (installedModules[moduleId]) {
+					/******/return installedModules[moduleId].exports;
+					/******/
+				}
+				/******/ // Create a new module (and put it into the cache)
+				/******/var module = installedModules[moduleId] = {
+					/******/i: moduleId,
+					/******/l: false,
+					/******/exports: {}
+					/******/ };
+				/******/
+				/******/ // Execute the module function
+				/******/modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+				/******/
+				/******/ // Flag the module as loaded
+				/******/module.l = true;
+				/******/
+				/******/ // Return the exports of the module
+				/******/return module.exports;
+				/******/
+			}
+			/******/
+			/******/
+			/******/ // expose the modules object (__webpack_modules__)
+			/******/__webpack_require__.m = modules;
+			/******/
+			/******/ // expose the module cache
+			/******/__webpack_require__.c = installedModules;
+			/******/
+			/******/ // identity function for calling harmony imports with the correct context
+			/******/__webpack_require__.i = function (value) {
+				return value;
+			};
+			/******/
+			/******/ // define getter function for harmony exports
+			/******/__webpack_require__.d = function (exports, name, getter) {
+				/******/if (!__webpack_require__.o(exports, name)) {
+					/******/__WEBPACK_IMPORTED_MODULE_2_babel_runtime_core_js_object_define_property___default()(exports, name, {
+						/******/configurable: false,
+						/******/enumerable: true,
+						/******/get: getter
+						/******/ });
+					/******/
+				}
+				/******/
+			};
+			/******/
+			/******/ // getDefaultExport function for compatibility with non-harmony modules
+			/******/__webpack_require__.n = function (module) {
+				/******/var getter = module && module.__esModule ?
+				/******/function getDefault() {
+					return module['default'];
+				} :
+				/******/function getModuleExports() {
+					return module;
+				};
+				/******/__webpack_require__.d(getter, 'a', getter);
+				/******/return getter;
+				/******/
+			};
+			/******/
+			/******/ // Object.prototype.hasOwnProperty.call
+			/******/__webpack_require__.o = function (object, property) {
+				return Object.prototype.hasOwnProperty.call(object, property);
+			};
+			/******/
+			/******/ // __webpack_public_path__
+			/******/__webpack_require__.p = "";
+			/******/
+			/******/ // Load entry module and return exports
+			/******/return __webpack_require__(__webpack_require__.s = 13);
+			/******/
+		}(
+		/************************************************************************/
+		/******/[
+		/* 0 */
+		/***/function (module, exports) {
+
+			var core = module.exports = { version: '2.4.0' };
+			if (typeof __e == 'number') __e = core; // eslint-disable-line no-undef
+
+			/***/
+		},
+		/* 1 */
+		/***/function (module, exports, __webpack_require__) {
+
+			// Thank's IE8 for his funny defineProperty
+			module.exports = !__webpack_require__(2)(function () {
+				return Object.defineProperty({}, 'a', { get: function get() {
+						return 7;
+					} }).a != 7;
+			});
+
+			/***/
+		},
+		/* 2 */
+		/***/function (module, exports) {
+
+			module.exports = function (exec) {
+				try {
+					return !!exec();
+				} catch (e) {
+					return true;
+				}
+			};
+
+			/***/
+		},
+		/* 3 */
+		/***/function (module, exports) {
+
+			// https://github.com/zloirock/core-js/issues/86#issuecomment-115759028
+			var global = module.exports = typeof window != 'undefined' && window.Math == Math ? window : typeof self != 'undefined' && self.Math == Math ? self : Function('return this')();
+			if (typeof __g == 'number') __g = global; // eslint-disable-line no-undef
+
+			/***/
+		},
+		/* 4 */
+		/***/function (module, exports) {
+
+			module.exports = function (it) {
+				return (typeof it === 'undefined' ? 'undefined' : __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_typeof___default()(it)) === 'object' ? it !== null : typeof it === 'function';
+			};
+
+			/***/
+		},
+		/* 5 */
+		/***/function (module, __webpack_exports__, __webpack_require__) {
+
+			"use strict";
+
+			var T = {
+				proxy: function proxy(context, fnName) {
+					var fn = context[fnName];
+					return function () {
+						return fn.apply(context, arguments);
+					};
+				},
+				getStyle: function getStyle(oDiv, attr) {
+					var hasX = ['width', 'height', 'top', 'left', 'scrollWith', 'scrollHeight'];
+					if (oDiv.currentStyle) return oDiv.currentStyle[attr];
+					var v = getComputedStyle(oDiv, null).getPropertyValue(attr);
+					if (hasX.indexOf(attr) > -1) {
+						v = parseFloat(v);
+					}
+					return v;
+				},
+				addClass: function addClass(element, cls) {
+					var className = element.className;
+					var classNames = className.split(/\s+/);
+					if (classNames.indexOf(cls) === -1) {
+						classNames.push(cls);
+					}
+					element.className = classNames.join(' ');
+					return element;
+				},
+				removeClass: function removeClass(element, cls) {
+					var className = element.className;
+					var classNames = className.split(/\s+/);
+					var index;
+					if ((index = classNames.indexOf(cls)) > -1) {
+						classNames.splice(index, 1);
+					}
+					element.className = classNames.join(' ');
+					return element;
+				},
+				bind: function bind(element, eventType, fn) {
+					if (document.addEventListener) {
+						element.addEventListener(eventType, fn, false);
+					} else if (document.attachEvent) {
+						element.attachEvent('on' + eventType, fn);
+					}
+					return element;
+				},
+				unbind: function unbind(element, eventType, fn) {
+					if (document.removeEventListener) {
+						element.removeEventListener(eventType, fn, false);
+					} else if (document.detachEvent) {
+						element.detachEvent('on' + eventType, fn);
+					}
+					return element;
+				}
+			};
+			window.requestAnimFrame = function () {
+				return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || function (callback) {
+					window.setTimeout(callback, 100);
+				};
+			}();
+			/* harmony default export */__webpack_exports__["a"] = T;
+
+			/***/
+		},
+		/* 6 */
+		/***/function (module, exports) {
+
+			// 7.2.1 RequireObjectCoercible(argument)
+			module.exports = function (it) {
+				if (it == undefined) throw TypeError("Can't call method on  " + it);
+				return it;
+			};
+
+			/***/
+		},
+		/* 7 */
+		/***/function (module, exports) {
+
+			// 7.1.4 ToInteger
+			var ceil = Math.ceil,
+			    floor = Math.floor;
+			module.exports = function (it) {
+				return isNaN(it = +it) ? 0 : (it > 0 ? floor : ceil)(it);
+			};
+
+			/***/
+		},
+		/* 8 */
+		/***/function (module, exports, __webpack_require__) {
+
+			// to indexed object, toObject with fallback for non-array-like ES3 strings
+			var IObject = __webpack_require__(27),
+			    defined = __webpack_require__(6);
+			module.exports = function (it) {
+				return IObject(defined(it));
+			};
+
+			/***/
+		},
+		/* 9 */
+		/***/function (module, exports, __webpack_require__) {
+
+			// style-loader: Adds some css to the DOM by adding a <style> tag
+
+			// load the styles
+			var content = __webpack_require__(42);
+			if (typeof content === 'string') content = [[module.i, content, '']];
+			// Prepare cssTransformation
+			var transform;
+
+			var options = {};
+			options.transform = transform;
+			// add the styles to the DOM
+			var update = __webpack_require__(44)(content, options);
+			if (content.locals) module.exports = content.locals;
+			// Hot Module Replacement
+			if (false) {
+				// When the styles change, update the <style> tags
+				if (!content.locals) {
+					module.hot.accept("!!../../node_modules/css-loader/index.js!./antiscroll.css", function () {
+						var newContent = require("!!../../node_modules/css-loader/index.js!./antiscroll.css");
+						if (typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+						update(newContent);
+					});
+				}
+				// When the module is disposed, remove the <style> tags
+				module.hot.dispose(function () {
+					update();
+				});
+			}
+
+			/***/
+		},
+		/* 10 */
+		/***/function (module, exports, __webpack_require__) {
+
+			var disposed = false;
+			var Component = __webpack_require__(46)(
+			/* script */
+			__webpack_require__(11),
+			/* template */
+			__webpack_require__(47),
+			/* styles */
+			null,
+			/* scopeId */
+			null,
+			/* moduleIdentifier (server only) */
+			null);
+			Component.options.__file = "/Users/evox/Repos/vue-antiscroll-addon/src/components/vue-antiscroll-addon.vue";
+			if (Component.esModule && __WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_object_keys___default()(Component.esModule).some(function (key) {
+				return key !== "default" && key.substr(0, 2) !== "__";
+			})) {
+				console.error("named exports are not supported in *.vue files.");
+			}
+			if (Component.options.functional) {
+				console.error("[vue-loader] vue-antiscroll-addon.vue: functional components are not supported with templates, they should use render functions.");
+			}
+
+			/* hot reload */
+			if (false) {
+				(function () {
+					var hotAPI = require("vue-hot-reload-api");
+					hotAPI.install(require("vue"), false);
+					if (!hotAPI.compatible) return;
+					module.hot.accept();
+					if (!module.hot.data) {
+						hotAPI.createRecord("data-v-b01e9582", Component.options);
+					} else {
+						hotAPI.reload("data-v-b01e9582", Component.options);
+					}
+					module.hot.dispose(function (data) {
+						disposed = true;
+					});
+				})();
+			}
+
+			module.exports = Component.exports;
+
+			/***/
+		},
+		/* 11 */
+		/***/function (module, __webpack_exports__, __webpack_require__) {
+
+			"use strict";
+
+			Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+			/* harmony import */var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_object_keys__ = __webpack_require__(14);
+			/* harmony import */var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_object_keys___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_object_keys__);
+			/* harmony import */var __WEBPACK_IMPORTED_MODULE_1__libs_t__ = __webpack_require__(5);
+			/* harmony import */var __WEBPACK_IMPORTED_MODULE_2__libs_antiscroll__ = __webpack_require__(12);
+			/* harmony import */var __WEBPACK_IMPORTED_MODULE_3_css_element_queries_src_ResizeSensor__ = __webpack_require__(41);
+			/* harmony import */var __WEBPACK_IMPORTED_MODULE_3_css_element_queries_src_ResizeSensor___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_css_element_queries_src_ResizeSensor__);
+
+			/* harmony default export */__webpack_exports__["default"] = {
+				props: {
+					height: {
+						required: false,
+						type: null
+					},
+					width: {
+						required: false,
+						type: null
+					},
+					onScrolling: {
+						required: false,
+						type: Function
+					},
+					onScrollToBottom: {
+						required: false,
+						type: Function
+					},
+					initialDisplay: {
+						required: false,
+						type: Boolean,
+						default: function _default() {
+							return Boolean(1);
+						}
+					}
+				},
+				data: function data() {
+					return {};
+				},
+				mounted: function mounted() {
+					var initialDisplay = this.initialDisplay;
+
+					this.scroller = new __WEBPACK_IMPORTED_MODULE_2__libs_antiscroll__["a" /* default */](this.$el, { initialDisplay: initialDisplay });
+					this._onScroll = __WEBPACK_IMPORTED_MODULE_1__libs_t__["a" /* default */].proxy(this, 'onScroll');
+					this.scroller.inner.addEventListener('scroll', this._onScroll, false);
+					this.attachDimensionChangeEvent();
+				},
+				beforeDestroy: function beforeDestroy() {
+					var _this = this;
+
+					this.scroller && this.scroller.destroy();
+					this.scroller && this.scroller.inner.removeEventListener('scroll', this._onScroll, false);
+					__WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_object_keys___default()(this.resizeSensors).forEach(function (key) {
+						return _this.resizeSensors[key].detach();
+					});
+					this.resizeSensors = null;
+					this.scroller = null;
+					this._onScroll = null;
+				},
+
+				watch: {
+					'height': 'refresh',
+					'width': 'refresh'
+				},
+				computed: {
+					_$styObj: function _$styObj() {
+						var _$height = this._$height,
+						    _$width = this._$width;
+
+						var hash = { height: _$height };
+						_$width && (hash['width'] = _$width);
+						return hash;
+					},
+					_$height: function _$height() {
+						var height = this.height;
+
+						height = height + '';
+						if (height.lastIndexOf('px') === -1) return height + 'px';
+						return height;
+					},
+					_$width: function _$width() {
+						var width = this.width;
+
+						width = width && width + '';
+						if (!width) return null;
+						if (width.lastIndexOf('px') === -1) return width + 'px';
+						return width;
+					}
+				},
+				methods: {
+					onScroll: function onScroll(evt) {
+						var innerHeight = __WEBPACK_IMPORTED_MODULE_1__libs_t__["a" /* default */].getStyle(this.scroller.inner, 'height');
+						var scrollHeight = __WEBPACK_IMPORTED_MODULE_1__libs_t__["a" /* default */].getStyle(this.scroller.inner, 'scrollHeight');
+						var scrollTop = __WEBPACK_IMPORTED_MODULE_1__libs_t__["a" /* default */].getStyle(this.scroller.inner, 'scrollTop');
+
+						if (typeof this.onScrolling === 'function') {
+							this.onScrolling.call(this, this.scroller, evt);
+						}
+						if (scrollHeight <= innerHeight + scrollTop) {
+							if (typeof this.onScrollToBottom === 'function') {
+								this.onScrollToBottom.call(this, this.scroller, evt);
+							}
+						}
+					},
+					scrollTo: function scrollTo(placement) {
+						var scroller = this.scroller;
+						if (scroller) {
+							scroller.scrollTo(placement);
+						}
+					},
+					refresh: function refresh() {
+						var scroller = this.scroller;
+						if (scroller) {
+							scroller.refresh();
+							this.detachDimensionChangeEvent();
+							this.attachDimensionChangeEvent();
+						}
+					},
+					attachDimensionChangeEvent: function attachDimensionChangeEvent() {
+						try {
+							var resizeSensors = this.resizeSensors = {};
+							var scroller = this.scroller;
+							var innerChild = scroller.inner.childNodes[0];
+							resizeSensors.innerChildObserver = new __WEBPACK_IMPORTED_MODULE_3_css_element_queries_src_ResizeSensor___default.a(innerChild, function () {
+								return scroller.refresh({ updatable: false });
+							});
+						} catch (e) {
+							console.info('滚动条错误辣!');
+						}
+					},
+					detachDimensionChangeEvent: function detachDimensionChangeEvent() {
+						var _this2 = this;
+
+						var resizeSensors = this.resizeSensors;
+						__WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_object_keys___default()(resizeSensors).forEach(function (key) {
+							return _this2.resizeSensors[key].detach();
+						});
+					}
+				}
+
+			};
+
+			/***/
+		},
+		/* 12 */
+		/***/function (module, __webpack_exports__, __webpack_require__) {
+
+			"use strict";
+			/* harmony import */
+			var __WEBPACK_IMPORTED_MODULE_0__libs_t__ = __webpack_require__(5);
+
+			/**
+    * Antiscroll pane constructor.
+    *
+    * @param {Element|jQuery} main pane
+    * @parma {Object} options
+    * @api public
+    */
+
+			function Antiscroll(el, opts) {
+				this.el = el;
+				this.options = opts || {};
+
+				this.x = false !== this.options.x || this.options.forceHorizontal;
+				this.y = false !== this.options.y || this.options.forceVertical;
+				this.autoHide = false !== this.options.autoHide;
+				this.padding = undefined === this.options.padding ? 2 : this.options.padding;
+
+				this.inner = this.el.querySelector('.antiscroll-inner');
+
+				var innerWidth = __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].getStyle(this.inner, 'width');
+				var innerHeight = __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].getStyle(this.inner, 'height');
+
+				this.inner.style.cssText = "width: " + (innerWidth + (this.y ? scrollbarSize() : 0)) + 'px;' + "height: " + (innerHeight + (this.x ? scrollbarSize() : 0)) + 'px;';
+
+				this.refresh();
+			};
+
+			/**
+    * refresh scrollbars
+    * arg scrollbar 是否需要更新
+    * @api public
+    */
+
+			Antiscroll.prototype.refresh = function (arg) {
+				var needHScroll = this.inner.scrollWidth > __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].getStyle(this.el, 'width') + (this.y ? scrollbarSize() : 0),
+				    needVScroll = this.inner.scrollHeight > __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].getStyle(this.el, 'height') + (this.x ? scrollbarSize() : 0);
+				var updatable = (arg || { updatable: true }).updatable;
+
+				if (this.x) {
+					if (!this.horizontal && needHScroll) {
+						this.horizontal = new Scrollbar.Horizontal(this);
+					} else if (this.horizontal && !needHScroll) {
+						this.horizontal.destroy();
+						this.horizontal = null;
+						// Loop check whether there is no need to update the scroll bar
+					} else if (this.horizontal && updatable) {
+						this.horizontal.update();
+					}
+				}
+
+				if (this.y) {
+					if (!this.vertical && needVScroll) {
+						this.vertical = new Scrollbar.Vertical(this);
+					} else if (this.vertical && !needVScroll) {
+						this.vertical.destroy();
+						this.vertical = null;
+						// Loop check whether there is no need to update the scroll bar
+					} else if (this.vertical && updatable) {
+						this.vertical.update();
+					}
+				}
+			};
+
+			/**
+    * Cleans up.
+    *
+    * @return {Antiscroll} for chaining
+    * @api public
+    */
+
+			Antiscroll.prototype.destroy = function () {
+				if (this.horizontal) {
+					this.horizontal.destroy();
+					this.horizontal = null;
+				}
+				if (this.vertical) {
+					this.vertical.destroy();
+					this.vertical = null;
+				}
+				return this;
+			};
+
+			/**
+    * Rebuild Antiscroll.
+    *
+    * @return {Antiscroll} for chaining
+    * @api public
+    */
+
+			Antiscroll.prototype.rebuild = function () {
+				this.destroy();
+				this.inner.style.cssText = "";
+				Antiscroll.call(this, this.el, this.options);
+				return this;
+			};
+			/**
+    * scrollToBottom Antiscroll.
+    *
+    * @return {Antiscroll} for chaining
+    * @api public
+    */
+			Antiscroll.prototype.scrollTo = function (placement) {
+				var placements = ['bottom', 'top', 'left', 'right'];
+				var vertical = this.vertical;
+				var horizontal = this.horizontal;
+				if (placements.indexOf(placement) === -1) return this;
+				if (['bottom', 'top'].indexOf(placement) > -1) {
+					vertical && vertical.scrollTo(placement);
+				}
+				if (['left', 'right'].indexOf(placement) > -1) {
+					horizontal && horizontal.scrollTo(placement);
+				}
+				return this;
+			};
+
+			/**
+    * Scrollbar constructor.
+    *
+    * @param {Element|jQuery} element
+    * @api public
+    */
+
+			function Scrollbar(pane) {
+				this.pane = pane;
+				this.pane.el.appendChild(this.el);
+
+				this.dragging = false;
+				this.enter = false;
+				this.shown = false;
+
+				// hovering
+				__WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].bind(this.pane.el, 'mouseenter', __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].proxy(this, 'mouseenter'));
+				__WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].bind(this.pane.el, 'mouseleave', __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].proxy(this, 'mouseleave'));
+
+				// dragging
+				__WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].bind(this.el, 'mousedown', __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].proxy(this, 'mousedown'));
+
+				// scrolling
+				this.innerPaneScrollListener = __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].proxy(this, 'scroll');
+				__WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].bind(this.pane.inner, 'scroll', this.innerPaneScrollListener);
+
+				// show
+				var initialDisplay = this.pane.options.initialDisplay;
+
+				if (initialDisplay !== false) {
+					this.show();
+					if (this.pane.autoHide) {
+						this.hiding = setTimeout(__WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].proxy(this, 'hide'), parseInt(initialDisplay, 10) || 3000);
+					}
+				}
+			};
+
+			/**
+    * Cleans up.
+    *
+    * @return {Scrollbar} for chaining
+    * @api public
+    */
+
+			Scrollbar.prototype.destroy = function () {
+				this.el.remove();
+				__WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].unbind(this.pane.inner, 'scroll', this.innerPaneScrollListener);
+				return this;
+			};
+
+			/**
+    * Called upon mouseenter.
+    *
+    * @api private
+    */
+
+			Scrollbar.prototype.mouseenter = function () {
+				this.enter = true;
+				this.show();
+			};
+
+			/**
+    * Called upon mouseleave.
+    *
+    * @api private
+    */
+
+			Scrollbar.prototype.mouseleave = function () {
+				this.enter = false;
+
+				if (!this.dragging) {
+					if (this.pane.autoHide) {
+						this.hide();
+					}
+				}
+			};
+
+			/**
+    * Called upon wrap scroll.
+    *
+    * @api private
+    */
+
+			Scrollbar.prototype.scroll = function () {
+				if (!this.shown) {
+					this.show();
+					if (!this.enter && !this.dragging) {
+						if (this.pane.autoHide) {
+							this.hiding = setTimeout(__WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].proxy(this, 'hide'), 1500);
+						}
+					}
+				}
+
+				this.update();
+			};
+
+			/**
+    *
+    *
+    * @api private
+    */
+
+			Scrollbar.prototype.scrollTo = function (placement) {
+				var fns = {
+					verticalToBottom: function verticalToBottom(inner) {
+						var paneHeight = __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].getStyle(this.pane.el, 'height');
+						inner.scrollTop = inner.scrollHeight - paneHeight;
+					},
+					verticalToTop: function verticalToTop(inner) {
+						inner.scrollTop = 0;
+					},
+					horizontalToLeft: function horizontalToLeft(inner) {
+						inner.scrollLeft = 0;
+					},
+					horizontalToRight: function horizontalToRight(inner) {
+						var paneWidth = __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].getStyle(this.pane.el, 'width');
+						inner.scrollLeft = inner.scrollWidth - paneWidth;
+					}
+				};
+				var inner = this.pane.inner;
+				switch (placement) {
+					case 'bottom':
+						fns.verticalToBottom.call(this, inner);
+						break;
+					case 'top':
+						fns.verticalToTop.call(this, inner);
+						break;
+					case 'left':
+						fns.horizontalToLeft.call(this, inner);
+						break;
+					case 'right':
+						fns.horizontalToRight.call(this, inner);
+						break;
+				}
+				var event = document.createEvent('MouseEvents');
+				event.initEvent('scroll', true, true);
+				inner.dispatchEvent(event);
+			};
+
+			/**
+    * Called upon scrollbar mousedown.
+    *
+    * @api private
+    */
+
+			Scrollbar.prototype.mousedown = function (ev) {
+				ev.preventDefault();
+
+				this.dragging = true;
+
+				this.startPageY = ev.pageY - parseInt(__WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].getStyle(this.el, 'top'), 10);
+				this.startPageX = ev.pageX - parseInt(__WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].getStyle(this.el, 'left'), 10);
+
+				// prevent crazy selections on IE
+				this.el.ownerDocument.onselectstart = function () {
+					return false;
+				};
+
+				var pane = this.pane,
+				    self = this;
+
+				var move = __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].proxy(this, 'mousemove');
+				var mouseup = function mouseup() {
+					self.dragging = false;
+					this.onselectstart = null;
+
+					__WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].unbind(this, 'mousemove', move);
+
+					if (!self.enter) {
+						self.hide();
+					}
+				};
+
+				__WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].bind(window.document, 'mousemove', move);
+				__WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].bind(window.document, 'mouseup', mouseup);
+			};
+
+			/**
+    * Show scrollbar.
+    *
+    * @api private
+    */
+
+			Scrollbar.prototype.show = function (duration) {
+				if (!this.shown && this.update()) {
+					__WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].addClass(this.el, 'antiscroll-scrollbar-shown');
+					if (this.hiding) {
+						clearTimeout(this.hiding);
+						this.hiding = null;
+					}
+					this.shown = true;
+				}
+			};
+
+			/**
+    * Hide scrollbar.
+    *
+    * @api private
+    */
+
+			Scrollbar.prototype.hide = function () {
+				if (this.pane.autoHide !== false && this.shown) {
+					// check for dragging
+					__WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].removeClass(this.el, 'antiscroll-scrollbar-shown');
+					this.shown = false;
+				}
+			};
+
+			/**
+    * Horizontal scrollbar constructor
+    *
+    * @api private
+    */
+
+			Scrollbar.Horizontal = function (pane) {
+				var scrollbarH = document.createElement('div');
+				scrollbarH.className = 'antiscroll-scrollbar antiscroll-scrollbar-horizontal';
+				this.el = pane.el.appendChild(scrollbarH);
+				Scrollbar.call(this, pane);
+			};
+
+			/**
+    * Inherits from Scrollbar.
+    */
+
+			inherits(Scrollbar.Horizontal, Scrollbar);
+
+			/**
+    * Updates size/position of scrollbar.
+    *
+    * @api private
+    */
+
+			Scrollbar.Horizontal.prototype.update = function () {
+				var paneWidth = __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].getStyle(this.pane.el, 'width'),
+				    trackWidth = paneWidth - this.pane.padding * 2,
+				    inner = this.pane.inner;
+				this.el.style.cssText = 'width: ' + trackWidth * paneWidth / inner.scrollWidth + 'px;' + 'left: ' + trackWidth * inner.scrollLeft / inner.scrollWidth + 'px;';
+
+				return paneWidth < inner.scrollWidth;
+			};
+
+			/**
+    * Called upon drag.
+    *
+    * @api private
+    */
+
+			Scrollbar.Horizontal.prototype.mousemove = function (ev) {
+				var trackWidth = __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].getStyle(this.pane.el, 'width') - this.pane.padding * 2,
+				    pos = ev.pageX - this.startPageX,
+				    barWidth = __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].getStyle(this.el, 'width'),
+				    inner = this.pane.inner;
+
+				// minimum top is 0, maximum is the track height
+				var y = Math.min(Math.max(pos, 0), trackWidth - barWidth);
+
+				inner.scrollLeft = (inner.scrollWidth - __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].getStyle(this.pane.el, 'width')) * y / (trackWidth - barWidth);
+			};
+
+			/**
+    * Vertical scrollbar constructor
+    *
+    * @api private
+    */
+
+			Scrollbar.Vertical = function (pane) {
+				var scrollbarV = document.createElement('div');
+				scrollbarV.className = 'antiscroll-scrollbar antiscroll-scrollbar-vertical';
+				this.el = pane.el.appendChild(scrollbarV);
+				Scrollbar.call(this, pane);
+			};
+
+			/**
+    * Inherits from Scrollbar.
+    */
+
+			inherits(Scrollbar.Vertical, Scrollbar);
+
+			/**
+    * Updates size/position of scrollbar.
+    *
+    * @api private
+    */
+
+			Scrollbar.Vertical.prototype.update = function () {
+				var paneHeight = __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].getStyle(this.pane.el, 'height'),
+				    trackHeight = paneHeight - this.pane.padding * 2,
+				    inner = this.pane.inner;
+
+				var scrollbarHeight = trackHeight * paneHeight / inner.scrollHeight;
+				scrollbarHeight = scrollbarHeight < 20 ? 20 : scrollbarHeight;
+
+				var topPos = trackHeight * inner.scrollTop / inner.scrollHeight;
+
+				if (topPos + scrollbarHeight > trackHeight) {
+					var diff = topPos + scrollbarHeight - trackHeight;
+					topPos = topPos - diff - 3;
+				}
+
+				this.el.style.cssText = 'height: ' + scrollbarHeight + 'px;top: ' + topPos + 'px';
+
+				return paneHeight < inner.scrollHeight;
+			};
+
+			/**
+    * Called upon drag.
+    *
+    * @api private
+    */
+
+			Scrollbar.Vertical.prototype.mousemove = function (ev) {
+				var paneHeight = __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].getStyle(this.pane.el, 'height'),
+				    trackHeight = paneHeight - this.pane.padding * 2,
+				    pos = ev.pageY - this.startPageY,
+				    barHeight = __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].getStyle(this.el, 'height'),
+				    inner = this.pane.inner;
+
+				// minimum top is 0, maximum is the track height
+				var y = Math.min(Math.max(pos, 0), trackHeight - barHeight);
+
+				inner.scrollTop = (inner.scrollHeight - paneHeight) * y / (trackHeight - barHeight);
+			};
+
+			/**
+    * Cross-browser inheritance.
+    *
+    * @param {Function} constructor
+    * @param {Function} constructor we inherit from
+    * @api private
+    */
+
+			function inherits(ctorA, ctorB) {
+				function f() {};
+				f.prototype = ctorB.prototype;
+				ctorA.prototype = new f();
+			};
+
+			/**
+    * Scrollbar size detection.
+    */
+
+			var size;
+
+			function scrollbarSize() {
+				if (size === undefined) {
+					var div = document.createElement('div');
+					var innerDiv = document.createElement('div');
+					div.className = 'antiscroll-inner';
+					div.style.cssText = 'width:50px;height:50px;overflow-y:scroll;position:absolute;top:-200px;left:-200px;';
+					innerDiv.style.cssText = 'height:100px;width:100%';
+					div.appendChild(innerDiv);
+
+					document.body.appendChild(div);
+					var w1 = __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].getStyle(div, 'width');
+					var w2 = __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].getStyle(innerDiv, 'width');
+
+					document.body.removeChild(div);
+
+					size = w1 - w2;
+				}
+				return size;
+			}
+
+			/* harmony default export */__webpack_exports__["a"] = Antiscroll;
+
+			/***/
+		},
+		/* 13 */
+		/***/function (module, __webpack_exports__, __webpack_require__) {
+
+			"use strict";
+
+			Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+			/* harmony import */var __WEBPACK_IMPORTED_MODULE_0__assets_antiscroll_css__ = __webpack_require__(9);
+			/* harmony import */var __WEBPACK_IMPORTED_MODULE_0__assets_antiscroll_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__assets_antiscroll_css__);
+			/* harmony import */var __WEBPACK_IMPORTED_MODULE_1__components_vue_antiscroll_addon_vue__ = __webpack_require__(10);
+			/* harmony import */var __WEBPACK_IMPORTED_MODULE_1__components_vue_antiscroll_addon_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__components_vue_antiscroll_addon_vue__);
+			/* harmony reexport (default from non-hamory) */__webpack_require__.d(__webpack_exports__, "default", function () {
+				return __WEBPACK_IMPORTED_MODULE_1__components_vue_antiscroll_addon_vue___default.a;
+			});
+
+			/***/
+		},
+		/* 14 */
+		/***/function (module, exports, __webpack_require__) {
+
+			module.exports = { "default": __webpack_require__(15), __esModule: true };
+
+			/***/
+		},
+		/* 15 */
+		/***/function (module, exports, __webpack_require__) {
+
+			__webpack_require__(40);
+			module.exports = __webpack_require__(0).Object.keys;
+
+			/***/
+		},
+		/* 16 */
+		/***/function (module, exports) {
+
+			module.exports = function (it) {
+				if (typeof it != 'function') throw TypeError(it + ' is not a function!');
+				return it;
+			};
+
+			/***/
+		},
+		/* 17 */
+		/***/function (module, exports, __webpack_require__) {
+
+			var isObject = __webpack_require__(4);
+			module.exports = function (it) {
+				if (!isObject(it)) throw TypeError(it + ' is not an object!');
+				return it;
+			};
+
+			/***/
+		},
+		/* 18 */
+		/***/function (module, exports, __webpack_require__) {
+
+			// false -> Array#indexOf
+			// true  -> Array#includes
+			var toIObject = __webpack_require__(8),
+			    toLength = __webpack_require__(36),
+			    toIndex = __webpack_require__(35);
+			module.exports = function (IS_INCLUDES) {
+				return function ($this, el, fromIndex) {
+					var O = toIObject($this),
+					    length = toLength(O.length),
+					    index = toIndex(fromIndex, length),
+					    value;
+					// Array#includes uses SameValueZero equality algorithm
+					if (IS_INCLUDES && el != el) while (length > index) {
+						value = O[index++];
+						if (value != value) return true;
+						// Array#toIndex ignores holes, Array#includes - not
+					} else for (; length > index; index++) {
+						if (IS_INCLUDES || index in O) {
+							if (O[index] === el) return IS_INCLUDES || index || 0;
+						}
+					}return !IS_INCLUDES && -1;
+				};
+			};
+
+			/***/
+		},
+		/* 19 */
+		/***/function (module, exports) {
+
+			var toString = {}.toString;
+
+			module.exports = function (it) {
+				return toString.call(it).slice(8, -1);
+			};
+
+			/***/
+		},
+		/* 20 */
+		/***/function (module, exports, __webpack_require__) {
+
+			// optional / simple context binding
+			var aFunction = __webpack_require__(16);
+			module.exports = function (fn, that, length) {
+				aFunction(fn);
+				if (that === undefined) return fn;
+				switch (length) {
+					case 1:
+						return function (a) {
+							return fn.call(that, a);
+						};
+					case 2:
+						return function (a, b) {
+							return fn.call(that, a, b);
+						};
+					case 3:
+						return function (a, b, c) {
+							return fn.call(that, a, b, c);
+						};
+				}
+				return function () /* ...args */{
+					return fn.apply(that, arguments);
+				};
+			};
+
+			/***/
+		},
+		/* 21 */
+		/***/function (module, exports, __webpack_require__) {
+
+			var isObject = __webpack_require__(4),
+			    document = __webpack_require__(3).document
+			// in old IE typeof document.createElement is 'object'
+			,
+			    is = isObject(document) && isObject(document.createElement);
+			module.exports = function (it) {
+				return is ? document.createElement(it) : {};
+			};
+
+			/***/
+		},
+		/* 22 */
+		/***/function (module, exports) {
+
+			// IE 8- don't enum bug keys
+			module.exports = 'constructor,hasOwnProperty,isPrototypeOf,propertyIsEnumerable,toLocaleString,toString,valueOf'.split(',');
+
+			/***/
+		},
+		/* 23 */
+		/***/function (module, exports, __webpack_require__) {
+
+			var global = __webpack_require__(3),
+			    core = __webpack_require__(0),
+			    ctx = __webpack_require__(20),
+			    hide = __webpack_require__(25),
+			    PROTOTYPE = 'prototype';
+
+			var $export = function $export(type, name, source) {
+				var IS_FORCED = type & $export.F,
+				    IS_GLOBAL = type & $export.G,
+				    IS_STATIC = type & $export.S,
+				    IS_PROTO = type & $export.P,
+				    IS_BIND = type & $export.B,
+				    IS_WRAP = type & $export.W,
+				    exports = IS_GLOBAL ? core : core[name] || (core[name] = {}),
+				    expProto = exports[PROTOTYPE],
+				    target = IS_GLOBAL ? global : IS_STATIC ? global[name] : (global[name] || {})[PROTOTYPE],
+				    key,
+				    own,
+				    out;
+				if (IS_GLOBAL) source = name;
+				for (key in source) {
+					// contains in native
+					own = !IS_FORCED && target && target[key] !== undefined;
+					if (own && key in exports) continue;
+					// export native or passed
+					out = own ? target[key] : source[key];
+					// prevent global pollution for namespaces
+					exports[key] = IS_GLOBAL && typeof target[key] != 'function' ? source[key]
+					// bind timers to global for call from export context
+					: IS_BIND && own ? ctx(out, global)
+					// wrap global constructors for prevent change them in library
+					: IS_WRAP && target[key] == out ? function (C) {
+						var F = function F(a, b, c) {
+							if (this instanceof C) {
+								switch (arguments.length) {
+									case 0:
+										return new C();
+									case 1:
+										return new C(a);
+									case 2:
+										return new C(a, b);
+								}return new C(a, b, c);
+							}return C.apply(this, arguments);
+						};
+						F[PROTOTYPE] = C[PROTOTYPE];
+						return F;
+						// make static versions for prototype methods
+					}(out) : IS_PROTO && typeof out == 'function' ? ctx(Function.call, out) : out;
+					// export proto methods to core.%CONSTRUCTOR%.methods.%NAME%
+					if (IS_PROTO) {
+						(exports.virtual || (exports.virtual = {}))[key] = out;
+						// export proto methods to core.%CONSTRUCTOR%.prototype.%NAME%
+						if (type & $export.R && expProto && !expProto[key]) hide(expProto, key, out);
+					}
+				}
+			};
+			// type bitmap
+			$export.F = 1; // forced
+			$export.G = 2; // global
+			$export.S = 4; // static
+			$export.P = 8; // proto
+			$export.B = 16; // bind
+			$export.W = 32; // wrap
+			$export.U = 64; // safe
+			$export.R = 128; // real proto method for `library` 
+			module.exports = $export;
+
+			/***/
+		},
+		/* 24 */
+		/***/function (module, exports) {
+
+			var hasOwnProperty = {}.hasOwnProperty;
+			module.exports = function (it, key) {
+				return hasOwnProperty.call(it, key);
+			};
+
+			/***/
+		},
+		/* 25 */
+		/***/function (module, exports, __webpack_require__) {
+
+			var dP = __webpack_require__(28),
+			    createDesc = __webpack_require__(32);
+			module.exports = __webpack_require__(1) ? function (object, key, value) {
+				return dP.f(object, key, createDesc(1, value));
+			} : function (object, key, value) {
+				object[key] = value;
+				return object;
+			};
+
+			/***/
+		},
+		/* 26 */
+		/***/function (module, exports, __webpack_require__) {
+
+			module.exports = !__webpack_require__(1) && !__webpack_require__(2)(function () {
+				return Object.defineProperty(__webpack_require__(21)('div'), 'a', { get: function get() {
+						return 7;
+					} }).a != 7;
+			});
+
+			/***/
+		},
+		/* 27 */
+		/***/function (module, exports, __webpack_require__) {
+
+			// fallback for non-array-like ES3 and non-enumerable old V8 strings
+			var cof = __webpack_require__(19);
+			module.exports = Object('z').propertyIsEnumerable(0) ? Object : function (it) {
+				return cof(it) == 'String' ? it.split('') : Object(it);
+			};
+
+			/***/
+		},
+		/* 28 */
+		/***/function (module, exports, __webpack_require__) {
+
+			var anObject = __webpack_require__(17),
+			    IE8_DOM_DEFINE = __webpack_require__(26),
+			    toPrimitive = __webpack_require__(38),
+			    dP = __WEBPACK_IMPORTED_MODULE_2_babel_runtime_core_js_object_define_property___default.a;
+
+			exports.f = __webpack_require__(1) ? __WEBPACK_IMPORTED_MODULE_2_babel_runtime_core_js_object_define_property___default.a : function defineProperty(O, P, Attributes) {
+				anObject(O);
+				P = toPrimitive(P, true);
+				anObject(Attributes);
+				if (IE8_DOM_DEFINE) try {
+					return dP(O, P, Attributes);
+				} catch (e) {/* empty */}
+				if ('get' in Attributes || 'set' in Attributes) throw TypeError('Accessors not supported!');
+				if ('value' in Attributes) O[P] = Attributes.value;
+				return O;
+			};
+
+			/***/
+		},
+		/* 29 */
+		/***/function (module, exports, __webpack_require__) {
+
+			var has = __webpack_require__(24),
+			    toIObject = __webpack_require__(8),
+			    arrayIndexOf = __webpack_require__(18)(false),
+			    IE_PROTO = __webpack_require__(33)('IE_PROTO');
+
+			module.exports = function (object, names) {
+				var O = toIObject(object),
+				    i = 0,
+				    result = [],
+				    key;
+				for (key in O) {
+					if (key != IE_PROTO) has(O, key) && result.push(key);
+				} // Don't enum bug & hidden keys
+				while (names.length > i) {
+					if (has(O, key = names[i++])) {
+						~arrayIndexOf(result, key) || result.push(key);
+					}
+				}return result;
+			};
+
+			/***/
+		},
+		/* 30 */
+		/***/function (module, exports, __webpack_require__) {
+
+			// 19.1.2.14 / 15.2.3.14 Object.keys(O)
+			var $keys = __webpack_require__(29),
+			    enumBugKeys = __webpack_require__(22);
+
+			module.exports = __WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_object_keys___default.a || function keys(O) {
+				return $keys(O, enumBugKeys);
+			};
+
+			/***/
+		},
+		/* 31 */
+		/***/function (module, exports, __webpack_require__) {
+
+			// most Object methods by ES6 should accept primitives
+			var $export = __webpack_require__(23),
+			    core = __webpack_require__(0),
+			    fails = __webpack_require__(2);
+			module.exports = function (KEY, exec) {
+				var fn = (core.Object || {})[KEY] || Object[KEY],
+				    exp = {};
+				exp[KEY] = exec(fn);
+				$export($export.S + $export.F * fails(function () {
+					fn(1);
+				}), 'Object', exp);
+			};
+
+			/***/
+		},
+		/* 32 */
+		/***/function (module, exports) {
+
+			module.exports = function (bitmap, value) {
+				return {
+					enumerable: !(bitmap & 1),
+					configurable: !(bitmap & 2),
+					writable: !(bitmap & 4),
+					value: value
+				};
+			};
+
+			/***/
+		},
+		/* 33 */
+		/***/function (module, exports, __webpack_require__) {
+
+			var shared = __webpack_require__(34)('keys'),
+			    uid = __webpack_require__(39);
+			module.exports = function (key) {
+				return shared[key] || (shared[key] = uid(key));
+			};
+
+			/***/
+		},
+		/* 34 */
+		/***/function (module, exports, __webpack_require__) {
+
+			var global = __webpack_require__(3),
+			    SHARED = '__core-js_shared__',
+			    store = global[SHARED] || (global[SHARED] = {});
+			module.exports = function (key) {
+				return store[key] || (store[key] = {});
+			};
+
+			/***/
+		},
+		/* 35 */
+		/***/function (module, exports, __webpack_require__) {
+
+			var toInteger = __webpack_require__(7),
+			    max = Math.max,
+			    min = Math.min;
+			module.exports = function (index, length) {
+				index = toInteger(index);
+				return index < 0 ? max(index + length, 0) : min(index, length);
+			};
+
+			/***/
+		},
+		/* 36 */
+		/***/function (module, exports, __webpack_require__) {
+
+			// 7.1.15 ToLength
+			var toInteger = __webpack_require__(7),
+			    min = Math.min;
+			module.exports = function (it) {
+				return it > 0 ? min(toInteger(it), 0x1fffffffffffff) : 0; // pow(2, 53) - 1 == 9007199254740991
+			};
+
+			/***/
+		},
+		/* 37 */
+		/***/function (module, exports, __webpack_require__) {
+
+			// 7.1.13 ToObject(argument)
+			var defined = __webpack_require__(6);
+			module.exports = function (it) {
+				return Object(defined(it));
+			};
+
+			/***/
+		},
+		/* 38 */
+		/***/function (module, exports, __webpack_require__) {
+
+			// 7.1.1 ToPrimitive(input [, PreferredType])
+			var isObject = __webpack_require__(4);
+			// instead of the ES6 spec version, we didn't implement @@toPrimitive case
+			// and the second argument - flag - preferred type is a string
+			module.exports = function (it, S) {
+				if (!isObject(it)) return it;
+				var fn, val;
+				if (S && typeof (fn = it.toString) == 'function' && !isObject(val = fn.call(it))) return val;
+				if (typeof (fn = it.valueOf) == 'function' && !isObject(val = fn.call(it))) return val;
+				if (!S && typeof (fn = it.toString) == 'function' && !isObject(val = fn.call(it))) return val;
+				throw TypeError("Can't convert object to primitive value");
+			};
+
+			/***/
+		},
+		/* 39 */
+		/***/function (module, exports) {
+
+			var id = 0,
+			    px = Math.random();
+			module.exports = function (key) {
+				return 'Symbol('.concat(key === undefined ? '' : key, ')_', (++id + px).toString(36));
+			};
+
+			/***/
+		},
+		/* 40 */
+		/***/function (module, exports, __webpack_require__) {
+
+			// 19.1.2.14 Object.keys(O)
+			var toObject = __webpack_require__(37),
+			    $keys = __webpack_require__(30);
+
+			__webpack_require__(31)('keys', function () {
+				return function keys(it) {
+					return $keys(toObject(it));
+				};
+			});
+
+			/***/
+		},
+		/* 41 */
+		/***/function (module, exports, __webpack_require__) {
+
+			"use strict";
+
+			var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;
+
+			/**
+    * Copyright Marc J. Schmidt. See the LICENSE file at the top-level
+    * directory of this distribution and at
+    * https://github.com/marcj/css-element-queries/blob/master/LICENSE.
+    */
+			(function (root, factory) {
+				if (true) {
+					!(__WEBPACK_AMD_DEFINE_FACTORY__ = factory, __WEBPACK_AMD_DEFINE_RESULT__ = typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? __WEBPACK_AMD_DEFINE_FACTORY__.call(exports, __webpack_require__, exports, module) : __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+				} else if ((typeof exports === 'undefined' ? 'undefined' : _typeof(exports)) === "object") {
+					module.exports = factory();
+				} else {
+					root.ResizeSensor = factory();
+				}
+			})(typeof window !== 'undefined' ? window : this, function () {
+
+				// Make sure it does not throw in a SSR (Server Side Rendering) situation
+				if (typeof window === "undefined") {
+					return null;
+				}
+				// Only used for the dirty checking, so the event callback count is limited to max 1 call per fps per sensor.
+				// In combination with the event based resize sensor this saves cpu time, because the sensor is too fast and
+				// would generate too many unnecessary events.
+				var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || function (fn) {
+					return window.setTimeout(fn, 20);
+				};
+
+				/**
+     * Iterate over each of the provided element(s).
+     *
+     * @param {HTMLElement|HTMLElement[]} elements
+     * @param {Function}                  callback
+     */
+				function forEachElement(elements, callback) {
+					var elementsType = Object.prototype.toString.call(elements);
+					var isCollectionTyped = '[object Array]' === elementsType || '[object NodeList]' === elementsType || '[object HTMLCollection]' === elementsType || '[object Object]' === elementsType || 'undefined' !== typeof jQuery && elements instanceof jQuery //jquery
+					|| 'undefined' !== typeof Elements && elements instanceof Elements //mootools
+					;
+					var i = 0,
+					    j = elements.length;
+					if (isCollectionTyped) {
+						for (; i < j; i++) {
+							callback(elements[i]);
+						}
+					} else {
+						callback(elements);
+					}
+				}
+
+				/**
+    * Get element size
+    * @param {HTMLElement} element
+    * @returns {Object} {width, height}
+    */
+				function getElementSize(element) {
+					if (!element.getBoundingClientRect) {
+						return {
+							width: element.offsetWidth,
+							height: element.offsetHeight
+						};
+					}
+
+					var rect = element.getBoundingClientRect();
+					return {
+						width: Math.round(rect.width),
+						height: Math.round(rect.height)
+					};
+				}
+
+				/**
+     * Class for dimension change detection.
+     *
+     * @param {Element|Element[]|Elements|jQuery} element
+     * @param {Function} callback
+     *
+     * @constructor
+     */
+				var ResizeSensor = function ResizeSensor(element, callback) {
+					/**
+      *
+      * @constructor
+      */
+					function EventQueue() {
+						var q = [];
+						this.add = function (ev) {
+							q.push(ev);
+						};
+
+						var i, j;
+						this.call = function () {
+							for (i = 0, j = q.length; i < j; i++) {
+								q[i].call();
+							}
+						};
+
+						this.remove = function (ev) {
+							var newQueue = [];
+							for (i = 0, j = q.length; i < j; i++) {
+								if (q[i] !== ev) newQueue.push(q[i]);
+							}
+							q = newQueue;
+						};
+
+						this.length = function () {
+							return q.length;
+						};
+					}
+
+					/**
+      *
+      * @param {HTMLElement} element
+      * @param {Function}    resized
+      */
+					function attachResizeEvent(element, resized) {
+						if (!element) return;
+						if (element.resizedAttached) {
+							element.resizedAttached.add(resized);
+							return;
+						}
+
+						element.resizedAttached = new EventQueue();
+						element.resizedAttached.add(resized);
+
+						element.resizeSensor = document.createElement('div');
+						element.resizeSensor.dir = 'ltr';
+						element.resizeSensor.className = 'resize-sensor';
+						var style = 'position: absolute; left: -10px; top: -10px; right: 0; bottom: 0; overflow: hidden; z-index: -1; visibility: hidden;';
+						var styleChild = 'position: absolute; left: 0; top: 0; transition: 0s;';
+
+						element.resizeSensor.style.cssText = style;
+						element.resizeSensor.innerHTML = '<div class="resize-sensor-expand" style="' + style + '">' + '<div style="' + styleChild + '"></div>' + '</div>' + '<div class="resize-sensor-shrink" style="' + style + '">' + '<div style="' + styleChild + ' width: 200%; height: 200%"></div>' + '</div>';
+						element.appendChild(element.resizeSensor);
+
+						var position = window.getComputedStyle(element).getPropertyValue('position');
+						if ('absolute' !== position && 'relative' !== position && 'fixed' !== position) {
+							element.style.position = 'relative';
+						}
+
+						var expand = element.resizeSensor.childNodes[0];
+						var expandChild = expand.childNodes[0];
+						var shrink = element.resizeSensor.childNodes[1];
+						var dirty, rafId, newWidth, newHeight;
+						var size = getElementSize(element);
+						var lastWidth = size.width;
+						var lastHeight = size.height;
+
+						var reset = function reset() {
+							//set display to block, necessary otherwise hidden elements won't ever work
+							var invisible = element.offsetWidth === 0 && element.offsetHeight === 0;
+
+							if (invisible) {
+								var saveDisplay = element.style.display;
+								element.style.display = 'block';
+							}
+
+							expandChild.style.width = '100000px';
+							expandChild.style.height = '100000px';
+
+							expand.scrollLeft = 100000;
+							expand.scrollTop = 100000;
+
+							shrink.scrollLeft = 100000;
+							shrink.scrollTop = 100000;
+
+							if (invisible) {
+								element.style.display = saveDisplay;
+							}
+						};
+						element.resizeSensor.resetSensor = reset;
+
+						var onResized = function onResized() {
+							rafId = 0;
+
+							if (!dirty) return;
+
+							lastWidth = newWidth;
+							lastHeight = newHeight;
+
+							if (element.resizedAttached) {
+								element.resizedAttached.call();
+							}
+						};
+
+						var onScroll = function onScroll() {
+							var size = getElementSize(element);
+							var newWidth = size.width;
+							var newHeight = size.height;
+							dirty = newWidth != lastWidth || newHeight != lastHeight;
+
+							if (dirty && !rafId) {
+								rafId = requestAnimationFrame(onResized);
+							}
+
+							reset();
+						};
+
+						var addEvent = function addEvent(el, name, cb) {
+							if (el.attachEvent) {
+								el.attachEvent('on' + name, cb);
+							} else {
+								el.addEventListener(name, cb);
+							}
+						};
+
+						addEvent(expand, 'scroll', onScroll);
+						addEvent(shrink, 'scroll', onScroll);
+
+						// Fix for custom Elements
+						requestAnimationFrame(reset);
+					}
+
+					forEachElement(element, function (elem) {
+						attachResizeEvent(elem, callback);
+					});
+
+					this.detach = function (ev) {
+						ResizeSensor.detach(element, ev);
+					};
+
+					this.reset = function () {
+						element.resizeSensor.resetSensor();
+					};
+				};
+
+				ResizeSensor.reset = function (element, ev) {
+					forEachElement(element, function (elem) {
+						elem.resizeSensor.resetSensor();
+					});
+				};
+
+				ResizeSensor.detach = function (element, ev) {
+					forEachElement(element, function (elem) {
+						if (!elem) return;
+						if (elem.resizedAttached && typeof ev === "function") {
+							elem.resizedAttached.remove(ev);
+							if (elem.resizedAttached.length()) return;
+						}
+						if (elem.resizeSensor) {
+							if (elem.contains(elem.resizeSensor)) {
+								elem.removeChild(elem.resizeSensor);
+							}
+							delete elem.resizeSensor;
+							delete elem.resizedAttached;
+						}
+					});
+				};
+
+				return ResizeSensor;
+			});
+
+			/***/
+		},
+		/* 42 */
+		/***/function (module, exports, __webpack_require__) {
+
+			exports = module.exports = __webpack_require__(43)();
+			// imports
+
+
+			// module
+			exports.push([module.i, "/*\n * Antiscroll: cross-browser native OS X Lion scrollbars\n * https://github.com/Automattic/antiscroll\n * v0.9\n */\n\n.antiscroll-wrap {\n  display: inline-block;\n  position: relative;\n  overflow: hidden;\n  z-index: 100;\n}\n\n.antiscroll-scrollbar {\n  background: gray;\n  z-index: 10000;\n  -webkit-border-radius: 7px;\n  -moz-border-radius: 7px;\n  border-radius: 7px;\n  -webkit-box-shadow: 0 0 1px #fff;\n  -moz-box-shadow: 0 0 1px #fff;\n  box-shadow: 0 0 1px #fff;\n  position: absolute;\n  opacity: 0;\n  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);\n  -webkit-transition: linear 300ms opacity;\n  -moz-transition: linear 300ms opacity;\n  -o-transition: linear 300ms opacity;\n}\n\n.antiscroll-scrollbar-shown {\n  opacity: 1;\n  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);\n}\n\n.antiscroll-scrollbar-horizontal {\n  height: 7px;\n  margin-left: 2px;\n  bottom: 2px;\n  left: 0;\n}\n\n.antiscroll-scrollbar-vertical {\n  width: 7px;\n  margin-top: 2px;\n  right: 2px;\n  top: 0;\n}\n\n.antiscroll-inner {\n  overflow: scroll;\n}\n\n/** A bug in Chrome 25 on Lion requires each selector to have their own\n    blocks. E.g. the following:\n\n    .antiscroll-inner::-webkit-scrollbar, .antiscroll-inner::scrollbar {...}\n\n    causes the width and height rules to be ignored by the browser resulting\n    in both native and antiscroll scrollbars appearing at the same time.\n */\n.antiscroll-inner::-webkit-scrollbar {\n  width: 0;\n  height: 0;\n}\n\n.antiscroll-inner::scrollbar {\n  width: 0;\n  height: 0;\n}\n", ""]);
+
+			// exports
+
+
+			/***/
+		},
+		/* 43 */
+		/***/function (module, exports) {
+
+			/*
+   	MIT License http://www.opensource.org/licenses/mit-license.php
+   	Author Tobias Koppers @sokra
+   */
+			// css base code, injected by the css-loader
+			module.exports = function () {
+				var list = [];
+
+				// return the list of modules as css string
+				list.toString = function toString() {
+					var result = [];
+					for (var i = 0; i < this.length; i++) {
+						var item = this[i];
+						if (item[2]) {
+							result.push("@media " + item[2] + "{" + item[1] + "}");
+						} else {
+							result.push(item[1]);
+						}
+					}
+					return result.join("");
+				};
+
+				// import a list of modules into the list
+				list.i = function (modules, mediaQuery) {
+					if (typeof modules === "string") modules = [[null, modules, ""]];
+					var alreadyImportedModules = {};
+					for (var i = 0; i < this.length; i++) {
+						var id = this[i][0];
+						if (typeof id === "number") alreadyImportedModules[id] = true;
+					}
+					for (i = 0; i < modules.length; i++) {
+						var item = modules[i];
+						// skip already imported module
+						// this implementation is not 100% perfect for weird media query combinations
+						//  when a module is imported multiple times with different media queries.
+						//  I hope this will never occur (Hey this way we have smaller bundles)
+						if (typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
+							if (mediaQuery && !item[2]) {
+								item[2] = mediaQuery;
+							} else if (mediaQuery) {
+								item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
+							}
+							list.push(item);
+						}
+					}
+				};
+				return list;
+			};
+
+			/***/
+		},
+		/* 44 */
+		/***/function (module, exports, __webpack_require__) {
+
+			/*
+   	MIT License http://www.opensource.org/licenses/mit-license.php
+   	Author Tobias Koppers @sokra
+   */
+
+			var stylesInDom = {};
+
+			var memoize = function memoize(fn) {
+				var memo;
+
+				return function () {
+					if (typeof memo === "undefined") memo = fn.apply(this, arguments);
+					return memo;
+				};
+			};
+
+			var isOldIE = memoize(function () {
+				// Test for IE <= 9 as proposed by Browserhacks
+				// @see http://browserhacks.com/#hack-e71d8692f65334173fee715c222cb805
+				// Tests for existence of standard globals is to allow style-loader
+				// to operate correctly into non-standard environments
+				// @see https://github.com/webpack-contrib/style-loader/issues/177
+				return window && document && document.all && !window.atob;
+			});
+
+			var getElement = function (fn) {
+				var memo = {};
+
+				return function (selector) {
+					if (typeof memo[selector] === "undefined") {
+						memo[selector] = fn.call(this, selector);
+					}
+
+					return memo[selector];
+				};
+			}(function (target) {
+				return document.querySelector(target);
+			});
+
+			var singleton = null;
+			var singletonCounter = 0;
+			var stylesInsertedAtTop = [];
+
+			var fixUrls = __webpack_require__(45);
+
+			module.exports = function (list, options) {
+				if (typeof DEBUG !== "undefined" && DEBUG) {
+					if ((typeof document === 'undefined' ? 'undefined' : __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_typeof___default()(document)) !== "object") throw new Error("The style-loader cannot be used in a non-browser environment");
+				}
+
+				options = options || {};
+
+				options.attrs = __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_typeof___default()(options.attrs) === "object" ? options.attrs : {};
+
+				// Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
+				// tags it will allow on a page
+				if (!options.singleton) options.singleton = isOldIE();
+
+				// By default, add <style> tags to the <head> element
+				if (!options.insertInto) options.insertInto = "head";
+
+				// By default, add <style> tags to the bottom of the target
+				if (!options.insertAt) options.insertAt = "bottom";
+
+				var styles = listToStyles(list, options);
+
+				addStylesToDom(styles, options);
+
+				return function update(newList) {
+					var mayRemove = [];
+
+					for (var i = 0; i < styles.length; i++) {
+						var item = styles[i];
+						var domStyle = stylesInDom[item.id];
+
+						domStyle.refs--;
+						mayRemove.push(domStyle);
+					}
+
+					if (newList) {
+						var newStyles = listToStyles(newList, options);
+						addStylesToDom(newStyles, options);
+					}
+
+					for (var i = 0; i < mayRemove.length; i++) {
+						var domStyle = mayRemove[i];
+
+						if (domStyle.refs === 0) {
+							for (var j = 0; j < domStyle.parts.length; j++) {
+								domStyle.parts[j]();
+							}delete stylesInDom[domStyle.id];
+						}
+					}
+				};
+			};
+
+			function addStylesToDom(styles, options) {
+				for (var i = 0; i < styles.length; i++) {
+					var item = styles[i];
+					var domStyle = stylesInDom[item.id];
+
+					if (domStyle) {
+						domStyle.refs++;
+
+						for (var j = 0; j < domStyle.parts.length; j++) {
+							domStyle.parts[j](item.parts[j]);
+						}
+
+						for (; j < item.parts.length; j++) {
+							domStyle.parts.push(addStyle(item.parts[j], options));
+						}
+					} else {
+						var parts = [];
+
+						for (var j = 0; j < item.parts.length; j++) {
+							parts.push(addStyle(item.parts[j], options));
+						}
+
+						stylesInDom[item.id] = { id: item.id, refs: 1, parts: parts };
+					}
+				}
+			}
+
+			function listToStyles(list, options) {
+				var styles = [];
+				var newStyles = {};
+
+				for (var i = 0; i < list.length; i++) {
+					var item = list[i];
+					var id = options.base ? item[0] + options.base : item[0];
+					var css = item[1];
+					var media = item[2];
+					var sourceMap = item[3];
+					var part = { css: css, media: media, sourceMap: sourceMap };
+
+					if (!newStyles[id]) styles.push(newStyles[id] = { id: id, parts: [part] });else newStyles[id].parts.push(part);
+				}
+
+				return styles;
+			}
+
+			function insertStyleElement(options, style) {
+				var target = getElement(options.insertInto);
+
+				if (!target) {
+					throw new Error("Couldn't find a style target. This probably means that the value for the 'insertInto' parameter is invalid.");
+				}
+
+				var lastStyleElementInsertedAtTop = stylesInsertedAtTop[stylesInsertedAtTop.length - 1];
+
+				if (options.insertAt === "top") {
+					if (!lastStyleElementInsertedAtTop) {
+						target.insertBefore(style, target.firstChild);
+					} else if (lastStyleElementInsertedAtTop.nextSibling) {
+						target.insertBefore(style, lastStyleElementInsertedAtTop.nextSibling);
+					} else {
+						target.appendChild(style);
+					}
+					stylesInsertedAtTop.push(style);
+				} else if (options.insertAt === "bottom") {
+					target.appendChild(style);
+				} else {
+					throw new Error("Invalid value for parameter 'insertAt'. Must be 'top' or 'bottom'.");
+				}
+			}
+
+			function removeStyleElement(style) {
+				if (style.parentNode === null) return false;
+				style.parentNode.removeChild(style);
+
+				var idx = stylesInsertedAtTop.indexOf(style);
+				if (idx >= 0) {
+					stylesInsertedAtTop.splice(idx, 1);
+				}
+			}
+
+			function createStyleElement(options) {
+				var style = document.createElement("style");
+
+				options.attrs.type = "text/css";
+
+				addAttrs(style, options.attrs);
+				insertStyleElement(options, style);
+
+				return style;
+			}
+
+			function createLinkElement(options) {
+				var link = document.createElement("link");
+
+				options.attrs.type = "text/css";
+				options.attrs.rel = "stylesheet";
+
+				addAttrs(link, options.attrs);
+				insertStyleElement(options, link);
+
+				return link;
+			}
+
+			function addAttrs(el, attrs) {
+				__WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_object_keys___default()(attrs).forEach(function (key) {
+					el.setAttribute(key, attrs[key]);
+				});
+			}
+
+			function addStyle(obj, options) {
+				var style, update, remove, result;
+
+				// If a transform function was defined, run it on the css
+				if (options.transform && obj.css) {
+					result = options.transform(obj.css);
+
+					if (result) {
+						// If transform returns a value, use that instead of the original css.
+						// This allows running runtime transformations on the css.
+						obj.css = result;
+					} else {
+						// If the transform function returns a falsy value, don't add this css.
+						// This allows conditional loading of css
+						return function () {
+							// noop
+						};
+					}
+				}
+
+				if (options.singleton) {
+					var styleIndex = singletonCounter++;
+
+					style = singleton || (singleton = createStyleElement(options));
+
+					update = applyToSingletonTag.bind(null, style, styleIndex, false);
+					remove = applyToSingletonTag.bind(null, style, styleIndex, true);
+				} else if (obj.sourceMap && typeof URL === "function" && typeof URL.createObjectURL === "function" && typeof URL.revokeObjectURL === "function" && typeof Blob === "function" && typeof btoa === "function") {
+					style = createLinkElement(options);
+					update = updateLink.bind(null, style, options);
+					remove = function remove() {
+						removeStyleElement(style);
+
+						if (style.href) URL.revokeObjectURL(style.href);
+					};
+				} else {
+					style = createStyleElement(options);
+					update = applyToTag.bind(null, style);
+					remove = function remove() {
+						removeStyleElement(style);
+					};
+				}
+
+				update(obj);
+
+				return function updateStyle(newObj) {
+					if (newObj) {
+						if (newObj.css === obj.css && newObj.media === obj.media && newObj.sourceMap === obj.sourceMap) {
+							return;
+						}
+
+						update(obj = newObj);
+					} else {
+						remove();
+					}
+				};
+			}
+
+			var replaceText = function () {
+				var textStore = [];
+
+				return function (index, replacement) {
+					textStore[index] = replacement;
+
+					return textStore.filter(Boolean).join('\n');
+				};
+			}();
+
+			function applyToSingletonTag(style, index, remove, obj) {
+				var css = remove ? "" : obj.css;
+
+				if (style.styleSheet) {
+					style.styleSheet.cssText = replaceText(index, css);
+				} else {
+					var cssNode = document.createTextNode(css);
+					var childNodes = style.childNodes;
+
+					if (childNodes[index]) style.removeChild(childNodes[index]);
+
+					if (childNodes.length) {
+						style.insertBefore(cssNode, childNodes[index]);
+					} else {
+						style.appendChild(cssNode);
+					}
+				}
+			}
+
+			function applyToTag(style, obj) {
+				var css = obj.css;
+				var media = obj.media;
+
+				if (media) {
+					style.setAttribute("media", media);
+				}
+
+				if (style.styleSheet) {
+					style.styleSheet.cssText = css;
+				} else {
+					while (style.firstChild) {
+						style.removeChild(style.firstChild);
+					}
+
+					style.appendChild(document.createTextNode(css));
+				}
+			}
+
+			function updateLink(link, options, obj) {
+				var css = obj.css;
+				var sourceMap = obj.sourceMap;
+
+				/*
+    	If convertToAbsoluteUrls isn't defined, but sourcemaps are enabled
+    	and there is no publicPath defined then lets turn convertToAbsoluteUrls
+    	on by default.  Otherwise default to the convertToAbsoluteUrls option
+    	directly
+    */
+				var autoFixUrls = options.convertToAbsoluteUrls === undefined && sourceMap;
+
+				if (options.convertToAbsoluteUrls || autoFixUrls) {
+					css = fixUrls(css);
+				}
+
+				if (sourceMap) {
+					// http://stackoverflow.com/a/26603875
+					css += "\n/*# sourceMappingURL=data:application/json;base64," + btoa(unescape(encodeURIComponent(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_json_stringify___default()(sourceMap)))) + " */";
+				}
+
+				var blob = new Blob([css], { type: "text/css" });
+
+				var oldSrc = link.href;
+
+				link.href = URL.createObjectURL(blob);
+
+				if (oldSrc) URL.revokeObjectURL(oldSrc);
+			}
+
+			/***/
+		},
+		/* 45 */
+		/***/function (module, exports) {
+
+			/**
+    * When source maps are enabled, `style-loader` uses a link element with a data-uri to
+    * embed the css on the page. This breaks all relative urls because now they are relative to a
+    * bundle instead of the current page.
+    *
+    * One solution is to only use full urls, but that may be impossible.
+    *
+    * Instead, this function "fixes" the relative urls to be absolute according to the current page location.
+    *
+    * A rudimentary test suite is located at `test/fixUrls.js` and can be run via the `npm test` command.
+    *
+    */
+
+			module.exports = function (css) {
+				// get current location
+				var location = typeof window !== "undefined" && window.location;
+
+				if (!location) {
+					throw new Error("fixUrls requires window.location");
+				}
+
+				// blank or null?
+				if (!css || typeof css !== "string") {
+					return css;
+				}
+
+				var baseUrl = location.protocol + "//" + location.host;
+				var currentDir = baseUrl + location.pathname.replace(/\/[^\/]*$/, "/");
+
+				// convert each url(...)
+				/*
+    This regular expression is just a way to recursively match brackets within
+    a string.
+    	 /url\s*\(  = Match on the word "url" with any whitespace after it and then a parens
+       (  = Start a capturing group
+         (?:  = Start a non-capturing group
+             [^)(]  = Match anything that isn't a parentheses
+             |  = OR
+             \(  = Match a start parentheses
+                 (?:  = Start another non-capturing groups
+                     [^)(]+  = Match anything that isn't a parentheses
+                     |  = OR
+                     \(  = Match a start parentheses
+                         [^)(]*  = Match anything that isn't a parentheses
+                     \)  = Match a end parentheses
+                 )  = End Group
+                 *\) = Match anything and then a close parens
+             )  = Close non-capturing group
+             *  = Match anything
+          )  = Close capturing group
+     \)  = Match a close parens
+    	 /gi  = Get all matches, not the first.  Be case insensitive.
+     */
+				var fixedCss = css.replace(/url\s*\(((?:[^)(]|\((?:[^)(]+|\([^)(]*\))*\))*)\)/gi, function (fullMatch, origUrl) {
+					// strip quotes (if they exist)
+					var unquotedOrigUrl = origUrl.trim().replace(/^"(.*)"$/, function (o, $1) {
+						return $1;
+					}).replace(/^'(.*)'$/, function (o, $1) {
+						return $1;
+					});
+
+					// already a full url? no change
+					if (/^(#|data:|http:\/\/|https:\/\/|file:\/\/\/)/i.test(unquotedOrigUrl)) {
+						return fullMatch;
+					}
+
+					// convert the url to a full url
+					var newUrl;
+
+					if (unquotedOrigUrl.indexOf("//") === 0) {
+						//TODO: should we add protocol?
+						newUrl = unquotedOrigUrl;
+					} else if (unquotedOrigUrl.indexOf("/") === 0) {
+						// path should be relative to the base url
+						newUrl = baseUrl + unquotedOrigUrl; // already starts with '/'
+					} else {
+						// path should be relative to current directory
+						newUrl = currentDir + unquotedOrigUrl.replace(/^\.\//, ""); // Strip leading './'
+					}
+
+					// send back the fixed url(...)
+					return "url(" + __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_json_stringify___default()(newUrl) + ")";
+				});
+
+				// send back the fixed css
+				return fixedCss;
+			};
+
+			/***/
+		},
+		/* 46 */
+		/***/function (module, exports) {
+
+			/* globals __VUE_SSR_CONTEXT__ */
+
+			// this module is a runtime utility for cleaner component module output and will
+			// be included in the final webpack user bundle
+
+			module.exports = function normalizeComponent(rawScriptExports, compiledTemplate, injectStyles, scopeId, moduleIdentifier /* server only */
+			) {
+				var esModule;
+				var scriptExports = rawScriptExports = rawScriptExports || {};
+
+				// ES6 modules interop
+				var type = __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_typeof___default()(rawScriptExports.default);
+				if (type === 'object' || type === 'function') {
+					esModule = rawScriptExports;
+					scriptExports = rawScriptExports.default;
+				}
+
+				// Vue.extend constructor export interop
+				var options = typeof scriptExports === 'function' ? scriptExports.options : scriptExports;
+
+				// render functions
+				if (compiledTemplate) {
+					options.render = compiledTemplate.render;
+					options.staticRenderFns = compiledTemplate.staticRenderFns;
+				}
+
+				// scopedId
+				if (scopeId) {
+					options._scopeId = scopeId;
+				}
+
+				var hook;
+				if (moduleIdentifier) {
+					// server build
+					hook = function hook(context) {
+						// 2.3 injection
+						context = context || // cached call
+						this.$vnode && this.$vnode.ssrContext || // stateful
+						this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext; // functional
+						// 2.2 with runInNewContext: true
+						if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
+							context = __VUE_SSR_CONTEXT__;
+						}
+						// inject component styles
+						if (injectStyles) {
+							injectStyles.call(this, context);
+						}
+						// register component module identifier for async chunk inferrence
+						if (context && context._registeredComponents) {
+							context._registeredComponents.add(moduleIdentifier);
+						}
+					};
+					// used by ssr in case component is cached and beforeCreate
+					// never gets called
+					options._ssrRegister = hook;
+				} else if (injectStyles) {
+					hook = injectStyles;
+				}
+
+				if (hook) {
+					var functional = options.functional;
+					var existing = functional ? options.render : options.beforeCreate;
+					if (!functional) {
+						// inject component registration as beforeCreate hook
+						options.beforeCreate = existing ? [].concat(existing, hook) : [hook];
+					} else {
+						// register for functioal component in vue file
+						options.render = function renderWithStyleInjection(h, context) {
+							hook.call(context);
+							return existing(h, context);
+						};
+					}
+				}
+
+				return {
+					esModule: esModule,
+					exports: scriptExports,
+					options: options
+				};
+			};
+
+			/***/
+		},
+		/* 47 */
+		/***/function (module, exports, __webpack_require__) {
+
+			module.exports = { render: function render() {
+					var _vm = this;var _h = _vm.$createElement;var _c = _vm._self._c || _h;
+					return _c('div', {
+						staticClass: "antiscroll-wrap"
+					}, [_c('div', {
+						staticClass: "antiscroll-inner",
+						style: _vm._$styObj
+					}, [_c('div', {
+						staticClass: "inner-in-fact"
+					}, [_vm._t("default")], 2)])]);
+				}, staticRenderFns: [] };
+			module.exports.render._withStripped = true;
+			if (false) {
+				module.hot.accept();
+				if (module.hot.data) {
+					require("vue-hot-reload-api").rerender("data-v-b01e9582", module.exports);
+				}
+			}
+
+			/***/
+		}]
+		/******/)
+	);
+});
+//# sourceMappingURL=vue-antiscroll-addon.js.map
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(52)(module)))
+
+/***/ }),
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(10)
+  __webpack_require__(47)
 }
-var Component = __webpack_require__(8)(
+var Component = __webpack_require__(45)(
   /* script */
-  __webpack_require__(4),
+  __webpack_require__(41),
   /* template */
-  __webpack_require__(9),
+  __webpack_require__(46),
   /* styles */
   injectStyle,
   /* scopeId */
@@ -1527,7 +2952,7 @@ var Component = __webpack_require__(8)(
   /* moduleIdentifier (server only) */
   null
 )
-Component.options.__file = "/Users/evox/Repos/vue-antiscroll/example/app.vue"
+Component.options.__file = "/Users/evox/Repos/vue-antiscroll-addon/example/app.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] app.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -1551,7 +2976,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 2 */
+/* 39 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -11620,23 +13045,23 @@ Vue$3.compile = compileToFunctions;
 
 /* harmony default export */ __webpack_exports__["a"] = (Vue$3);
 
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(7), __webpack_require__(13)))
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(44), __webpack_require__(51)))
 
 /***/ }),
-/* 3 */
+/* 40 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__dist_vue_antiscroll__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__dist_vue_antiscroll___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__dist_vue_antiscroll__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_vue__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(39);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1____ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_vue__ = __webpack_require__(38);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__app_vue__);
 
 
 
-__WEBPACK_IMPORTED_MODULE_0_vue__["a" /* default */].component('vue-antiscroll', __WEBPACK_IMPORTED_MODULE_1__dist_vue_antiscroll___default.a);
+console.log(__WEBPACK_IMPORTED_MODULE_1____["default"]);
+__WEBPACK_IMPORTED_MODULE_0_vue__["a" /* default */].component('vue-antiscroll', __WEBPACK_IMPORTED_MODULE_1____["default"]);
 new __WEBPACK_IMPORTED_MODULE_0_vue__["a" /* default */]({
 	el: '#app',
 	template: '<App />',
@@ -11644,7 +13069,7 @@ new __WEBPACK_IMPORTED_MODULE_0_vue__["a" /* default */]({
 });
 
 /***/ }),
-/* 4 */
+/* 41 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -11660,24 +13085,24 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-	data() {
-		let arr = Array.apply(null, { length: 100 }).map((el, index) => {
+	data: function data() {
+		var arr = Array.apply(null, { length: 100 }).map(function (el, index) {
 			return {
 				id: index,
-				name: `xxxfsfsdfffff@第${index}个`
+				name: "xxxfsfsdfffff@\u7B2C" + index + "\u4E2A"
 			};
 		});
 		return {
-			arr
+			arr: arr
 		};
 	}
 });
 
 /***/ }),
-/* 5 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(6)();
+exports = module.exports = __webpack_require__(43)();
 // imports
 
 
@@ -11688,7 +13113,7 @@ exports.push([module.i, "\nul li{\n    margin: 0;\n    padding: 0;\n}\nul {\n   
 
 
 /***/ }),
-/* 6 */
+/* 43 */
 /***/ (function(module, exports) {
 
 /*
@@ -11744,7 +13169,7 @@ module.exports = function() {
 
 
 /***/ }),
-/* 7 */
+/* 44 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -11934,7 +13359,7 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 8 */
+/* 45 */
 /***/ (function(module, exports) {
 
 /* globals __VUE_SSR_CONTEXT__ */
@@ -12031,7 +13456,7 @@ module.exports = function normalizeComponent (
 
 
 /***/ }),
-/* 9 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -12052,17 +13477,17 @@ if (false) {
 }
 
 /***/ }),
-/* 10 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(5);
+var content = __webpack_require__(42);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(11)("5a4fd5d6", content, false);
+var update = __webpack_require__(48)("5a4fd5d6", content, false);
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -12078,7 +13503,7 @@ if(false) {
 }
 
 /***/ }),
-/* 11 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -12097,7 +13522,7 @@ if (typeof DEBUG !== 'undefined' && DEBUG) {
   ) }
 }
 
-var listToStyles = __webpack_require__(12)
+var listToStyles = __webpack_require__(49)
 
 /*
 type StyleObject = {
@@ -12299,7 +13724,7 @@ function applyToTag (styleElement, obj) {
 
 
 /***/ }),
-/* 12 */
+/* 49 */
 /***/ (function(module, exports) {
 
 /**
@@ -12332,7 +13757,16 @@ module.exports = function listToStyles (parentId, list) {
 
 
 /***/ }),
-/* 13 */
+/* 50 */
+/***/ (function(module, exports) {
+
+/* WEBPACK VAR INJECTION */(function(__webpack_amd_options__) {/* globals __webpack_amd_options__ */
+module.exports = __webpack_amd_options__;
+
+/* WEBPACK VAR INJECTION */}.call(exports, {}))
+
+/***/ }),
+/* 51 */
 /***/ (function(module, exports) {
 
 var g;
@@ -12357,6 +13791,854 @@ try {
 
 module.exports = g;
 
+
+/***/ }),
+/* 52 */
+/***/ (function(module, exports) {
+
+module.exports = function(originalModule) {
+	if(!originalModule.webpackPolyfill) {
+		var module = Object.create(originalModule);
+		// module.parent = undefined by default
+		if(!module.children) module.children = [];
+		Object.defineProperty(module, "loaded", {
+			enumerable: true,
+			get: function() {
+				return module.l;
+			}
+		});
+		Object.defineProperty(module, "id", {
+			enumerable: true,
+			get: function() {
+				return module.i;
+			}
+		});
+		Object.defineProperty(module, "exports", {
+			enumerable: true,
+		});
+		module.webpackPolyfill = 1;
+	}
+	return module;
+};
+
+
+/***/ }),
+/* 53 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = { "default": __webpack_require__(59), __esModule: true };
+
+/***/ }),
+/* 54 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = { "default": __webpack_require__(60), __esModule: true };
+
+/***/ }),
+/* 55 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = { "default": __webpack_require__(61), __esModule: true };
+
+/***/ }),
+/* 56 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = { "default": __webpack_require__(62), __esModule: true };
+
+/***/ }),
+/* 57 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = { "default": __webpack_require__(63), __esModule: true };
+
+/***/ }),
+/* 58 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+
+var _iterator = __webpack_require__(57);
+
+var _iterator2 = _interopRequireDefault(_iterator);
+
+var _symbol = __webpack_require__(56);
+
+var _symbol2 = _interopRequireDefault(_symbol);
+
+var _typeof = typeof _symbol2.default === "function" && typeof _iterator2.default === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof _symbol2.default === "function" && obj.constructor === _symbol2.default && obj !== _symbol2.default.prototype ? "symbol" : typeof obj; };
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = typeof _symbol2.default === "function" && _typeof(_iterator2.default) === "symbol" ? function (obj) {
+  return typeof obj === "undefined" ? "undefined" : _typeof(obj);
+} : function (obj) {
+  return obj && typeof _symbol2.default === "function" && obj.constructor === _symbol2.default && obj !== _symbol2.default.prototype ? "symbol" : typeof obj === "undefined" ? "undefined" : _typeof(obj);
+};
+
+/***/ }),
+/* 59 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var core  = __webpack_require__(1)
+  , $JSON = core.JSON || (core.JSON = {stringify: JSON.stringify});
+module.exports = function stringify(it){ // eslint-disable-line no-unused-vars
+  return $JSON.stringify.apply($JSON, arguments);
+};
+
+/***/ }),
+/* 60 */
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(85);
+var $Object = __webpack_require__(1).Object;
+module.exports = function defineProperty(it, key, desc){
+  return $Object.defineProperty(it, key, desc);
+};
+
+/***/ }),
+/* 61 */
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(86);
+module.exports = __webpack_require__(1).Object.keys;
+
+/***/ }),
+/* 62 */
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(89);
+__webpack_require__(87);
+__webpack_require__(90);
+__webpack_require__(91);
+module.exports = __webpack_require__(1).Symbol;
+
+/***/ }),
+/* 63 */
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(88);
+__webpack_require__(92);
+module.exports = __webpack_require__(26).f('iterator');
+
+/***/ }),
+/* 64 */
+/***/ (function(module, exports) {
+
+module.exports = function(it){
+  if(typeof it != 'function')throw TypeError(it + ' is not a function!');
+  return it;
+};
+
+/***/ }),
+/* 65 */
+/***/ (function(module, exports) {
+
+module.exports = function(){ /* empty */ };
+
+/***/ }),
+/* 66 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// false -> Array#indexOf
+// true  -> Array#includes
+var toIObject = __webpack_require__(5)
+  , toLength  = __webpack_require__(83)
+  , toIndex   = __webpack_require__(82);
+module.exports = function(IS_INCLUDES){
+  return function($this, el, fromIndex){
+    var O      = toIObject($this)
+      , length = toLength(O.length)
+      , index  = toIndex(fromIndex, length)
+      , value;
+    // Array#includes uses SameValueZero equality algorithm
+    if(IS_INCLUDES && el != el)while(length > index){
+      value = O[index++];
+      if(value != value)return true;
+    // Array#toIndex ignores holes, Array#includes - not
+    } else for(;length > index; index++)if(IS_INCLUDES || index in O){
+      if(O[index] === el)return IS_INCLUDES || index || 0;
+    } return !IS_INCLUDES && -1;
+  };
+};
+
+/***/ }),
+/* 67 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// optional / simple context binding
+var aFunction = __webpack_require__(64);
+module.exports = function(fn, that, length){
+  aFunction(fn);
+  if(that === undefined)return fn;
+  switch(length){
+    case 1: return function(a){
+      return fn.call(that, a);
+    };
+    case 2: return function(a, b){
+      return fn.call(that, a, b);
+    };
+    case 3: return function(a, b, c){
+      return fn.call(that, a, b, c);
+    };
+  }
+  return function(/* ...args */){
+    return fn.apply(that, arguments);
+  };
+};
+
+/***/ }),
+/* 68 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// all enumerable object keys, includes symbols
+var getKeys = __webpack_require__(9)
+  , gOPS    = __webpack_require__(33)
+  , pIE     = __webpack_require__(19);
+module.exports = function(it){
+  var result     = getKeys(it)
+    , getSymbols = gOPS.f;
+  if(getSymbols){
+    var symbols = getSymbols(it)
+      , isEnum  = pIE.f
+      , i       = 0
+      , key;
+    while(symbols.length > i)if(isEnum.call(it, key = symbols[i++]))result.push(key);
+  } return result;
+};
+
+/***/ }),
+/* 69 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(0).document && document.documentElement;
+
+/***/ }),
+/* 70 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// fallback for non-array-like ES3 and non-enumerable old V8 strings
+var cof = __webpack_require__(27);
+module.exports = Object('z').propertyIsEnumerable(0) ? Object : function(it){
+  return cof(it) == 'String' ? it.split('') : Object(it);
+};
+
+/***/ }),
+/* 71 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 7.2.2 IsArray(argument)
+var cof = __webpack_require__(27);
+module.exports = Array.isArray || function isArray(arg){
+  return cof(arg) == 'Array';
+};
+
+/***/ }),
+/* 72 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var create         = __webpack_require__(31)
+  , descriptor     = __webpack_require__(13)
+  , setToStringTag = __webpack_require__(20)
+  , IteratorPrototype = {};
+
+// 25.1.2.1.1 %IteratorPrototype%[@@iterator]()
+__webpack_require__(6)(IteratorPrototype, __webpack_require__(7)('iterator'), function(){ return this; });
+
+module.exports = function(Constructor, NAME, next){
+  Constructor.prototype = create(IteratorPrototype, {next: descriptor(1, next)});
+  setToStringTag(Constructor, NAME + ' Iterator');
+};
+
+/***/ }),
+/* 73 */
+/***/ (function(module, exports) {
+
+module.exports = function(done, value){
+  return {value: value, done: !!done};
+};
+
+/***/ }),
+/* 74 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var getKeys   = __webpack_require__(9)
+  , toIObject = __webpack_require__(5);
+module.exports = function(object, el){
+  var O      = toIObject(object)
+    , keys   = getKeys(O)
+    , length = keys.length
+    , index  = 0
+    , key;
+  while(length > index)if(O[key = keys[index++]] === el)return key;
+};
+
+/***/ }),
+/* 75 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var META     = __webpack_require__(14)('meta')
+  , isObject = __webpack_require__(12)
+  , has      = __webpack_require__(3)
+  , setDesc  = __webpack_require__(4).f
+  , id       = 0;
+var isExtensible = Object.isExtensible || function(){
+  return true;
+};
+var FREEZE = !__webpack_require__(8)(function(){
+  return isExtensible(Object.preventExtensions({}));
+});
+var setMeta = function(it){
+  setDesc(it, META, {value: {
+    i: 'O' + ++id, // object ID
+    w: {}          // weak collections IDs
+  }});
+};
+var fastKey = function(it, create){
+  // return primitive with prefix
+  if(!isObject(it))return typeof it == 'symbol' ? it : (typeof it == 'string' ? 'S' : 'P') + it;
+  if(!has(it, META)){
+    // can't set metadata to uncaught frozen object
+    if(!isExtensible(it))return 'F';
+    // not necessary to add metadata
+    if(!create)return 'E';
+    // add missing metadata
+    setMeta(it);
+  // return object ID
+  } return it[META].i;
+};
+var getWeak = function(it, create){
+  if(!has(it, META)){
+    // can't set metadata to uncaught frozen object
+    if(!isExtensible(it))return true;
+    // not necessary to add metadata
+    if(!create)return false;
+    // add missing metadata
+    setMeta(it);
+  // return hash weak collections IDs
+  } return it[META].w;
+};
+// add metadata on freeze-family methods calling
+var onFreeze = function(it){
+  if(FREEZE && meta.NEED && isExtensible(it) && !has(it, META))setMeta(it);
+  return it;
+};
+var meta = module.exports = {
+  KEY:      META,
+  NEED:     false,
+  fastKey:  fastKey,
+  getWeak:  getWeak,
+  onFreeze: onFreeze
+};
+
+/***/ }),
+/* 76 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var dP       = __webpack_require__(4)
+  , anObject = __webpack_require__(10)
+  , getKeys  = __webpack_require__(9);
+
+module.exports = __webpack_require__(2) ? Object.defineProperties : function defineProperties(O, Properties){
+  anObject(O);
+  var keys   = getKeys(Properties)
+    , length = keys.length
+    , i = 0
+    , P;
+  while(length > i)dP.f(O, P = keys[i++], Properties[P]);
+  return O;
+};
+
+/***/ }),
+/* 77 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var pIE            = __webpack_require__(19)
+  , createDesc     = __webpack_require__(13)
+  , toIObject      = __webpack_require__(5)
+  , toPrimitive    = __webpack_require__(24)
+  , has            = __webpack_require__(3)
+  , IE8_DOM_DEFINE = __webpack_require__(29)
+  , gOPD           = Object.getOwnPropertyDescriptor;
+
+exports.f = __webpack_require__(2) ? gOPD : function getOwnPropertyDescriptor(O, P){
+  O = toIObject(O);
+  P = toPrimitive(P, true);
+  if(IE8_DOM_DEFINE)try {
+    return gOPD(O, P);
+  } catch(e){ /* empty */ }
+  if(has(O, P))return createDesc(!pIE.f.call(O, P), O[P]);
+};
+
+/***/ }),
+/* 78 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// fallback for IE11 buggy Object.getOwnPropertyNames with iframe and window
+var toIObject = __webpack_require__(5)
+  , gOPN      = __webpack_require__(32).f
+  , toString  = {}.toString;
+
+var windowNames = typeof window == 'object' && window && Object.getOwnPropertyNames
+  ? Object.getOwnPropertyNames(window) : [];
+
+var getWindowNames = function(it){
+  try {
+    return gOPN(it);
+  } catch(e){
+    return windowNames.slice();
+  }
+};
+
+module.exports.f = function getOwnPropertyNames(it){
+  return windowNames && toString.call(it) == '[object Window]' ? getWindowNames(it) : gOPN(toIObject(it));
+};
+
+
+/***/ }),
+/* 79 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 19.1.2.9 / 15.2.3.2 Object.getPrototypeOf(O)
+var has         = __webpack_require__(3)
+  , toObject    = __webpack_require__(36)
+  , IE_PROTO    = __webpack_require__(21)('IE_PROTO')
+  , ObjectProto = Object.prototype;
+
+module.exports = Object.getPrototypeOf || function(O){
+  O = toObject(O);
+  if(has(O, IE_PROTO))return O[IE_PROTO];
+  if(typeof O.constructor == 'function' && O instanceof O.constructor){
+    return O.constructor.prototype;
+  } return O instanceof Object ? ObjectProto : null;
+};
+
+/***/ }),
+/* 80 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// most Object methods by ES6 should accept primitives
+var $export = __webpack_require__(11)
+  , core    = __webpack_require__(1)
+  , fails   = __webpack_require__(8);
+module.exports = function(KEY, exec){
+  var fn  = (core.Object || {})[KEY] || Object[KEY]
+    , exp = {};
+  exp[KEY] = exec(fn);
+  $export($export.S + $export.F * fails(function(){ fn(1); }), 'Object', exp);
+};
+
+/***/ }),
+/* 81 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var toInteger = __webpack_require__(23)
+  , defined   = __webpack_require__(15);
+// true  -> String#at
+// false -> String#codePointAt
+module.exports = function(TO_STRING){
+  return function(that, pos){
+    var s = String(defined(that))
+      , i = toInteger(pos)
+      , l = s.length
+      , a, b;
+    if(i < 0 || i >= l)return TO_STRING ? '' : undefined;
+    a = s.charCodeAt(i);
+    return a < 0xd800 || a > 0xdbff || i + 1 === l || (b = s.charCodeAt(i + 1)) < 0xdc00 || b > 0xdfff
+      ? TO_STRING ? s.charAt(i) : a
+      : TO_STRING ? s.slice(i, i + 2) : (a - 0xd800 << 10) + (b - 0xdc00) + 0x10000;
+  };
+};
+
+/***/ }),
+/* 82 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var toInteger = __webpack_require__(23)
+  , max       = Math.max
+  , min       = Math.min;
+module.exports = function(index, length){
+  index = toInteger(index);
+  return index < 0 ? max(index + length, 0) : min(index, length);
+};
+
+/***/ }),
+/* 83 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 7.1.15 ToLength
+var toInteger = __webpack_require__(23)
+  , min       = Math.min;
+module.exports = function(it){
+  return it > 0 ? min(toInteger(it), 0x1fffffffffffff) : 0; // pow(2, 53) - 1 == 9007199254740991
+};
+
+/***/ }),
+/* 84 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var addToUnscopables = __webpack_require__(65)
+  , step             = __webpack_require__(73)
+  , Iterators        = __webpack_require__(17)
+  , toIObject        = __webpack_require__(5);
+
+// 22.1.3.4 Array.prototype.entries()
+// 22.1.3.13 Array.prototype.keys()
+// 22.1.3.29 Array.prototype.values()
+// 22.1.3.30 Array.prototype[@@iterator]()
+module.exports = __webpack_require__(30)(Array, 'Array', function(iterated, kind){
+  this._t = toIObject(iterated); // target
+  this._i = 0;                   // next index
+  this._k = kind;                // kind
+// 22.1.5.2.1 %ArrayIteratorPrototype%.next()
+}, function(){
+  var O     = this._t
+    , kind  = this._k
+    , index = this._i++;
+  if(!O || index >= O.length){
+    this._t = undefined;
+    return step(1);
+  }
+  if(kind == 'keys'  )return step(0, index);
+  if(kind == 'values')return step(0, O[index]);
+  return step(0, [index, O[index]]);
+}, 'values');
+
+// argumentsList[@@iterator] is %ArrayProto_values% (9.4.4.6, 9.4.4.7)
+Iterators.Arguments = Iterators.Array;
+
+addToUnscopables('keys');
+addToUnscopables('values');
+addToUnscopables('entries');
+
+/***/ }),
+/* 85 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var $export = __webpack_require__(11);
+// 19.1.2.4 / 15.2.3.6 Object.defineProperty(O, P, Attributes)
+$export($export.S + $export.F * !__webpack_require__(2), 'Object', {defineProperty: __webpack_require__(4).f});
+
+/***/ }),
+/* 86 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 19.1.2.14 Object.keys(O)
+var toObject = __webpack_require__(36)
+  , $keys    = __webpack_require__(9);
+
+__webpack_require__(80)('keys', function(){
+  return function keys(it){
+    return $keys(toObject(it));
+  };
+});
+
+/***/ }),
+/* 87 */
+/***/ (function(module, exports) {
+
+
+
+/***/ }),
+/* 88 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var $at  = __webpack_require__(81)(true);
+
+// 21.1.3.27 String.prototype[@@iterator]()
+__webpack_require__(30)(String, 'String', function(iterated){
+  this._t = String(iterated); // target
+  this._i = 0;                // next index
+// 21.1.5.2.1 %StringIteratorPrototype%.next()
+}, function(){
+  var O     = this._t
+    , index = this._i
+    , point;
+  if(index >= O.length)return {value: undefined, done: true};
+  point = $at(O, index);
+  this._i += point.length;
+  return {value: point, done: false};
+});
+
+/***/ }),
+/* 89 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+// ECMAScript 6 symbols shim
+var global         = __webpack_require__(0)
+  , has            = __webpack_require__(3)
+  , DESCRIPTORS    = __webpack_require__(2)
+  , $export        = __webpack_require__(11)
+  , redefine       = __webpack_require__(35)
+  , META           = __webpack_require__(75).KEY
+  , $fails         = __webpack_require__(8)
+  , shared         = __webpack_require__(22)
+  , setToStringTag = __webpack_require__(20)
+  , uid            = __webpack_require__(14)
+  , wks            = __webpack_require__(7)
+  , wksExt         = __webpack_require__(26)
+  , wksDefine      = __webpack_require__(25)
+  , keyOf          = __webpack_require__(74)
+  , enumKeys       = __webpack_require__(68)
+  , isArray        = __webpack_require__(71)
+  , anObject       = __webpack_require__(10)
+  , toIObject      = __webpack_require__(5)
+  , toPrimitive    = __webpack_require__(24)
+  , createDesc     = __webpack_require__(13)
+  , _create        = __webpack_require__(31)
+  , gOPNExt        = __webpack_require__(78)
+  , $GOPD          = __webpack_require__(77)
+  , $DP            = __webpack_require__(4)
+  , $keys          = __webpack_require__(9)
+  , gOPD           = $GOPD.f
+  , dP             = $DP.f
+  , gOPN           = gOPNExt.f
+  , $Symbol        = global.Symbol
+  , $JSON          = global.JSON
+  , _stringify     = $JSON && $JSON.stringify
+  , PROTOTYPE      = 'prototype'
+  , HIDDEN         = wks('_hidden')
+  , TO_PRIMITIVE   = wks('toPrimitive')
+  , isEnum         = {}.propertyIsEnumerable
+  , SymbolRegistry = shared('symbol-registry')
+  , AllSymbols     = shared('symbols')
+  , OPSymbols      = shared('op-symbols')
+  , ObjectProto    = Object[PROTOTYPE]
+  , USE_NATIVE     = typeof $Symbol == 'function'
+  , QObject        = global.QObject;
+// Don't use setters in Qt Script, https://github.com/zloirock/core-js/issues/173
+var setter = !QObject || !QObject[PROTOTYPE] || !QObject[PROTOTYPE].findChild;
+
+// fallback for old Android, https://code.google.com/p/v8/issues/detail?id=687
+var setSymbolDesc = DESCRIPTORS && $fails(function(){
+  return _create(dP({}, 'a', {
+    get: function(){ return dP(this, 'a', {value: 7}).a; }
+  })).a != 7;
+}) ? function(it, key, D){
+  var protoDesc = gOPD(ObjectProto, key);
+  if(protoDesc)delete ObjectProto[key];
+  dP(it, key, D);
+  if(protoDesc && it !== ObjectProto)dP(ObjectProto, key, protoDesc);
+} : dP;
+
+var wrap = function(tag){
+  var sym = AllSymbols[tag] = _create($Symbol[PROTOTYPE]);
+  sym._k = tag;
+  return sym;
+};
+
+var isSymbol = USE_NATIVE && typeof $Symbol.iterator == 'symbol' ? function(it){
+  return typeof it == 'symbol';
+} : function(it){
+  return it instanceof $Symbol;
+};
+
+var $defineProperty = function defineProperty(it, key, D){
+  if(it === ObjectProto)$defineProperty(OPSymbols, key, D);
+  anObject(it);
+  key = toPrimitive(key, true);
+  anObject(D);
+  if(has(AllSymbols, key)){
+    if(!D.enumerable){
+      if(!has(it, HIDDEN))dP(it, HIDDEN, createDesc(1, {}));
+      it[HIDDEN][key] = true;
+    } else {
+      if(has(it, HIDDEN) && it[HIDDEN][key])it[HIDDEN][key] = false;
+      D = _create(D, {enumerable: createDesc(0, false)});
+    } return setSymbolDesc(it, key, D);
+  } return dP(it, key, D);
+};
+var $defineProperties = function defineProperties(it, P){
+  anObject(it);
+  var keys = enumKeys(P = toIObject(P))
+    , i    = 0
+    , l = keys.length
+    , key;
+  while(l > i)$defineProperty(it, key = keys[i++], P[key]);
+  return it;
+};
+var $create = function create(it, P){
+  return P === undefined ? _create(it) : $defineProperties(_create(it), P);
+};
+var $propertyIsEnumerable = function propertyIsEnumerable(key){
+  var E = isEnum.call(this, key = toPrimitive(key, true));
+  if(this === ObjectProto && has(AllSymbols, key) && !has(OPSymbols, key))return false;
+  return E || !has(this, key) || !has(AllSymbols, key) || has(this, HIDDEN) && this[HIDDEN][key] ? E : true;
+};
+var $getOwnPropertyDescriptor = function getOwnPropertyDescriptor(it, key){
+  it  = toIObject(it);
+  key = toPrimitive(key, true);
+  if(it === ObjectProto && has(AllSymbols, key) && !has(OPSymbols, key))return;
+  var D = gOPD(it, key);
+  if(D && has(AllSymbols, key) && !(has(it, HIDDEN) && it[HIDDEN][key]))D.enumerable = true;
+  return D;
+};
+var $getOwnPropertyNames = function getOwnPropertyNames(it){
+  var names  = gOPN(toIObject(it))
+    , result = []
+    , i      = 0
+    , key;
+  while(names.length > i){
+    if(!has(AllSymbols, key = names[i++]) && key != HIDDEN && key != META)result.push(key);
+  } return result;
+};
+var $getOwnPropertySymbols = function getOwnPropertySymbols(it){
+  var IS_OP  = it === ObjectProto
+    , names  = gOPN(IS_OP ? OPSymbols : toIObject(it))
+    , result = []
+    , i      = 0
+    , key;
+  while(names.length > i){
+    if(has(AllSymbols, key = names[i++]) && (IS_OP ? has(ObjectProto, key) : true))result.push(AllSymbols[key]);
+  } return result;
+};
+
+// 19.4.1.1 Symbol([description])
+if(!USE_NATIVE){
+  $Symbol = function Symbol(){
+    if(this instanceof $Symbol)throw TypeError('Symbol is not a constructor!');
+    var tag = uid(arguments.length > 0 ? arguments[0] : undefined);
+    var $set = function(value){
+      if(this === ObjectProto)$set.call(OPSymbols, value);
+      if(has(this, HIDDEN) && has(this[HIDDEN], tag))this[HIDDEN][tag] = false;
+      setSymbolDesc(this, tag, createDesc(1, value));
+    };
+    if(DESCRIPTORS && setter)setSymbolDesc(ObjectProto, tag, {configurable: true, set: $set});
+    return wrap(tag);
+  };
+  redefine($Symbol[PROTOTYPE], 'toString', function toString(){
+    return this._k;
+  });
+
+  $GOPD.f = $getOwnPropertyDescriptor;
+  $DP.f   = $defineProperty;
+  __webpack_require__(32).f = gOPNExt.f = $getOwnPropertyNames;
+  __webpack_require__(19).f  = $propertyIsEnumerable;
+  __webpack_require__(33).f = $getOwnPropertySymbols;
+
+  if(DESCRIPTORS && !__webpack_require__(18)){
+    redefine(ObjectProto, 'propertyIsEnumerable', $propertyIsEnumerable, true);
+  }
+
+  wksExt.f = function(name){
+    return wrap(wks(name));
+  }
+}
+
+$export($export.G + $export.W + $export.F * !USE_NATIVE, {Symbol: $Symbol});
+
+for(var symbols = (
+  // 19.4.2.2, 19.4.2.3, 19.4.2.4, 19.4.2.6, 19.4.2.8, 19.4.2.9, 19.4.2.10, 19.4.2.11, 19.4.2.12, 19.4.2.13, 19.4.2.14
+  'hasInstance,isConcatSpreadable,iterator,match,replace,search,species,split,toPrimitive,toStringTag,unscopables'
+).split(','), i = 0; symbols.length > i; )wks(symbols[i++]);
+
+for(var symbols = $keys(wks.store), i = 0; symbols.length > i; )wksDefine(symbols[i++]);
+
+$export($export.S + $export.F * !USE_NATIVE, 'Symbol', {
+  // 19.4.2.1 Symbol.for(key)
+  'for': function(key){
+    return has(SymbolRegistry, key += '')
+      ? SymbolRegistry[key]
+      : SymbolRegistry[key] = $Symbol(key);
+  },
+  // 19.4.2.5 Symbol.keyFor(sym)
+  keyFor: function keyFor(key){
+    if(isSymbol(key))return keyOf(SymbolRegistry, key);
+    throw TypeError(key + ' is not a symbol!');
+  },
+  useSetter: function(){ setter = true; },
+  useSimple: function(){ setter = false; }
+});
+
+$export($export.S + $export.F * !USE_NATIVE, 'Object', {
+  // 19.1.2.2 Object.create(O [, Properties])
+  create: $create,
+  // 19.1.2.4 Object.defineProperty(O, P, Attributes)
+  defineProperty: $defineProperty,
+  // 19.1.2.3 Object.defineProperties(O, Properties)
+  defineProperties: $defineProperties,
+  // 19.1.2.6 Object.getOwnPropertyDescriptor(O, P)
+  getOwnPropertyDescriptor: $getOwnPropertyDescriptor,
+  // 19.1.2.7 Object.getOwnPropertyNames(O)
+  getOwnPropertyNames: $getOwnPropertyNames,
+  // 19.1.2.8 Object.getOwnPropertySymbols(O)
+  getOwnPropertySymbols: $getOwnPropertySymbols
+});
+
+// 24.3.2 JSON.stringify(value [, replacer [, space]])
+$JSON && $export($export.S + $export.F * (!USE_NATIVE || $fails(function(){
+  var S = $Symbol();
+  // MS Edge converts symbol values to JSON as {}
+  // WebKit converts symbol values to JSON as null
+  // V8 throws on boxed symbols
+  return _stringify([S]) != '[null]' || _stringify({a: S}) != '{}' || _stringify(Object(S)) != '{}';
+})), 'JSON', {
+  stringify: function stringify(it){
+    if(it === undefined || isSymbol(it))return; // IE8 returns string on undefined
+    var args = [it]
+      , i    = 1
+      , replacer, $replacer;
+    while(arguments.length > i)args.push(arguments[i++]);
+    replacer = args[1];
+    if(typeof replacer == 'function')$replacer = replacer;
+    if($replacer || !isArray(replacer))replacer = function(key, value){
+      if($replacer)value = $replacer.call(this, key, value);
+      if(!isSymbol(value))return value;
+    };
+    args[1] = replacer;
+    return _stringify.apply($JSON, args);
+  }
+});
+
+// 19.4.3.4 Symbol.prototype[@@toPrimitive](hint)
+$Symbol[PROTOTYPE][TO_PRIMITIVE] || __webpack_require__(6)($Symbol[PROTOTYPE], TO_PRIMITIVE, $Symbol[PROTOTYPE].valueOf);
+// 19.4.3.5 Symbol.prototype[@@toStringTag]
+setToStringTag($Symbol, 'Symbol');
+// 20.2.1.9 Math[@@toStringTag]
+setToStringTag(Math, 'Math', true);
+// 24.3.3 JSON[@@toStringTag]
+setToStringTag(global.JSON, 'JSON', true);
+
+/***/ }),
+/* 90 */
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(25)('asyncIterator');
+
+/***/ }),
+/* 91 */
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(25)('observable');
+
+/***/ }),
+/* 92 */
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(84);
+var global        = __webpack_require__(0)
+  , hide          = __webpack_require__(6)
+  , Iterators     = __webpack_require__(17)
+  , TO_STRING_TAG = __webpack_require__(7)('toStringTag');
+
+for(var collections = ['NodeList', 'DOMTokenList', 'MediaList', 'StyleSheetList', 'CSSRuleList'], i = 0; i < 5; i++){
+  var NAME       = collections[i]
+    , Collection = global[NAME]
+    , proto      = Collection && Collection.prototype;
+  if(proto && !proto[TO_STRING_TAG])hide(proto, TO_STRING_TAG, NAME);
+  Iterators[NAME] = Iterators.Array;
+}
 
 /***/ })
 /******/ ]);

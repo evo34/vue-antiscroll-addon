@@ -19,8 +19,8 @@ function Antiscroll(el, opts) {
 	
 	this.inner = this.el.querySelector('.antiscroll-inner');
 	
-	var innerWidth = T.getStyle(this.inner, 'width');
-	var innerHeight = T.getStyle(this.inner, 'height');
+	var innerWidth = T.getStyle(this.inner, 'width', 'parseFloat');
+	var innerHeight = T.getStyle(this.inner, 'height', 'parseFloat');
 	
 	this.inner.style.cssText = "width: " + (innerWidth + (this.y ? scrollbarSize() : 0)) + 'px;' +
 		"height: " + (innerHeight + (this.x ? scrollbarSize() : 0)) + 'px;';
@@ -35,12 +35,8 @@ function Antiscroll(el, opts) {
  */
 
 Antiscroll.prototype.refresh = function (arg) {
-	var innerScrollWidth = this.inner.scrollWidth;
-	var innerScrollHeight = this.inner.scrollHeight;
-	var innerWidth = T.getStyle(this.el, 'width');
-	var innerHeight = T.getStyle(this.el, 'height');
-	var needHScroll = innerScrollWidth > innerWidth + (this.y ? scrollbarSize() : 0),
-		needVScroll = innerScrollHeight > innerHeight + (this.x ? scrollbarSize() : 0);
+	var needHScroll = this.inner.scrollWidth > T.getStyle(this.el, 'width', 'parseFloat') + (this.y ? scrollbarSize() : 0),
+		needVScroll = this.inner.scrollHeight > T.getStyle(this.el, 'height', 'parseFloat') + (this.x ? scrollbarSize() : 0);
 	var updatable = (arg || {updatable: true}).updatable
 	
 	if (this.x) {
@@ -225,7 +221,7 @@ Scrollbar.prototype.scroll = function () {
 Scrollbar.prototype.scrollTo = function (placement) {
 	var fns = {
 		verticalToBottom: function (inner) {
-			var paneHeight = T.getStyle(this.pane.el, 'height');
+			var paneHeight = T.getStyle(this.pane.el, 'height', 'parseFloat');
 			inner.scrollTop = inner.scrollHeight - paneHeight
 		},
 		verticalToTop: function (inner) {
@@ -235,7 +231,7 @@ Scrollbar.prototype.scrollTo = function (placement) {
 			inner.scrollLeft = 0
 		},
 		horizontalToRight: function (inner) {
-			var paneWidth = T.getStyle(this.pane.el, 'width');
+			var paneWidth = T.getStyle(this.pane.el, 'width', 'parseFloat');
 			inner.scrollLeft = inner.scrollWidth - paneWidth
 		}
 	}
@@ -270,8 +266,8 @@ Scrollbar.prototype.mousedown = function (ev) {
 	
 	this.dragging = true;
 	
-	this.startPageY = ev.pageY - parseInt(T.getStyle(this.el, 'top'), 10);
-	this.startPageX = ev.pageX - parseInt(T.getStyle(this.el, 'left'), 10);
+	this.startPageY = ev.pageY - parseInt(T.getStyle(this.el, 'top', 'parseFloat'), 10);
+	this.startPageX = ev.pageX - parseInt(T.getStyle(this.el, 'left', 'parseFloat'), 10);
 	
 	// prevent crazy selections on IE
 	this.el.ownerDocument.onselectstart = function () {
@@ -353,7 +349,7 @@ inherits(Scrollbar.Horizontal, Scrollbar);
  */
 
 Scrollbar.Horizontal.prototype.update = function () {
-	var paneWidth = T.getStyle(this.pane.el, 'width'),
+	var paneWidth = T.getStyle(this.pane.el, 'width', 'parseFloat'),
 		trackWidth = paneWidth - this.pane.padding * 2,
 		inner = this.pane.inner;
 	this.el.style.cssText = 'width: ' + (trackWidth * paneWidth / inner.scrollWidth) + 'px;' +
@@ -369,15 +365,15 @@ Scrollbar.Horizontal.prototype.update = function () {
  */
 
 Scrollbar.Horizontal.prototype.mousemove = function (ev) {
-	var trackWidth = T.getStyle(this.pane.el, 'width') - this.pane.padding * 2,
+	var trackWidth = T.getStyle(this.pane.el, 'width', 'parseFloat') - this.pane.padding * 2,
 		pos = ev.pageX - this.startPageX,
-		barWidth = T.getStyle(this.el, 'width'),
+		barWidth = T.getStyle(this.el, 'width', 'parseFloat'),
 		inner = this.pane.inner;
 	
 	// minimum top is 0, maximum is the track height
 	var y = Math.min(Math.max(pos, 0), trackWidth - barWidth);
 	
-	inner.scrollLeft = (inner.scrollWidth - T.getStyle(this.pane.el, 'width'))
+	inner.scrollLeft = (inner.scrollWidth - T.getStyle(this.pane.el, 'width', 'parseFloat'))
 		* y / (trackWidth - barWidth);
 };
 
@@ -407,7 +403,7 @@ inherits(Scrollbar.Vertical, Scrollbar);
  */
 
 Scrollbar.Vertical.prototype.update = function () {
-	var paneHeight = T.getStyle(this.pane.el, 'height'),
+	var paneHeight = T.getStyle(this.pane.el, 'height', 'parseFloat'),
 		trackHeight = paneHeight - this.pane.padding * 2,
 		inner = this.pane.inner;
 	
@@ -433,10 +429,10 @@ Scrollbar.Vertical.prototype.update = function () {
  */
 
 Scrollbar.Vertical.prototype.mousemove = function (ev) {
-	var paneHeight = T.getStyle(this.pane.el, 'height'),
+	var paneHeight = T.getStyle(this.pane.el, 'height', 'parseFloat'),
 		trackHeight = paneHeight - this.pane.padding * 2,
 		pos = ev.pageY - this.startPageY,
-		barHeight = T.getStyle(this.el, 'height'),
+		barHeight = T.getStyle(this.el, 'height', 'parseFloat'),
 		inner = this.pane.inner
 	
 	// minimum top is 0, maximum is the track height
@@ -465,9 +461,8 @@ function inherits(ctorA, ctorB) {
  * Scrollbar size detection.
  */
 
-
-function scrollbarSize() {
-	if (Antiscroll.__scrollBarSize === undefined) {
+function scrollbarSize () {
+	if (Antiscroll.scrollbarSize === undefined) {
 		var div = document.createElement('div');
 		var innerDiv = document.createElement('div');
 		div.className = 'antiscroll-inner';
@@ -476,15 +471,14 @@ function scrollbarSize() {
 		div.appendChild(innerDiv);
 		
 		document.body.appendChild(div);
-		var w1 = T.getStyle(div, 'width');
-		var w2 = T.getStyle(innerDiv, 'width');
+		var w1 = T.getStyle(div, 'width', 'parseFloat');
+		var w2 = T.getStyle(innerDiv, 'width', 'parseFloat');
 		
 		document.body.removeChild(div);
-		Antiscroll.__scrollBarSize = +w1 - +w2;
+		
+		Antiscroll.scrollbarSize = w1 - w2;
 	}
-	
-	return Antiscroll.__scrollBarSize;
-};
-Antiscroll.scrollbarSize = scrollbarSize
+	return Antiscroll.scrollbarSize;
+}
 
 export default Antiscroll
