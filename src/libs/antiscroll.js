@@ -19,8 +19,8 @@ function Antiscroll(el, opts) {
 	
 	this.inner = this.el.querySelector('.antiscroll-inner');
 	
-	var innerWidth = T.getStyle(this.inner, 'width', 'parseFloat');
-	var innerHeight = T.getStyle(this.inner, 'height', 'parseFloat');
+	var innerWidth = T.getStyle(el, 'width', 'parseFloat');
+	var innerHeight = T.getStyle(el, 'height', 'parseFloat');
 	
 	var cssText = "width: " + (innerWidth + (this.y ? scrollbarSize() : 0)) + 'px;' +
 		"height: " + (innerHeight + (this.x ? scrollbarSize() : 0)) + 'px;';
@@ -96,9 +96,9 @@ Antiscroll.prototype.applyStyle = function (cssText) {
  */
 
 Antiscroll.prototype.rebuild = function (arg = {}) {
-	var clearCss = typeof arg.clearCss === 'undefined'
+	var destroy = typeof arg.destroy === 'undefined'
 	this.destroy();
-	clearCss && (this.inner.style.cssText = '')
+	destroy && (this.inner.style.cssText = '')
 	Antiscroll.call(this, this.el, this.options);
 	return this;
 };

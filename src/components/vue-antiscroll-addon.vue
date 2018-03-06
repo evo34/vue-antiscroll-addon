@@ -21,6 +21,10 @@
 				required: false,
 				type: Function
 			},
+            transitionTarget: {
+				required: false,
+                type: String
+            },
 			initialDisplay: {
 				required: false,
 				type: Boolean,
@@ -36,6 +40,7 @@
 			this._onScroll = T.proxy(this, 'onScroll')
 			this.scroller.inner.addEventListener('scroll', this._onScroll, false)
 			this.attachDimensionChangeEvent()
+            this._dettachTransitionEvent = this.attachTransitionEvent()
 		},
 		beforeDestroy() {
 			this.scroller && this.scroller.destroy()
@@ -44,6 +49,8 @@
 			this.resizeSensors = null
 			this.scroller = null
 			this._onScroll = null
+            typeof this._dettachTransitionEvent === 'function' && this._dettachTransitionEvent()
+            this._dettachTransitionEvent = null
 		},
 		watch: {
 			'height': 'applyDimension',
@@ -53,7 +60,7 @@
 			_$styObj() {
 				let {_$height, _$width} = this
 				let hash = {}
-                _$height && (hash['width'] = _$height)
+                _$height && (hash['height'] = _$height)
 				_$width && (hash['width'] = _$width)
 				return hash
 			},
@@ -102,34 +109,54 @@
 			},
             applyDimension () {
 	            let scroller = this.scroller
-                setTimeout(function () {
-	                let str = []
-                	let {height, width} = this
-                    height = height || 0
-                    width = width || 0
-	                height && str.push('height:' + ( height ) + 'px')
-	                width && str.push('width:' + ( width ) + 'px')
-	                scroller && scroller.applyStyle(str.length > 0 ? str.join(';') : '')
-                    scroller && scroller.rebuild({clearCss: false})
-
+                setTimeout(() => {
+	                scroller && scroller.rebuild()
 	                this.detachDimensionChangeEvent()
 	                this.attachDimensionChangeEvent()
-                }.bind(this), 0)
+                }, 0)
             },
 			attachDimensionChangeEvent() {
-				try {
-					var resizeSensors = this.resizeSensors = {}
-					var scroller = this.scroller
-					var innerChild = scroller.inner.childNodes[0]
-					resizeSensors.innerChildObserver = new ResizeSensor(innerChild, () => scroller.refresh({updatable: false}))
-				} catch (e) {
-					console.info('滚动条错误辣!');
-				}
+                let resizeSensors = this.resizeSensors = {}
+                let scroller = this.scroller
+                let innerChild = scroller.inner.childNodes[0]
+                resizeSensors.innerChildObserver = new ResizeSensor(innerChild, () => scroller.refresh({updatable: false}))
 			},
 			detachDimensionChangeEvent() {
 				let resizeSensors = this.resizeSensors
 				Object.keys(resizeSensors).forEach(key => this.resizeSensors[key].detach())
-			}
+			},
+            attachTransitionEvent () {
+				let target = null
+				let el = this.$el
+                let { transitionTarget } = this
+                let queried = document.querySelectorAll(transitionTarget)
+                queried = [].slice.call(queried, 0)
+                if (queried.length === 0) return
+                if (queried.length === 1) target = queried[0]
+                if (queried.length > 1 ) {
+	                let idx
+					while (el) {
+						idx = queried.indexOf(el)
+                        if (idx === -1) {
+                            el = el.parentNode
+                        } else {
+                        	break
+                        }
+                    }
+                    target = queried[idx]
+                }
+                if (target) {
+                    let transitionEnd = (evt) => ['width', 'height'].indexOf(evt.propertyName) > -1 && this.refresh()
+                    // Safari 3.1 到 6.0
+	                target.addEventListener('webkitTransitionEnd', transitionEnd)
+                    // 标准语法
+	                target.addEventListener('transitionend', transitionEnd)
+                    return () => {
+	                    target.removeEventListener('webkitTransitionEnd', transitionEnd)
+	                    target.removeEventListener('transitionend', transitionEnd)
+                    }
+                }
+            }
 		}
 
 	}

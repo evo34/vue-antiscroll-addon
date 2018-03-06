@@ -333,6 +333,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			required: false,
 			type: Function
 		},
+		transitionTarget: {
+			required: false,
+			type: String
+		},
 		initialDisplay: {
 			required: false,
 			type: Boolean,
@@ -351,6 +355,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		this._onScroll = __WEBPACK_IMPORTED_MODULE_1__libs_t__["a" /* default */].proxy(this, 'onScroll');
 		this.scroller.inner.addEventListener('scroll', this._onScroll, false);
 		this.attachDimensionChangeEvent();
+		this._dettachTransitionEvent = this.attachTransitionEvent();
 	},
 	beforeDestroy: function beforeDestroy() {
 		var _this = this;
@@ -363,6 +368,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		this.resizeSensors = null;
 		this.scroller = null;
 		this._onScroll = null;
+		typeof this._dettachTransitionEvent === 'function' && this._dettachTransitionEvent();
+		this._dettachTransitionEvent = null;
 	},
 
 	watch: {
@@ -375,7 +382,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			    _$width = this._$width;
 
 			var hash = {};
-			_$height && (hash['width'] = _$height);
+			_$height && (hash['height'] = _$height);
 			_$width && (hash['width'] = _$width);
 			return hash;
 		},
@@ -424,42 +431,67 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			}
 		},
 		applyDimension: function applyDimension() {
+			var _this2 = this;
+
 			var scroller = this.scroller;
 			setTimeout(function () {
-				var str = [];
-				var height = this.height,
-				    width = this.width;
-
-				height = height || 0;
-				width = width || 0;
-				height && str.push('height:' + height + 'px');
-				width && str.push('width:' + width + 'px');
-				scroller && scroller.applyStyle(str.length > 0 ? str.join(';') : '');
-				scroller && scroller.rebuild({ clearCss: false });
-
-				this.detachDimensionChangeEvent();
-				this.attachDimensionChangeEvent();
-			}.bind(this), 0);
+				scroller && scroller.rebuild();
+				_this2.detachDimensionChangeEvent();
+				_this2.attachDimensionChangeEvent();
+			}, 0);
 		},
 		attachDimensionChangeEvent: function attachDimensionChangeEvent() {
-			try {
-				var resizeSensors = this.resizeSensors = {};
-				var scroller = this.scroller;
-				var innerChild = scroller.inner.childNodes[0];
-				resizeSensors.innerChildObserver = new __WEBPACK_IMPORTED_MODULE_3_css_element_queries_src_ResizeSensor___default.a(innerChild, function () {
-					return scroller.refresh({ updatable: false });
-				});
-			} catch (e) {
-				console.info('滚动条错误辣!');
-			}
+			var resizeSensors = this.resizeSensors = {};
+			var scroller = this.scroller;
+			var innerChild = scroller.inner.childNodes[0];
+			resizeSensors.innerChildObserver = new __WEBPACK_IMPORTED_MODULE_3_css_element_queries_src_ResizeSensor___default.a(innerChild, function () {
+				return scroller.refresh({ updatable: false });
+			});
 		},
 		detachDimensionChangeEvent: function detachDimensionChangeEvent() {
-			var _this2 = this;
+			var _this3 = this;
 
 			var resizeSensors = this.resizeSensors;
 			__WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_object_keys___default()(resizeSensors).forEach(function (key) {
-				return _this2.resizeSensors[key].detach();
+				return _this3.resizeSensors[key].detach();
 			});
+		},
+		attachTransitionEvent: function attachTransitionEvent() {
+			var _this4 = this;
+
+			var target = null;
+			var el = this.$el;
+			var transitionTarget = this.transitionTarget;
+
+			var queried = document.querySelectorAll(transitionTarget);
+			queried = [].slice.call(queried, 0);
+			if (queried.length === 0) return;
+			if (queried.length === 1) target = queried[0];
+			if (queried.length > 1) {
+				var idx = void 0;
+				while (el) {
+					idx = queried.indexOf(el);
+					if (idx === -1) {
+						el = el.parentNode;
+					} else {
+						break;
+					}
+				}
+				target = queried[idx];
+			}
+			if (target) {
+				var transitionEnd = function transitionEnd(evt) {
+					return ['width', 'height'].indexOf(evt.propertyName) > -1 && _this4.refresh();
+				};
+				// Safari 3.1 到 6.0
+				target.addEventListener('webkitTransitionEnd', transitionEnd);
+				// 标准语法
+				target.addEventListener('transitionend', transitionEnd);
+				return function () {
+					target.removeEventListener('webkitTransitionEnd', transitionEnd);
+					target.removeEventListener('transitionend', transitionEnd);
+				};
+			}
 		}
 	}
 
@@ -492,8 +524,8 @@ function Antiscroll(el, opts) {
 
 	this.inner = this.el.querySelector('.antiscroll-inner');
 
-	var innerWidth = __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].getStyle(this.inner, 'width', 'parseFloat');
-	var innerHeight = __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].getStyle(this.inner, 'height', 'parseFloat');
+	var innerWidth = __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].getStyle(el, 'width', 'parseFloat');
+	var innerHeight = __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].getStyle(el, 'height', 'parseFloat');
 
 	var cssText = "width: " + (innerWidth + (this.y ? scrollbarSize() : 0)) + 'px;' + "height: " + (innerHeight + (this.x ? scrollbarSize() : 0)) + 'px;';
 
@@ -570,9 +602,9 @@ Antiscroll.prototype.applyStyle = function (cssText) {
 Antiscroll.prototype.rebuild = function () {
 	var arg = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
-	var clearCss = typeof arg.clearCss === 'undefined';
+	var destroy = typeof arg.destroy === 'undefined';
 	this.destroy();
-	clearCss && (this.inner.style.cssText = '');
+	destroy && (this.inner.style.cssText = '');
 	Antiscroll.call(this, this.el, this.options);
 	return this;
 };
