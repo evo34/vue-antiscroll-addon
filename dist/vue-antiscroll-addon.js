@@ -366,31 +366,33 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 	},
 
 	watch: {
-		'height': 'refresh',
-		'width': 'refresh'
+		'height': 'applyDimension',
+		'width': 'applyDimension'
 	},
 	computed: {
 		_$styObj: function _$styObj() {
 			var _$height = this._$height,
 			    _$width = this._$width;
 
-			var hash = { height: _$height };
+			var hash = {};
+			_$height && (hash['width'] = _$height);
 			_$width && (hash['width'] = _$width);
 			return hash;
 		},
 		_$height: function _$height() {
 			var height = this.height;
 
-			height = height + '';
-			height = parseFloat(height) + +__WEBPACK_IMPORTED_MODULE_2__libs_antiscroll__["a" /* default */].scrollbarSize;
+			height = height && height + '';
+			if (!height) return '100%';
+			height = parseFloat(height);
 			return height + 'px';
 		},
 		_$width: function _$width() {
 			var width = this.width;
 
 			width = width && width + '';
-			if (!width) return null;
-			width = parseFloat(width) + __WEBPACK_IMPORTED_MODULE_2__libs_antiscroll__["a" /* default */].scrollbarSize;
+			if (!width) return '100%';
+			width = parseFloat(width);
 			return width + 'px';
 		}
 	},
@@ -418,10 +420,26 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		refresh: function refresh() {
 			var scroller = this.scroller;
 			if (scroller) {
-				scroller.refresh();
+				this.applyDimension();
+			}
+		},
+		applyDimension: function applyDimension() {
+			var scroller = this.scroller;
+			setTimeout(function () {
+				var str = [];
+				var height = this.height,
+				    width = this.width;
+
+				height = height || 0;
+				width = width || 0;
+				height && str.push('height:' + height + 'px');
+				width && str.push('width:' + width + 'px');
+				scroller && scroller.applyStyle(str.length > 0 ? str.join(';') : '');
+				scroller && scroller.rebuild({ clearCss: false });
+
 				this.detachDimensionChangeEvent();
 				this.attachDimensionChangeEvent();
-			}
+			}.bind(this), 0);
 		},
 		attachDimensionChangeEvent: function attachDimensionChangeEvent() {
 			try {
@@ -477,7 +495,9 @@ function Antiscroll(el, opts) {
 	var innerWidth = __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].getStyle(this.inner, 'width', 'parseFloat');
 	var innerHeight = __WEBPACK_IMPORTED_MODULE_0__libs_t__["a" /* default */].getStyle(this.inner, 'height', 'parseFloat');
 
-	this.inner.style.cssText = "width: " + (innerWidth + (this.y ? scrollbarSize() : 0)) + 'px;' + "height: " + (innerHeight + (this.x ? scrollbarSize() : 0)) + 'px;';
+	var cssText = "width: " + (innerWidth + (this.y ? scrollbarSize() : 0)) + 'px;' + "height: " + (innerHeight + (this.x ? scrollbarSize() : 0)) + 'px;';
+
+	this.applyStyle(cssText);
 
 	this.refresh();
 };
@@ -537,6 +557,9 @@ Antiscroll.prototype.destroy = function () {
 	return this;
 };
 
+Antiscroll.prototype.applyStyle = function (cssText) {
+	this.inner.style.cssText = cssText;
+};
 /**
  * Rebuild Antiscroll.
  *
@@ -545,8 +568,11 @@ Antiscroll.prototype.destroy = function () {
  */
 
 Antiscroll.prototype.rebuild = function () {
+	var arg = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+	var clearCss = typeof arg.clearCss === 'undefined';
 	this.destroy();
-	this.inner.style.cssText = "";
+	clearCss && (this.inner.style.cssText = '');
 	Antiscroll.call(this, this.el, this.options);
 	return this;
 };

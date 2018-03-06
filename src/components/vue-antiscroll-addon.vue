@@ -46,27 +46,29 @@
 			this._onScroll = null
 		},
 		watch: {
-			'height': 'refresh',
-			'width': 'refresh'
+			'height': 'applyDimension',
+			'width': 'applyDimension'
 		},
 		computed: {
 			_$styObj() {
 				let {_$height, _$width} = this
-				let hash = {height: _$height}
+				let hash = {}
+                _$height && (hash['width'] = _$height)
 				_$width && (hash['width'] = _$width)
 				return hash
 			},
 			_$height() {
 				let {height} = this
-				height = height + ''
-                height = parseFloat(height) + + Antiscroll.scrollbarSize
+				height = height && height + ''
+                if (!height) return '100%'
+                height = parseFloat(height)
 				return height + 'px'
 			},
 			_$width() {
 				let {width} = this
 				width = width && width + ''
-				if (!width) return null
-                width = parseFloat(width) + Antiscroll.scrollbarSize
+				if (!width) return '100%'
+                width = parseFloat(width)
 				return width + 'px'
 			}
 		},
@@ -95,11 +97,25 @@
 			refresh() {
 				let scroller = this.scroller
 				if (scroller) {
-					scroller.refresh()
-					this.detachDimensionChangeEvent()
-					this.attachDimensionChangeEvent()
+					this.applyDimension()
 				}
 			},
+            applyDimension () {
+	            let scroller = this.scroller
+                setTimeout(function () {
+	                let str = []
+                	let {height, width} = this
+                    height = height || 0
+                    width = width || 0
+	                height && str.push('height:' + ( height ) + 'px')
+	                width && str.push('width:' + ( width ) + 'px')
+	                scroller && scroller.applyStyle(str.length > 0 ? str.join(';') : '')
+                    scroller && scroller.rebuild({clearCss: false})
+
+	                this.detachDimensionChangeEvent()
+	                this.attachDimensionChangeEvent()
+                }.bind(this), 0)
+            },
 			attachDimensionChangeEvent() {
 				try {
 					var resizeSensors = this.resizeSensors = {}
