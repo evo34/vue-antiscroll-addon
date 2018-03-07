@@ -605,11 +605,8 @@ Antiscroll.prototype.applyStyle = function (cssText) {
  */
 
 Antiscroll.prototype.rebuild = function () {
-	var arg = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-
-	var destroy = typeof arg.destroy === 'undefined';
 	this.destroy();
-	destroy && (this.inner.style.cssText = '');
+	this.inner.style.cssText = '';
 	Antiscroll.call(this, this.el, this.options);
 	return this;
 };
@@ -2316,7 +2313,8 @@ module.exports = function normalizeComponent (
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: "antiscroll-wrap"
+    staticClass: "antiscroll-wrap",
+    style: (_vm._$styObj)
   }, [_c('div', {
     staticClass: "antiscroll-inner",
     style: (_vm._$styObj)

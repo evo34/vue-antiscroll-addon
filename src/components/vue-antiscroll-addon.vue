@@ -167,7 +167,7 @@
 </script>
 
 <template>
-    <div class="antiscroll-wrap">
+    <div class="antiscroll-wrap" :style="_$styObj">
         <div class="antiscroll-inner" :style="_$styObj">
             <div class="inner-in-fact">
                 <slot></slot>

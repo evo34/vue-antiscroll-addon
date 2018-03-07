@@ -95,10 +95,9 @@ Antiscroll.prototype.applyStyle = function (cssText) {
  * @api public
  */
 
-Antiscroll.prototype.rebuild = function (arg = {}) {
-	var destroy = typeof arg.destroy === 'undefined'
+Antiscroll.prototype.rebuild = function () {
 	this.destroy();
-	destroy && (this.inner.style.cssText = '')
+	this.inner.style.cssText = '';
 	Antiscroll.call(this, this.el, this.options);
 	return this;
 };

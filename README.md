@@ -28,7 +28,7 @@ Vue.component('vueAntiscroll', vueAntiscroll)
 ### Example
 ```html
 <VueAntiscroll class="el-menu__wrapper width-100" :height="menuBoxHeight">
-    // 滚动内容
+    // content
 </VueAntiscroll>
 ```
 
