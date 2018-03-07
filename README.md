@@ -41,13 +41,14 @@ Vue.component('vueAntiscroll', vueAntiscroll)
 | onScrolling |function|on scroll callback —|—|
 | onScrollToBottom |function|on scrollToBottom called up| —|—|
 | initialDisplay |boolean|Whether to display when initialized scrollbar| —|—|
-
+| barClass |string|auto add when initialized scrollbar| —|—|
+| transitionTarget |string|css selector(When your scroll toggle display in an transition element, you may provide **transitionTarget**, then the scroll will auto **refresh()** after **transitionend** event )| eg: '.abc'|—|
 ## Api
 1. scrollTo
 
 ```javascript
    <VueAntiscroll ref="antiscroll" class="el-menu__wrapper width-100" :height="menuBoxHeight">
-       // 滚动内容
+       // content
    </VueAntiscroll>
    // paramter
    // bottom, top, left, right
@@ -56,7 +57,7 @@ Vue.component('vueAntiscroll', vueAntiscroll)
 2. refresh
 ```javascript
    <VueAntiscroll ref="antiscroll" class="el-menu__wrapper width-100" :height="menuBoxHeight">
-       // 滚动内容
+       // content
     </VueAntiscroll>
     //You may need it when the display is switched
     this.$refs.antiscroll.refresh()
@@ -64,8 +65,6 @@ Vue.component('vueAntiscroll', vueAntiscroll)
 ## Compatibility
 
 PC: IE9+
-
-Mobile: be happy to use
 
 ## LICENSE
 

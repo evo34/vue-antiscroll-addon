@@ -25,6 +25,10 @@
 				required: false,
                 type: String
             },
+            barClass: {
+				required: false,
+                type: String
+            },
 			initialDisplay: {
 				required: false,
 				type: Boolean,
@@ -35,8 +39,8 @@
 			return {}
 		},
 		mounted() {
-			let {initialDisplay} = this
-			this.scroller = new Antiscroll(this.$el, {initialDisplay})
+			let {initialDisplay, barClass} = this
+			this.scroller = new Antiscroll(this.$el, {initialDisplay, barClass})
 			this._onScroll = T.proxy(this, 'onScroll')
 			this.scroller.inner.addEventListener('scroll', this._onScroll, false)
 			this.attachDimensionChangeEvent()

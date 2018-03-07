@@ -337,6 +337,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			required: false,
 			type: String
 		},
+		barClass: {
+			required: false,
+			type: String
+		},
 		initialDisplay: {
 			required: false,
 			type: Boolean,
@@ -349,9 +353,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		return {};
 	},
 	mounted: function mounted() {
-		var initialDisplay = this.initialDisplay;
+		var initialDisplay = this.initialDisplay,
+		    barClass = this.barClass;
 
-		this.scroller = new __WEBPACK_IMPORTED_MODULE_2__libs_antiscroll__["a" /* default */](this.$el, { initialDisplay: initialDisplay });
+		this.scroller = new __WEBPACK_IMPORTED_MODULE_2__libs_antiscroll__["a" /* default */](this.$el, { initialDisplay: initialDisplay, barClass: barClass });
 		this._onScroll = __WEBPACK_IMPORTED_MODULE_1__libs_t__["a" /* default */].proxy(this, 'onScroll');
 		this.scroller.inner.addEventListener('scroll', this._onScroll, false);
 		this.attachDimensionChangeEvent();
@@ -844,7 +849,10 @@ Scrollbar.prototype.hide = function () {
 
 Scrollbar.Horizontal = function (pane) {
 	var scrollbarH = document.createElement('div');
-	scrollbarH.className = 'antiscroll-scrollbar antiscroll-scrollbar-horizontal';
+	var barClass = pane.options.barClass || '';
+	var cls = 'antiscroll-scrollbar antiscroll-scrollbar-horizontal';
+	if (barClass) cls += ' ' + barClass;
+	scrollbarH.className = cls;
 	this.el = pane.el.appendChild(scrollbarH);
 	Scrollbar.call(this, pane);
 };
@@ -896,7 +904,10 @@ Scrollbar.Horizontal.prototype.mousemove = function (ev) {
 
 Scrollbar.Vertical = function (pane) {
 	var scrollbarV = document.createElement('div');
-	scrollbarV.className = 'antiscroll-scrollbar antiscroll-scrollbar-vertical';
+	var barClass = pane.options.barClass || '';
+	var cls = 'antiscroll-scrollbar antiscroll-scrollbar-vertical';
+	if (barClass) cls += ' ' + barClass;
+	scrollbarV.className = cls;
 	this.el = pane.el.appendChild(scrollbarV);
 	Scrollbar.call(this, pane);
 };

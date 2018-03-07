@@ -337,7 +337,10 @@ Scrollbar.prototype.hide = function () {
 
 Scrollbar.Horizontal = function (pane) {
 	var scrollbarH = document.createElement('div');
-	scrollbarH.className = 'antiscroll-scrollbar antiscroll-scrollbar-horizontal';
+	var barClass = pane.options.barClass || ''
+	var cls = 'antiscroll-scrollbar antiscroll-scrollbar-horizontal'
+	if (barClass) cls += ' ' + barClass
+	scrollbarH.className = cls;
 	this.el = pane.el.appendChild(scrollbarH);
 	Scrollbar.call(this, pane);
 };
@@ -391,7 +394,10 @@ Scrollbar.Horizontal.prototype.mousemove = function (ev) {
 
 Scrollbar.Vertical = function (pane) {
 	var scrollbarV = document.createElement('div');
-	scrollbarV.className = 'antiscroll-scrollbar antiscroll-scrollbar-vertical';
+	var barClass = pane.options.barClass || ''
+	var cls = 'antiscroll-scrollbar antiscroll-scrollbar-vertical'
+	if (barClass) cls += ' ' + barClass
+	scrollbarV.className = cls;
 	this.el = pane.el.appendChild(scrollbarV);
 	Scrollbar.call(this, pane);
 };
