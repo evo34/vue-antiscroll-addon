@@ -38,8 +38,8 @@ Vue.component('vueAntiscroll', vueAntiscroll)
 | ------------- |-------| -----| ----| -------|
 | height |int|the container height| —|—|
 | width |int|the container width| —|—|
-| onScrolling |function|on scroll callback —|—|
-| onScrollToBottom |function|on scrollToBottom called up| —|—|
+| scrolling |function|on scroll callback —|—|
+| scrollToBottom |function|on scrollToBottom called up| —|—|
 | initialDisplay |boolean|Whether to display when initialized scrollbar| —|—|
 | barClass |string|auto add when initialized scrollbar| —|—|
 | transitionTarget |string|css selector(When your scroll toggle display in an transition element, you may provide **transitionTarget**, then the scroll will auto **refresh()** after **transitionend** event )| eg: '.abc'|—|

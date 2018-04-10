@@ -325,11 +325,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			required: false,
 			type: null
 		},
-		onScrolling: {
+		scrolling: {
 			required: false,
 			type: Function
 		},
-		onScrollToBottom: {
+		scrollToBottom: {
 			required: false,
 			type: Function
 		},
@@ -410,16 +410,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 	},
 	methods: {
 		onScroll: function onScroll(evt) {
-			var innerHeight = __WEBPACK_IMPORTED_MODULE_1__libs_t__["a" /* default */].getStyle(this.scroller.inner, 'height');
-			var scrollHeight = __WEBPACK_IMPORTED_MODULE_1__libs_t__["a" /* default */].getStyle(this.scroller.inner, 'scrollHeight');
-			var scrollTop = __WEBPACK_IMPORTED_MODULE_1__libs_t__["a" /* default */].getStyle(this.scroller.inner, 'scrollTop');
+			var innerHeight = __WEBPACK_IMPORTED_MODULE_1__libs_t__["a" /* default */].getStyle(this.scroller.inner, 'height', 'parseFloat');
+			var scrollHeight = this.scroller.inner.scrollHeight;
+			var scrollTop = this.scroller.inner.scrollTop;
 
-			if (typeof this.onScrolling === 'function') {
-				this.onScrolling.call(this, this.scroller, evt);
+			if (typeof this.scrolling === 'function') {
+				this.scrolling.call(this, this.scroller, evt);
 			}
 			if (scrollHeight <= innerHeight + scrollTop) {
-				if (typeof this.onScrollToBottom === 'function') {
-					this.onScrollToBottom.call(this, this.scroller, evt);
+				if (typeof this.scrollToBottom === 'function') {
+					this.scrollToBottom.call(this, this.scroller, evt);
 				}
 			}
 		},

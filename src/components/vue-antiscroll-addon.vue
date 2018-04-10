@@ -13,11 +13,11 @@
 				required: false,
 				type: null
 			},
-			onScrolling: {
+			scrolling: {
 				required: false,
 				type: Function
 			},
-			onScrollToBottom: {
+			scrollToBottom: {
 				required: false,
 				type: Function
 			},
@@ -85,16 +85,16 @@
 		},
 		methods: {
 			onScroll(evt) {
-				let innerHeight = T.getStyle(this.scroller.inner, 'height')
-				let scrollHeight = T.getStyle(this.scroller.inner, 'scrollHeight')
-				let scrollTop = T.getStyle(this.scroller.inner, 'scrollTop')
+				let innerHeight = T.getStyle(this.scroller.inner, 'height', 'parseFloat')
+				let scrollHeight = this.scroller.inner.scrollHeight
+				let scrollTop = this.scroller.inner.scrollTop
 
-				if (typeof this.onScrolling === 'function') {
-					this.onScrolling.call(this, this.scroller, evt)
+				if (typeof this.scrolling === 'function') {
+					this.scrolling.call(this, this.scroller, evt)
 				}
 				if (scrollHeight <= innerHeight + scrollTop) {
-					if (typeof this.onScrollToBottom === 'function') {
-						this.onScrollToBottom.call(this, this.scroller, evt)
+					if (typeof this.scrollToBottom === 'function') {
+						this.scrollToBottom.call(this, this.scroller, evt)
 					}
 				}
 			},
