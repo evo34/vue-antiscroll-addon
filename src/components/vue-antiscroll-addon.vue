@@ -123,7 +123,11 @@
                 let resizeSensors = this.resizeSensors = {}
                 let scroller = this.scroller
                 let innerChild = scroller.inner.childNodes[0]
-                resizeSensors.innerChildObserver = new ResizeSensor(innerChild, () => scroller.refresh({updatable: false}))
+                resizeSensors.innerChildObserver = new ResizeSensor(innerChild, () => {
+                	setTimeout(() => {
+                        scroller.refresh({updatable: false})
+                    }, 0)
+                })
 			},
 			detachDimensionChangeEvent() {
 				let resizeSensors = this.resizeSensors

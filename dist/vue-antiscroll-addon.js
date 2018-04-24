@@ -450,7 +450,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			var scroller = this.scroller;
 			var innerChild = scroller.inner.childNodes[0];
 			resizeSensors.innerChildObserver = new __WEBPACK_IMPORTED_MODULE_3_css_element_queries_src_ResizeSensor___default.a(innerChild, function () {
-				return scroller.refresh({ updatable: false });
+				setTimeout(function () {
+					scroller.refresh({ updatable: false });
+				}, 0);
 			});
 		},
 		detachDimensionChangeEvent: function detachDimensionChangeEvent() {
