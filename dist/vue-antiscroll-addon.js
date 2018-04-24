@@ -451,7 +451,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			var innerChild = scroller.inner.childNodes[0];
 			resizeSensors.innerChildObserver = new __WEBPACK_IMPORTED_MODULE_3_css_element_queries_src_ResizeSensor___default.a(innerChild, function () {
 				setTimeout(function () {
-					scroller.refresh({ updatable: false });
+					scroller.refresh();
 				}, 0);
 			});
 		},

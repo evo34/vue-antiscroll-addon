@@ -125,7 +125,7 @@
                 let innerChild = scroller.inner.childNodes[0]
                 resizeSensors.innerChildObserver = new ResizeSensor(innerChild, () => {
                 	setTimeout(() => {
-                        scroller.refresh({updatable: false})
+                        scroller.refresh()
                     }, 0)
                 })
 			},
